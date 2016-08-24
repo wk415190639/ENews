@@ -82,8 +82,9 @@ public class GetNewsContent {
 					if(mainActivity.newsAdapter.getCount()>0)
 					mainActivity.newsAdapter.clear();
 					if(mainActivity.topViewPageAdapter.getCount()>0)
-		
-	
+						mainActivity.topViewPageAdapter.clear();
+					
+			
 					mainActivity.newsAdapter.appendList(lists);
 					mainActivity.topViewPageAdapter.appendList(lists);
 					

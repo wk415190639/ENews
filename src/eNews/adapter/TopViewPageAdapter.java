@@ -105,6 +105,9 @@ public class TopViewPageAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(View top_news, final int position) {
 		// TODO Auto-generated method stub
+		
+		
+		
 		RequestQueue rq = Volley.newRequestQueue(context);
 		System.out.println(lists.get(position).getImagesrc());
 		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),

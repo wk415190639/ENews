@@ -16,6 +16,7 @@ import common.GetTypeId;
 
 import eNews.adapter.ActionBarAdapter;
 import eNews.adapter.NewsAdapter;
+import eNews.adapter.NewsListViewAnimationAdapter;
 import eNews.adapter.TopViewPageAdapter;
 import eNews.app.R;
 import eNews.http.GetNewsContent;
@@ -53,8 +54,12 @@ public class MainActivity extends Activity {
 		topViewPager.setPageTransformer(true, new CubeOutTransformer());
 
 		newsAdapter = new NewsAdapter(getApplicationContext(), this);
-		newsListView.setAdapter(newsAdapter);
-		GetNewsContent.getNewsContent("nc/article/headline/", Url.TiYuId, "0",
+		NewsListViewAnimationAdapter LvAnimationAdapter = new NewsListViewAnimationAdapter(
+				newsAdapter);
+		LvAnimationAdapter.setAbsListView(newsListView);
+		newsListView.setAdapter(LvAnimationAdapter);
+
+		GetNewsContent.getNewsContent("nc/article/headline/", Url.TopId, "0",
 				this);
 
 	}
@@ -74,15 +79,16 @@ public class MainActivity extends Activity {
 				long id) {
 
 			String text = ((TextView) tv).getText().toString();
-				
+
 			System.out.println(GetTypeId.getTypeId(text));
-			
-			String  typeId=GetTypeId.getTypeId(text);
-	
+
+			String typeId = GetTypeId.getTypeId(text);
+
+			newsListView.setSelection(0);
+			topViewPager.setCurrentItem(0);
 			GetNewsContent.getNewsContent("nc/article/headline/", typeId, "0",
 					MainActivity.this);
-			
-		
+
 		}
 
 	}
