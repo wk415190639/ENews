@@ -20,22 +20,29 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
+import eNews.activity.MainActivity;
 import eNews.app.R;
 import eNews.bean.NewsModel;
 
 public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
+	List<ImageView> topImageLists = new ArrayList<ImageView>();
 
 	Context context;
+	MainActivity mainActivty;
 
-	public NewsAdapter(Context context) {
+
+	public NewsAdapter(Context context, MainActivity activity) {
 		this.context = context;
+		this.mainActivty = activity;
+
 	}
 
 	public void appendList(List<NewsModel> list) {
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
+
 		}
 		notifyDataSetChanged();
 
@@ -65,9 +72,9 @@ public class NewsAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View news_item, ViewGroup parent) {
+	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-
+		RequestQueue rq= Volley.newRequestQueue(context);
 		if (news_item == null)
 			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
@@ -83,30 +90,27 @@ public class NewsAdapter extends BaseAdapter {
 
 		news_item_title.setText(newsModel.getTitle());
 		news_item_digest.setText(newsModel.getDigest());
-		
-		RequestQueue rq = Volley.newRequestQueue(context);
-		ImageRequest imageRequest =new ImageRequest(newsModel.getImagesrc(), new Listener<Bitmap>() {
 
-			@Override
-			public void onResponse(Bitmap bitmap) {
-				// TODO Auto-generated method stub
-				news_item_p1.setImageBitmap(bitmap);
-				
-				
-			}
-		}, 80, 80, Config.ARGB_8888, new ErrorListener() {
+		ImageRequest imageRequest = new ImageRequest(newsModel.getImagesrc(),
+				new Listener<Bitmap>() {
 
-			@Override
-			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+					@Override
+					public void onResponse(Bitmap bitmap) {
+						// TODO Auto-generated method stub
+						news_item_p1.setImageBitmap(bitmap);
+						System.out.println("set image "+position);
+					}
+
+				}, 80, 80, Config.ARGB_8888, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+
 		rq.add(imageRequest);
-		
-		
-
 		return news_item;
 	}
-
 }
