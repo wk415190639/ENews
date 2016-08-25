@@ -17,38 +17,50 @@ public final class R {
         public static final int list_view_title=0x7f040002;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int newsicon=0x7f020001;
-        public static final int p1=0x7f020002;
-        public static final int p2=0x7f020003;
-        public static final int p3=0x7f020004;
-        public static final int p4=0x7f020005;
+        public static final int actionbar_text_style=0x7f020000;
+        public static final int btn_back_pressed=0x7f020001;
+        public static final int channel_item_style=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int newsicon=0x7f020004;
+        public static final int p1=0x7f020005;
+        public static final int p2=0x7f020006;
+        public static final int p3=0x7f020007;
+        public static final int p4=0x7f020008;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f070000;
+        public static final int TextView01=0x7f070006;
+        public static final int TextView04=0x7f07000b;
         public static final int actionBar=0x7f070002;
+        public static final int channelManageBack=0x7f070005;
         public static final int horizontalScrollView1=0x7f070001;
         public static final int newsListView=0x7f070004;
-        public static final int news_item=0x7f070005;
-        public static final int news_item_detail_content=0x7f07000f;
-        public static final int news_item_detail_title=0x7f07000e;
-        public static final int news_item_digest=0x7f070008;
-        public static final int news_item_img=0x7f070009;
-        public static final int news_item_img_p1=0x7f07000b;
-        public static final int news_item_img_p2=0x7f07000c;
-        public static final int news_item_img_p3=0x7f07000d;
-        public static final int news_item_img_title=0x7f07000a;
-        public static final int news_item_p1=0x7f070006;
-        public static final int news_item_title=0x7f070007;
-        public static final int topNewsImg=0x7f070010;
+        public static final int news_item=0x7f07000d;
+        public static final int news_item_detail_content=0x7f070017;
+        public static final int news_item_detail_title=0x7f070016;
+        public static final int news_item_digest=0x7f070010;
+        public static final int news_item_img=0x7f070011;
+        public static final int news_item_img_p1=0x7f070013;
+        public static final int news_item_img_p2=0x7f070014;
+        public static final int news_item_img_p3=0x7f070015;
+        public static final int news_item_img_title=0x7f070012;
+        public static final int news_item_p1=0x7f07000e;
+        public static final int news_item_title=0x7f07000f;
+        public static final int otherChannelGV=0x7f07000c;
+        public static final int scrollView1=0x7f070007;
+        public static final int textView1=0x7f070008;
+        public static final int textView2=0x7f070009;
+        public static final int topNewsImg=0x7f070018;
         public static final int topViewPager=0x7f070003;
+        public static final int userChannelGV=0x7f07000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int news_details=0x7f030001;
-        public static final int news_item=0x7f030002;
-        public static final int news_item_detail=0x7f030003;
-        public static final int topnews_item=0x7f030004;
+        public static final int channel_manage=0x7f030001;
+        public static final int news_details=0x7f030002;
+        public static final int news_item=0x7f030003;
+        public static final int news_item_detail=0x7f030004;
+        public static final int topnews_item=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f050000;

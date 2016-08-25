@@ -30,23 +30,20 @@ public class TopViewPageAdapter extends PagerAdapter {
 	List<NewsModel> lists = new ArrayList<NewsModel>();
 
 	Context context;
-	ArrayList<View> arrayList = new ArrayList<View>();
+	ArrayList<View> arrayList;
 
 	public TopViewPageAdapter(Context context) {
 		this.context = context;
+		arrayList = new ArrayList<View>();
 	}
 
-	public void clear() {
-	
-		
-		notifyDataSetChanged();
-	}
 
 	public void appendList(List<NewsModel> list) {
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
 			System.out.println("Size ->" + lists.size() + "");
 
+			arrayList = new ArrayList<View>();
 			ImageView iv;
 			TextView tv;
 			RelativeLayout relativeLayout;
@@ -89,11 +86,17 @@ public class TopViewPageAdapter extends PagerAdapter {
 		notifyDataSetChanged();
 
 	}
+	
 
+	public void clear()
+	{
+		lists.clear();
+	}
+	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return arrayList.size();
+		return lists.size()>4?4:0;
 	}
 
 	@Override
@@ -146,6 +149,12 @@ public class TopViewPageAdapter extends PagerAdapter {
 	public void destroyItem(View container, int position, Object object) {
 		// TODO Auto-generated method stub
 		((ViewPager) container).removeView(arrayList.get(position));
+	}
+	
+	@Override
+	public int getItemPosition(Object object) {
+		// TODO Auto-generated method stub
+		return POSITION_NONE;
 	}
 
 }

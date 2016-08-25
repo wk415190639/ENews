@@ -28,6 +28,7 @@
                     android:id="@+id/actionBar"
                     android:padding="5dp"
                     android:layout_width="wrap_content"
+               
                     android:layout_height="match_parent" >
                 </GridView>
             </LinearLayout>
@@ -37,8 +38,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
+            android:gravity="center"
             android:layout_weight="1"
-            android:text="添加" />
+            android:text="+" />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

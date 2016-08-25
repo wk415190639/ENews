@@ -32,7 +32,6 @@ public class NewsAdapter extends BaseAdapter {
 	Context context;
 	MainActivity mainActivty;
 
-
 	public NewsAdapter(Context context, MainActivity activity) {
 		this.context = context;
 		this.mainActivty = activity;
@@ -74,7 +73,7 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq= Volley.newRequestQueue(context);
+		RequestQueue rq = Volley.newRequestQueue(context);
 		if (news_item == null)
 			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
@@ -98,7 +97,7 @@ public class NewsAdapter extends BaseAdapter {
 					public void onResponse(Bitmap bitmap) {
 						// TODO Auto-generated method stub
 						news_item_p1.setImageBitmap(bitmap);
-						System.out.println("set image "+position);
+						System.out.println("set image " + position);
 					}
 
 				}, 80, 80, Config.ARGB_8888, new ErrorListener() {

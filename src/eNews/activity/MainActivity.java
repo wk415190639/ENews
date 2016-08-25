@@ -12,21 +12,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import common.GetTypeId;
 
 import eNews.adapter.ActionBarAdapter;
 import eNews.adapter.NewsAdapter;
 import eNews.adapter.NewsListViewAnimationAdapter;
 import eNews.adapter.TopViewPageAdapter;
 import eNews.app.R;
+import eNews.common.GetTypeId;
 import eNews.http.GetNewsContent;
 import eNews.url.Url;
 
 public class MainActivity extends Activity {
 
 	public NewsAdapter newsAdapter;
+	ActionBarAdapter actionbarAdapter;
 	public TopViewPageAdapter topViewPageAdapter;
-	private ListView newsListView;
+	public ListView newsListView;
 	public ViewPager topViewPager;
 	private GridView actionBar;
 
@@ -39,12 +40,12 @@ public class MainActivity extends Activity {
 		topViewPager = (ViewPager) findViewById(R.id.topViewPager);
 		actionBar = (GridView) findViewById(R.id.actionBar);
 
-		ActionBarAdapter actionbar = new ActionBarAdapter(
-				getApplicationContext());
-		actionBar.setAdapter(actionbar);
-		actionBar.setNumColumns(actionbar.getCount());
+		actionbarAdapter = new ActionBarAdapter(getApplicationContext());
+		actionBar.setAdapter(actionbarAdapter);
+		actionBar.setNumColumns(actionbarAdapter.getCount());
+
 		LayoutParams params = actionBar.getLayoutParams();
-		params.width = 50 * actionbar.getCount();
+		params.width = 100 * actionbarAdapter.getCount();
 		actionBar.setLayoutParams(params);
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
 
@@ -88,6 +89,9 @@ public class MainActivity extends Activity {
 			topViewPager.setCurrentItem(0);
 			GetNewsContent.getNewsContent("nc/article/headline/", typeId, "0",
 					MainActivity.this);
+
+			actionbarAdapter.setSelectedIndex(position);
+			actionbarAdapter.notifyDataSetChanged();
 
 		}
 

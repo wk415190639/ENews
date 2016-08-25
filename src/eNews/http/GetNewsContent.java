@@ -31,8 +31,8 @@ public class GetNewsContent {
 		// http://c.m.163.com/ nc/article/headline/ T1350383429665/ 0 -20.html
 		// host url typeId startNum endUrl
 
-		JsonObjectRequest jrq = new JsonObjectRequest(Url.host + url + typeId+"/"
-				+ startNum + Url.endUrl, jsonObject, new JsonListener(
+		JsonObjectRequest jrq = new JsonObjectRequest(Url.host + url + typeId
+				+ "/" + startNum + Url.endUrl, jsonObject, new JsonListener(
 				mainActivity, typeId), new JsonErrorListener());
 		queue.add(jrq);
 
@@ -79,15 +79,19 @@ public class GetNewsContent {
 				@Override
 				public void UpdateAdapter() {
 
-					if(mainActivity.newsAdapter.getCount()>0)
-					mainActivity.newsAdapter.clear();
-					if(mainActivity.topViewPageAdapter.getCount()>0)
+					if (mainActivity.newsAdapter.getCount() > 0)
+					{				
+						mainActivity.newsAdapter.clear();	
+					}
+					if (mainActivity.topViewPageAdapter.getCount() > 0) {
 						mainActivity.topViewPageAdapter.clear();
-					
-			
+						mainActivity.topViewPager.removeAllViews();
+
+					}
+
 					mainActivity.newsAdapter.appendList(lists);
 					mainActivity.topViewPageAdapter.appendList(lists);
-					
+
 					System.out.println("--------appendList");
 
 				}

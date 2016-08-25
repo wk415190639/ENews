@@ -1,6 +1,8 @@
 package eNews.adapter;
 
+import eNews.app.R;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +11,13 @@ import android.widget.TextView;
 public class ActionBarAdapter extends BaseAdapter {
 
 	private Context context;
+	private int selectedIndex=-1;
+	
+	
+
+	public void setSelectedIndex(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
+	}
 
 	public ActionBarAdapter(Context context) {
 
@@ -42,6 +51,10 @@ public class ActionBarAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		TextView tv = new TextView(context);
 		tv.setText(actionbarList[position]);
+		tv.setGravity(Gravity.CENTER);
+		
+		if(selectedIndex==position)
+		tv.setBackgroundResource(R.drawable.actionbar_text_style);
 
 		return tv;
 	}
