@@ -24,22 +24,22 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal" >
 
-                <GridView
+                <eNews.customview.ActionBarView
                     android:id="@+id/actionBar"
-                    android:padding="5dp"
                     android:layout_width="wrap_content"
-               
-                    android:layout_height="match_parent" >
-                </GridView>
+                    android:layout_height="match_parent"
+                    android:padding="5dp" >
+                </eNews.customview.ActionBarView>
             </LinearLayout>
         </HorizontalScrollView>
 
         <TextView
+            android:id="@+id/channelManageBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="+" />
     </LinearLayout>
 

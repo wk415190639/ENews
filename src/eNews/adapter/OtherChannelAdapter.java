@@ -44,7 +44,7 @@ public class OtherChannelAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return lists.get(position);
 	}
 
 	@Override

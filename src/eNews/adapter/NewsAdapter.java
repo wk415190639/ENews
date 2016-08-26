@@ -97,7 +97,7 @@ public class NewsAdapter extends BaseAdapter {
 					public void onResponse(Bitmap bitmap) {
 						// TODO Auto-generated method stub
 						news_item_p1.setImageBitmap(bitmap);
-						System.out.println("set image " + position);
+//						System.out.println("set image " + position);
 					}
 
 				}, 80, 80, Config.ARGB_8888, new ErrorListener() {

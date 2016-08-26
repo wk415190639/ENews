@@ -1,13 +1,13 @@
 package eNews.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,10 +15,12 @@ import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 
 import eNews.adapter.ActionBarAdapter;
 import eNews.adapter.NewsAdapter;
-import eNews.adapter.NewsListViewAnimationAdapter;
+import eNews.adapter.ViewAnimationAdapter;
 import eNews.adapter.TopViewPageAdapter;
 import eNews.app.R;
 import eNews.common.GetTypeId;
+import eNews.customview.ActionBarView;
+import eNews.dao.ChannelManage;
 import eNews.http.GetNewsContent;
 import eNews.url.Url;
 
@@ -29,7 +31,8 @@ public class MainActivity extends Activity {
 	public TopViewPageAdapter topViewPageAdapter;
 	public ListView newsListView;
 	public ViewPager topViewPager;
-	private GridView actionBar;
+	 private ActionBarView actionBar;
+	private TextView channelManageBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +41,51 @@ public class MainActivity extends Activity {
 
 		newsListView = (ListView) findViewById(R.id.newsListView);
 		topViewPager = (ViewPager) findViewById(R.id.topViewPager);
-		actionBar = (GridView) findViewById(R.id.actionBar);
+		actionBar = (ActionBarView) findViewById(R.id.actionBar);
+		channelManageBtn = (TextView) findViewById(R.id.channelManageBtn);
 
-		actionbarAdapter = new ActionBarAdapter(getApplicationContext());
+		actionbarAdapter = new ActionBarAdapter(getApplicationContext(),
+				ChannelManage.getInstance(MainActivity.this)
+						.getDefaultUserChannelsList(),actionBar);
 		actionBar.setAdapter(actionbarAdapter);
-		actionBar.setNumColumns(actionbarAdapter.getCount());
-
-		LayoutParams params = actionBar.getLayoutParams();
-		params.width = 100 * actionbarAdapter.getCount();
-		actionBar.setLayoutParams(params);
+		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
+		
+	
+		
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
 
+		
+		
 		topViewPageAdapter = new TopViewPageAdapter(getApplicationContext());
 
 		topViewPager.setAdapter(topViewPageAdapter);
 		topViewPager.setPageTransformer(true, new CubeOutTransformer());
 
+		
+		
 		newsAdapter = new NewsAdapter(getApplicationContext(), this);
-		NewsListViewAnimationAdapter LvAnimationAdapter = new NewsListViewAnimationAdapter(
+		ViewAnimationAdapter LvAnimationAdapter = new ViewAnimationAdapter(
 				newsAdapter);
 		LvAnimationAdapter.setAbsListView(newsListView);
 		newsListView.setAdapter(LvAnimationAdapter);
 
+		
 		GetNewsContent.getNewsContent("nc/article/headline/", Url.TopId, "0",
+			
 				this);
+
+		
+		
+		channelManageBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Intent intent = new Intent(MainActivity.this,
+						ChannelActivity.class);
+				startActivityForResult(intent, 1000);
+			}
+		});
 
 	}
 
@@ -73,6 +97,18 @@ public class MainActivity extends Activity {
 		public void UpdateAdapter();
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+
+		actionbarAdapter.updateList(ChannelManage
+				.getInstance(MainActivity.this).getDefaultUserChannelsList());
+		actionBar.setSelection(0);
+		System.out.println("onActivityResult");
+
+	}
+
 	class ActionBarItemOnListener implements OnItemClickListener {
 
 		@Override
@@ -81,7 +117,7 @@ public class MainActivity extends Activity {
 
 			String text = ((TextView) tv).getText().toString();
 
-			System.out.println(GetTypeId.getTypeId(text));
+			// System.out.println(GetTypeId.getTypeId(text));
 
 			String typeId = GetTypeId.getTypeId(text);
 

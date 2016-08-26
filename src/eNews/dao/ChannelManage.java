@@ -19,14 +19,12 @@ public class ChannelManage implements ChannelInterface {
 	private static ChannelManage newInstance;
 
 	public ArrayList<ChannelItemModel> getDefaultUserChannelsList() {
-		
-		System.out.println("defaultUserChannelsList->"+defaultUserChannelsList.size());
+
 		return defaultUserChannelsList;
 	}
 
 	public ArrayList<ChannelItemModel> getDefaultOtherChannelsList() {
-		
-		System.out.println("defaultOtherChannelsList->"+defaultOtherChannelsList.size());
+
 		return defaultOtherChannelsList;
 	}
 
@@ -44,28 +42,30 @@ public class ChannelManage implements ChannelInterface {
 					null, DataBaseHelper.Selected + "=?",
 					new String[] { DataBaseHelper.SelectedUser }, null, null,
 					"id");
-			
-			System.out.println(userChannelSets.getCount()+"------------------");
+			if (defaultUserChannelsList.size() <= 0
+					&& defaultOtherChannelsList.size() <= 0) {
+				while (userChannelSets.moveToNext()) {
 
-			while (userChannelSets.moveToNext()) {
-				defaultUserChannelsList.add(new ChannelItemModel(
-						userChannelSets.getInt(1),
-						userChannelSets.getString(2),
-						DataBaseHelper.SelectedUser));
-			}
+					defaultUserChannelsList
+							.add(new ChannelItemModel(
+									userChannelSets.getInt(1), userChannelSets
+											.getString(2),
+									DataBaseHelper.SelectedUser));
+				}
 
-			Cursor otherChannelSets = db.query(DataBaseHelper.ChanelItemTb,
-					null, DataBaseHelper.Selected + "=?",
-					new String[] { DataBaseHelper.SelectedOther }, null, null,
-					"id");
-			System.out.println(otherChannelSets.getCount()+"----------------");
-			while (otherChannelSets.moveToNext()) {
-				defaultOtherChannelsList.add(new ChannelItemModel(
-						otherChannelSets.getInt(1), otherChannelSets
-								.getString(2), DataBaseHelper.SelectedOther));
-			
+				Cursor otherChannelSets = db.query(DataBaseHelper.ChanelItemTb,
+						null, DataBaseHelper.Selected + "=?",
+						new String[] { DataBaseHelper.SelectedOther }, null,
+						null, "id");
+
+				while (otherChannelSets.moveToNext()) {
+					defaultOtherChannelsList
+							.add(new ChannelItemModel(otherChannelSets
+									.getInt(1), otherChannelSets.getString(2),
+									DataBaseHelper.SelectedOther));
+
+				}
 			}
-			
 			db.close();
 			return true;
 		}
@@ -157,8 +157,8 @@ public class ChannelManage implements ChannelInterface {
 		defaultOtherChannelsList.add(new ChannelItemModel(30, "±©Ñ©",
 				DataBaseHelper.SelectedOther));
 
-		defaultUserChannelsList.add(new ChannelItemModel(31, "Ç××Ó",
-				DataBaseHelper.SelectedUser));
+		defaultOtherChannelsList.add(new ChannelItemModel(31, "Ç××Ó",
+				DataBaseHelper.SelectedOther));
 
 		for (ChannelItemModel userChannel : defaultUserChannelsList) {
 			inserToUser(userChannel);
@@ -194,15 +194,29 @@ public class ChannelManage implements ChannelInterface {
 	}
 
 	@Override
-	public int update_moveToOther(String name, int id) {
+	public int updateUser(String name, String id) {
+		// TODO Auto-generated method stub
 
-		return 0;
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DataBaseHelper.ID, id);
+		contentValues.put(DataBaseHelper.Selected, DataBaseHelper.SelectedUser);
+		return db.update(DataBaseHelper.ChanelItemTb, contentValues,
+				DataBaseHelper.Name + "=?", new String[] { name });
 	}
 
 	@Override
-	public int update_moveToUser(String name, int id) {
+	public int updateOther(String name, String id) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 
-		return 0;
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DataBaseHelper.ID, id);
+		contentValues
+				.put(DataBaseHelper.Selected, DataBaseHelper.SelectedOther);
+
+		return db.update(DataBaseHelper.ChanelItemTb, contentValues,
+				DataBaseHelper.Name + "=?", new String[] { name });
 	}
 
 }

@@ -8,9 +8,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
+import eNews.adapter.ViewAnimationAdapter;
 import eNews.adapter.OtherChannelAdapter;
 import eNews.adapter.UserChannelAdapter;
 import eNews.app.R;
+import eNews.bean.ChannelItemModel;
 import eNews.dao.ChannelManage;
 
 public class ChannelActivity extends Activity {
@@ -21,6 +23,7 @@ public class ChannelActivity extends Activity {
 	UserChannelAdapter userChannelAdapter;
 
 	private TextView channelManageBack;
+	ViewAnimationAdapter viewAnimationAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,12 @@ public class ChannelActivity extends Activity {
 		userChannelAdapter = new UserChannelAdapter(this, ChannelManage
 				.getInstance(getApplicationContext())
 				.getDefaultUserChannelsList());
-		userChannelGV.setAdapter(userChannelAdapter);
 
+		viewAnimationAdapter = new ViewAnimationAdapter(userChannelAdapter);
+		viewAnimationAdapter.setAbsListView(userChannelGV);
+		userChannelGV.setAdapter(viewAnimationAdapter);
+
+		
 		otherChannelAdapter = new OtherChannelAdapter(this, ChannelManage
 				.getInstance(getApplicationContext())
 				.getDefaultOtherChannelsList());
@@ -60,6 +67,8 @@ public class ChannelActivity extends Activity {
 				long id) {
 
 			userChannelAdapter.remove(position, otherChannelAdapter);
+		
+
 		}
 
 	}
@@ -79,15 +88,32 @@ public class ChannelActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			
-			
-			
-			
-			
-			
+
+			System.out.println("back click ");
+
+			int i = 0;
+			for (i = 0; i < userChannelAdapter.getCount(); i++) {
+
+				ChannelItemModel tmpItemModel = (ChannelItemModel) userChannelAdapter
+						.getItem(i);
+				ChannelManage.getInstance(getApplicationContext()).updateUser(
+						tmpItemModel.getName(), String.valueOf(i));
+
+			}
+
+			for (i = 0; i < otherChannelAdapter.getCount(); i++) {
+
+				ChannelItemModel tmpItemModel = (ChannelItemModel) otherChannelAdapter
+						.getItem(i);
+
+				ChannelManage.getInstance(getApplicationContext()).updateOther(
+						tmpItemModel.getName(), String.valueOf(i));
+
+			}
+
+			finish();
 
 		}
-
 	}
 
 }

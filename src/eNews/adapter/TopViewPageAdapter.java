@@ -41,7 +41,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 	public void appendList(List<NewsModel> list) {
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
-			System.out.println("Size ->" + lists.size() + "");
+		//	System.out.println("Size ->" + lists.size() + "");
 
 			arrayList = new ArrayList<View>();
 			ImageView iv;
@@ -78,7 +78,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 				relativeLayout.addView(tv);
 				arrayList.add(relativeLayout);
 
-				System.out.println(i + "-->top");
+//				System.out.println(i + "-->top");
 
 			}
 
@@ -112,7 +112,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 		
 		
 		RequestQueue rq = Volley.newRequestQueue(context);
-		System.out.println(lists.get(position).getImagesrc());
+//		System.out.println(lists.get(position).getImagesrc());
 		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),
 				new Listener<Bitmap>() {
 

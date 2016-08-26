@@ -8,7 +8,8 @@ public interface ChannelInterface {
 
 	long inserToUser(ChannelItemModel userChannel);
 
-	int update_moveToOther(String name,int id);
+	int updateUser(String name, String id);
 
-	int update_moveToUser(String name,int id);
+	int updateOther(String name, String id);
+
 }
