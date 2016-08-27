@@ -20,6 +20,17 @@ import eNews.bean.NewsModel;
 import eNews.url.Url;
 
 public class GetNewsContent {
+	
+	
+	// http://c.m.163.com/ nc/article/headline/ T1350383429665/ 0 -20.html
+	// host url typeId startNum endUrl
+
+	//
+	// // สำฦต http://c.3g.163.com/   nc/video/list/   V9LG4B3A0  /n/10-10.html
+	
+	// public static final String Video = host + "nc/video/list/";
+	// public static final String VideoCenter = "/n/";
+	// public static final String videoEndUrl = "-10.html";
 
 	static public void getNewsContent(String url, String typeId,
 			String startNum, MainActivity mainActivity) {
@@ -27,9 +38,6 @@ public class GetNewsContent {
 		JSONObject jsonObject = null;
 		RequestQueue queue = Volley.newRequestQueue(mainActivity
 				.getApplicationContext());
-
-		// http://c.m.163.com/ nc/article/headline/ T1350383429665/ 0 -20.html
-		// host url typeId startNum endUrl
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.host + url + typeId
 				+ "/" + startNum + Url.endUrl, jsonObject, new JsonListener(
@@ -79,9 +87,8 @@ public class GetNewsContent {
 				@Override
 				public void UpdateAdapter() {
 
-					if (mainActivity.newsAdapter.getCount() > 0)
-					{				
-						mainActivity.newsAdapter.clear();	
+					if (mainActivity.newsAdapter.getCount() > 0) {
+						mainActivity.newsAdapter.clear();
 					}
 					if (mainActivity.topViewPageAdapter.getCount() > 0) {
 						mainActivity.topViewPageAdapter.clear();

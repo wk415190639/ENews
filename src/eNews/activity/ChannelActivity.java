@@ -23,7 +23,8 @@ public class ChannelActivity extends Activity {
 	UserChannelAdapter userChannelAdapter;
 
 	private TextView channelManageBack;
-	ViewAnimationAdapter viewAnimationAdapter;
+	ViewAnimationAdapter userViewAnimationAdapter;
+	ViewAnimationAdapter otherViewAnimationAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,20 @@ public class ChannelActivity extends Activity {
 				.getInstance(getApplicationContext())
 				.getDefaultUserChannelsList());
 
-		viewAnimationAdapter = new ViewAnimationAdapter(userChannelAdapter);
-		viewAnimationAdapter.setAbsListView(userChannelGV);
-		userChannelGV.setAdapter(viewAnimationAdapter);
+		userViewAnimationAdapter = new ViewAnimationAdapter(userChannelAdapter);
+		userViewAnimationAdapter.setAbsListView(userChannelGV);
+		userChannelGV.setAdapter(userViewAnimationAdapter);
 
-		
 		otherChannelAdapter = new OtherChannelAdapter(this, ChannelManage
 				.getInstance(getApplicationContext())
 				.getDefaultOtherChannelsList());
 		otherChannelGV = (GridView) findViewById(R.id.otherChannelGV);
-		otherChannelGV.setAdapter(otherChannelAdapter);
+
+		otherViewAnimationAdapter = new ViewAnimationAdapter(
+				otherChannelAdapter);
+		otherViewAnimationAdapter.setAbsListView(otherChannelGV);
+
+		otherChannelGV.setAdapter(otherViewAnimationAdapter);
 
 		userChannelGV
 				.setOnItemClickListener(new UserChannelGvItemClickListener());
@@ -67,7 +72,6 @@ public class ChannelActivity extends Activity {
 				long id) {
 
 			userChannelAdapter.remove(position, otherChannelAdapter);
-		
 
 		}
 

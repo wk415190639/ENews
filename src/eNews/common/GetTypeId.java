@@ -7,6 +7,7 @@ public class GetTypeId {
 	public static String getTypeId(String typedesc) {
 
 		switch (typedesc) {
+
 		case "头条":
 			return Url.TopId;
 
@@ -55,8 +56,7 @@ public class GetTypeId {
 			return Url.NBAId;
 		case "CBA":
 			return Url.CBAId;
-			
-			
+
 		case "数码":
 			return Url.ShuMaId;
 
@@ -83,7 +83,7 @@ public class GetTypeId {
 		case "家居":
 			return Url.JiaJuId;
 
-		case "暴雪游戏":
+		case "暴雪":
 			return Url.BaoXueId;
 		case "亲子":
 			return Url.QinZiId;
@@ -97,6 +97,8 @@ public class GetTypeId {
 			return Url.FangChanId;
 		case "房产":
 			return Url.FangChanId;
+		case "游戏":
+			return Url.YouXiId;
 
 		case "图集":
 			return Url.TuJi;
@@ -121,10 +123,9 @@ public class GetTypeId {
 
 		case "精品视频":
 			return Url.VideoJingPinId;
-	
 
-			default :
-				return  "null";
+		default:
+			return "null";
 		}
 	}
 

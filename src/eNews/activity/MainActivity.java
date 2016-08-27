@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 
-import eNews.adapter.ActionBarAdapter;
+import eNews.adapter.NewsActionBarAdapter;
 import eNews.adapter.NewsAdapter;
 import eNews.adapter.ViewAnimationAdapter;
 import eNews.adapter.TopViewPageAdapter;
@@ -27,11 +27,11 @@ import eNews.url.Url;
 public class MainActivity extends Activity {
 
 	public NewsAdapter newsAdapter;
-	ActionBarAdapter actionbarAdapter;
+	NewsActionBarAdapter actionbarAdapter;
 	public TopViewPageAdapter topViewPageAdapter;
 	public ListView newsListView;
 	public ViewPager topViewPager;
-	 private ActionBarView actionBar;
+	private ActionBarView actionBar;
 	private TextView channelManageBtn;
 
 	@Override
@@ -44,38 +44,29 @@ public class MainActivity extends Activity {
 		actionBar = (ActionBarView) findViewById(R.id.actionBar);
 		channelManageBtn = (TextView) findViewById(R.id.channelManageBtn);
 
-		actionbarAdapter = new ActionBarAdapter(getApplicationContext(),
+		actionbarAdapter = new NewsActionBarAdapter(getApplicationContext(),
 				ChannelManage.getInstance(MainActivity.this)
-						.getDefaultUserChannelsList(),actionBar);
+						.getDefaultUserChannelsList(), actionBar);
 		actionBar.setAdapter(actionbarAdapter);
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
-		
-	
-		
+
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
 
-		
-		
 		topViewPageAdapter = new TopViewPageAdapter(getApplicationContext());
 
 		topViewPager.setAdapter(topViewPageAdapter);
 		topViewPager.setPageTransformer(true, new CubeOutTransformer());
 
-		
-		
-		newsAdapter = new NewsAdapter(getApplicationContext(), this);
+		newsAdapter = new NewsAdapter(this);
 		ViewAnimationAdapter LvAnimationAdapter = new ViewAnimationAdapter(
 				newsAdapter);
 		LvAnimationAdapter.setAbsListView(newsListView);
 		newsListView.setAdapter(LvAnimationAdapter);
 
-		
 		GetNewsContent.getNewsContent("nc/article/headline/", Url.TopId, "0",
-			
-				this);
 
-		
-		
+		this);
+
 		channelManageBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

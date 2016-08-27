@@ -3,7 +3,6 @@ package eNews.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.view.LayoutInflater;
@@ -27,13 +26,12 @@ import eNews.bean.NewsModel;
 public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
-	List<ImageView> topImageLists = new ArrayList<ImageView>();
 
-	Context context;
+
 	MainActivity mainActivty;
 
-	public NewsAdapter(Context context, MainActivity activity) {
-		this.context = context;
+	public NewsAdapter( MainActivity activity) {
+
 		this.mainActivty = activity;
 
 	}
@@ -73,9 +71,9 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(context);
+		RequestQueue rq = Volley.newRequestQueue(mainActivty.getApplicationContext());
 		if (news_item == null)
-			news_item = LayoutInflater.from(context).inflate(
+			news_item = LayoutInflater.from(mainActivty.getApplicationContext()).inflate(
 					R.layout.news_item, null);
 
 		final ImageView news_item_p1 = (ImageView) news_item
