@@ -7,16 +7,12 @@ public class Url {
 	public static final String endUrl = "-20.html";
 	public static final String endDetailUrl = "/full.html";
 
-	
 	// 头条
 	public static final String TopUrl = host + "nc/article/headline/";
 	public static final String TopId = "T1348647909107";
 	// 新闻详情
 	public static final String NewDetail = host + "nc/article/";
 
-	
-	
-	
 	public static final String CommonUrl = host + "nc/article/list/";
 	// 足球
 	public static final String FootId = "T1399700447917";
@@ -75,7 +71,6 @@ public class Url {
 	// 消息
 	public static final String MsgId = "T1371543208049";
 
-	
 	// 北京
 	public static final String Local = host + "nc/article/local/";
 
@@ -86,14 +81,13 @@ public class Url {
 	public static final String FangChan = host + "nc/article/house/";
 	// 房产id
 	public static final String FangChanId = "5YyX5Lqs";
-	
-	
+
 	// 图集
 	public static final String TuJi = host
 			+ "photo/api/morelist/0096/4GJ60096/";// 42358.json
 	// 图集end
 	public static final String TuJiEnd = ".json";
-	
+
 	// 热点42577
 	public static final String TuPianReDian = host
 			+ "photo/api/morelist/0096/54GI0096/";
@@ -110,8 +104,6 @@ public class Url {
 	public static final String TuPianMeiTu = host
 			+ "photo/api/morelist/0096/54GN0096/";
 
-	
-	
 	// 视频 http://c.3g.163.com/nc/video/list/V9LG4B3A0/n/10-10.html
 	public static final String Video = host + "nc/video/list/";
 	public static final String VideoCenter = "/n/";
@@ -125,12 +117,11 @@ public class Url {
 	// 精品视频
 	public static final String VideoJingPinId = "00850FRB";
 
-	
-	
 	// 天气预报url
 	public static final String WeatherHost = "http://wthrcdn.etouch.cn/weather_mini?city=";
 	// http://v.juhe.cn/weather/index?cityname=
 	//
+	// http://api.k780.com:88/?app=weather.city&format=json 获取城市列表
 
 	public static final String WeatherKey = "&key=1734f933d24634331a24aaadc1cb088f";
 

@@ -9,7 +9,6 @@
         android:id="@+id/weatherDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:gravity="center"
         android:text="星期天"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -25,7 +24,6 @@
         android:id="@+id/weatherTemp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:gravity="center"
         android:text="32C ~ 25C"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -34,7 +32,7 @@
         android:id="@+id/weatherType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:text="多云"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -43,7 +41,6 @@
         android:id="@+id/weatherFengXiang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:gravity="center"
         android:text="无持续风向"
         android:textAppearance="?android:attr/textAppearanceLarge" />

@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="2016年8月27日"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView
         android:id="@+id/weatherIcon_top"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:layout_height="120dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/weatherDate_top"
         android:scaleType="centerInside"
@@ -42,27 +43,27 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="高温 32C 低温 20C" />
+            android:text="" />
 
         <TextView
              android:id="@+id/weatherType_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="晴" />
+            android:text="" />
 
         <TextView
              android:id="@+id/weatherFengXinag_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="无持续风向" />
+            android:text="" />
     </LinearLayout>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

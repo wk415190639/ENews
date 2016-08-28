@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
+import eNews.common.GetWeatherIcon;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,11 +19,23 @@ public class WeatherAdapter extends BaseAdapter {
 	ArrayList<WeatherInfo> lists;
 	private Context context;
 
-	public WeatherAdapter(ArrayList<WeatherInfo> list, Context context) {
-		// TODO Auto-generated constructor stub
+	public WeatherAdapter(Context context) {
 		lists = new ArrayList<WeatherInfo>();
 		this.context = context;
+	}
+
+	public WeatherAdapter(ArrayList<WeatherInfo> list, Context context) {
+		this(context);
 		this.lists = list;
+	}
+
+	public void updateAdapter(ArrayList<WeatherInfo> list) {
+
+		if (!lists.containsAll(list) && list != null && list.size() > 0) {
+			lists.addAll(list);
+
+		}
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -49,7 +62,7 @@ public class WeatherAdapter extends BaseAdapter {
 
 		if (weatherView == null)
 			weatherView = LayoutInflater.from(context).inflate(
-					R.layout.weather, null);
+					R.layout.weatherinfo_item, null);
 
 		TextView weatherDate = (TextView) weatherView
 				.findViewById(R.id.weatherDate);
@@ -71,10 +84,9 @@ public class WeatherAdapter extends BaseAdapter {
 		weatherTemp.setText(weatherInfo.getHigh());
 		weatherType.setText(weatherInfo.getType());
 		weatherFengXiang.setText(weatherInfo.getFengxiang());
-
+		weatherIcon.setImageResource(GetWeatherIcon.get(weatherInfo.getType()));
 		// weatherIcon
 
 		return weatherView;
 	}
-
 }

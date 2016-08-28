@@ -12,7 +12,7 @@ import eNews.adapter.VideoNewsAdapter;
 import eNews.app.R;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
-import eNews.http.GetVideoNewsContent;
+import eNews.httpContent.GetVideoNewsContent;
 
 public class VideoNewsActivity extends Activity {
 

@@ -21,7 +21,7 @@ import eNews.app.R;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
 import eNews.dao.ChannelManage;
-import eNews.http.GetNewsContent;
+import eNews.httpContent.GetNewsContent;
 import eNews.url.Url;
 
 public class MainActivity extends Activity {

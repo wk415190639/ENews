@@ -1,11 +1,19 @@
 package eNews.activity;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import eNews.adapter.WeatherAdapter;
 import eNews.app.R;
+import eNews.bean.WeatherInfo;
+import eNews.common.GetWeatherIcon;
+import eNews.httpContent.GetWeatherContent;
 
 public class WeatherActivity extends Activity {
 
@@ -15,6 +23,8 @@ public class WeatherActivity extends Activity {
 	private TextView TopTypeTv;
 	private TextView TopFengXiangTv;
 	public GridView weekWeathersGridView;
+
+	private WeatherAdapter weatherAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +38,38 @@ public class WeatherActivity extends Activity {
 		TopTypeTv = (TextView) findViewById(R.id.weatherType_top);
 		TopFengXiangTv = (TextView) findViewById(R.id.weatherFengXinag_top);
 		weekWeathersGridView = (GridView) findViewById(R.id.weekWeathersGridView);
+		weatherAdapter = new WeatherAdapter(getApplicationContext());
+		weekWeathersGridView.setAdapter(weatherAdapter);
+		try {
+			GetWeatherContent.getNewsContent(null, this);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
-	public void fillAdapter(FillAdapter fillAdapter) {
-		fillAdapter.Fill();
+	public void fillTopWindows(WeatherInfo waInfo) {
+		TopDateTv.setText(waInfo.getDate());
+		// TopIconIv
+		TopTempTv.setText(waInfo.getLow());
+		TopTypeTv.setText(waInfo.getType());
+		TopFengXiangTv.setText(waInfo.getFengxiang());
+		TopIconIv.setImageResource(GetWeatherIcon.get(waInfo.getType()));
+
 	}
 
-	public interface FillAdapter {
-		void Fill();
+	public void fillAdapter(ArrayList<WeatherInfo> lists) {
+
+		fillTopWindows(lists.get(0));
+		System.out.println("fillAdapter");
+		lists.remove(1);
+		weatherAdapter.updateAdapter(lists);
+		weekWeathersGridView.setNumColumns(weatherAdapter.getCount());
+		LayoutParams params = weekWeathersGridView.getLayoutParams();
+		params.width = 200 * weatherAdapter.getCount();
+		weekWeathersGridView.setLayoutParams(params);
+
 	}
 
 }
