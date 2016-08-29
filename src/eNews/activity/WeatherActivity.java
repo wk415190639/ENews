@@ -1,6 +1,5 @@
 package eNews.activity;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -13,7 +12,6 @@ import eNews.adapter.WeatherAdapter;
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
 import eNews.common.GetWeatherIcon;
-import eNews.httpContent.GetWeatherContent;
 
 public class WeatherActivity extends Activity {
 
@@ -40,12 +38,12 @@ public class WeatherActivity extends Activity {
 		weekWeathersGridView = (GridView) findViewById(R.id.weekWeathersGridView);
 		weatherAdapter = new WeatherAdapter(getApplicationContext());
 		weekWeathersGridView.setAdapter(weatherAdapter);
-		try {
-			GetWeatherContent.getNewsContent(null, this);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+////			GetWeatherContent.getNewsContent(null, this);
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 

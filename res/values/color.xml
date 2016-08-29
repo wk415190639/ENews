@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="list_view_divier">#a1abae</color>
     <color name="list_view_bg">#f5f5f5</color>
     <color name="list_view_title">#000</color>
     <color name="list_view_digest">#878787</color>
-    
+    <color name="menu_state_pressed">#00F</color>
+    <color name="menu_state_unpressed">#0F0</color>
+
 </resources>

@@ -43,6 +43,9 @@ public class TopViewPageAdapter extends PagerAdapter {
 			lists.addAll(list);
 		//	System.out.println("Size ->" + lists.size() + "");
 
+			if(lists.size()<4)
+				return ;
+			
 			arrayList = new ArrayList<View>();
 			ImageView iv;
 			TextView tv;

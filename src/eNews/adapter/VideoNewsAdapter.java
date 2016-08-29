@@ -3,6 +3,7 @@ package eNews.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -21,7 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.VideoNewsActivity;
 import eNews.activity.VideoPlayActivity;
 import eNews.app.R;
 import eNews.bean.VideoModel;
@@ -32,11 +32,11 @@ public class VideoNewsAdapter extends BaseAdapter {
 
 	List<ImageView> topImageLists = new ArrayList<ImageView>();
 
-	VideoNewsActivity videoActivty;
+	Context context;
 
-	public VideoNewsAdapter(VideoNewsActivity activity) {
+	public VideoNewsAdapter(Context context) {
 
-		this.videoActivty = activity;
+		this.context = context;
 
 	}
 
@@ -75,11 +75,9 @@ public class VideoNewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View video_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(videoActivty
-				.getApplicationContext());
+		RequestQueue rq = Volley.newRequestQueue(context);
 		if (video_item == null)
-			video_item = LayoutInflater.from(
-					videoActivty.getApplicationContext()).inflate(
+			video_item = LayoutInflater.from(context).inflate(
 					R.layout.videonews_item, null);
 		final VideoModel videoModel = lists.get(position);
 		final ImageView videoNewsItemImg = (ImageView) video_item
@@ -122,12 +120,10 @@ public class VideoNewsAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				
-				Intent intent = new Intent(videoActivty.getApplicationContext(),VideoPlayActivity.class);
+				Intent intent = new Intent(context, VideoPlayActivity.class);
 				intent.putExtra("videoUrl", videoModel.getMp4_url());
-				videoActivty.startActivity(intent);
-				
-				
+				context.startActivity(intent);
+
 			}
 		});
 

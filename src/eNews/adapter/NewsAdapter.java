@@ -3,6 +3,7 @@ package eNews.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.MainActivity;
 import eNews.app.R;
 import eNews.bean.NewsModel;
 
@@ -27,12 +27,11 @@ public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
 
+	Context context;
 
-	MainActivity mainActivty;
+	public NewsAdapter(Context context) {
 
-	public NewsAdapter( MainActivity activity) {
-
-		this.mainActivty = activity;
+		this.context = context;
 
 	}
 
@@ -71,9 +70,9 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(mainActivty.getApplicationContext());
+		RequestQueue rq = Volley.newRequestQueue(context);
 		if (news_item == null)
-			news_item = LayoutInflater.from(mainActivty.getApplicationContext()).inflate(
+			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
 
 		final ImageView news_item_p1 = (ImageView) news_item
@@ -95,7 +94,7 @@ public class NewsAdapter extends BaseAdapter {
 					public void onResponse(Bitmap bitmap) {
 						// TODO Auto-generated method stub
 						news_item_p1.setImageBitmap(bitmap);
-//						System.out.println("set image " + position);
+						// System.out.println("set image " + position);
 					}
 
 				}, 80, 80, Config.ARGB_8888, new ErrorListener() {

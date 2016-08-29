@@ -12,7 +12,8 @@ public class GetTypeId {
 			return Url.TopId;
 
 		case "ĞÂÎÅÏêÇé":
-			return Url.NewDetail;
+		
+			return Url.NewDetail; 
 
 		case "×ãÇò":
 			return Url.FootId;

@@ -12,7 +12,6 @@ import eNews.adapter.VideoNewsAdapter;
 import eNews.app.R;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
-import eNews.httpContent.GetVideoNewsContent;
 
 public class VideoNewsActivity extends Activity {
 
@@ -54,7 +53,7 @@ public class VideoNewsActivity extends Activity {
 
 			String typeId = GetTypeId.getTypeId(text+"สำฦต");
 			System.out.println(typeId);
-			GetVideoNewsContent.getNewsContent(typeId, "0", VideoNewsActivity.this);
+//			GetVideoNewsContent.getNewsContent(typeId, "0", VideoNewsActivity.this);
 		}
 	}
 	

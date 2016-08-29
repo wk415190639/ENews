@@ -14,37 +14,36 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.WeatherActivity;
 import eNews.bean.WeatherInfo;
+import eNews.fragments.WeatherFragment;
 import eNews.url.Url;
 
 public class GetWeatherContent {
 
 	static public void getNewsContent(String localCityName,
-			WeatherActivity weatherActivity)
+			WeatherFragment weatherFragment)
 			throws UnsupportedEncodingException {
 
 		JSONObject jsonObject = null;
 
 		if (localCityName == null)
 			localCityName = getLocalCityName();
-		RequestQueue queue = Volley.newRequestQueue(weatherActivity
-				.getApplicationContext());
+		RequestQueue queue = Volley.newRequestQueue(weatherFragment.getActivity());
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.WeatherHost
 				+ URLEncoder.encode(localCityName, "utf-8"), jsonObject,
-				new JsonListener(weatherActivity), new JsonErrorListener());
+				new JsonListener(weatherFragment), new JsonErrorListener());
 		queue.add(jrq);
 
 	}
 
 	static class JsonListener implements Listener<JSONObject> {
 
-		private WeatherActivity wActivity;
+		private WeatherFragment weatherFragment;
 
-		public JsonListener(WeatherActivity activity) {
+		public JsonListener(WeatherFragment weatherFragment) {
 
-			this.wActivity = activity;
+			this.weatherFragment =weatherFragment;
 
 		}
 
@@ -91,7 +90,7 @@ public class GetWeatherContent {
 				lists.get(0).setGanmao(dataJsonObj.getString("ganmao"));
 				lists.get(0).setWendu(dataJsonObj.getString("wendu"));
 
-				wActivity.fillAdapter(lists);
+				weatherFragment.fillAdapter(lists);
 			} catch (Exception e) {
 
 				e.printStackTrace();
