@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -40,11 +41,11 @@
             android:layout_below="@id/news_item_title"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:textSize="15sp"
             android:layout_marginRight="10dp"
-            android:textColor="@color/list_view_digest"
             android:layout_toRightOf="@id/news_item_p1"
-            android:text="news_item_content" />
+            android:text="news_item_content"
+            android:textColor="@color/list_view_digest"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <LinearLayout

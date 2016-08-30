@@ -87,9 +87,8 @@ public class GetWeatherContent {
 
 				}
 
-				lists.get(0).setGanmao(dataJsonObj.getString("ganmao"));
-				lists.get(0).setWendu(dataJsonObj.getString("wendu"));
-
+				lists.get(1).setGanmao(dataJsonObj.getString("ganmao"));
+				lists.get(1).setWendu(dataJsonObj.getString("wendu"));
 				weatherFragment.fillAdapter(lists);
 			} catch (Exception e) {
 

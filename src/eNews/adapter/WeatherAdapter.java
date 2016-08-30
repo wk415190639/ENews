@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
 import eNews.common.GetWeatherIcon;
+import eNews.common.GetWeatherIconTypeId;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -85,7 +86,7 @@ public class WeatherAdapter extends BaseAdapter {
 		weatherType.setText(weatherInfo.getType());
 		weatherFengXiang.setText(weatherInfo.getFengxiang());
 		weatherIcon.setImageResource(GetWeatherIcon.get(weatherInfo.getType()));
-		// weatherIcon
+	 weatherIcon.setImageResource(GetWeatherIconTypeId.getTypeId(weatherInfo.getType()));
 
 		return weatherView;
 	}

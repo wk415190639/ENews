@@ -72,6 +72,7 @@ public class GetNewsContent {
 					newsModel.setTitle(newsItemObject.getString("title"));
 					newsModel.setDigest(newsItemObject.getString("digest"));
 					newsModel.setImagesrc(newsItemObject.getString("imgsrc"));
+					newsModel.setPostid(newsItemObject.getString("postid"));
 					lists.add(newsModel);
 				}
 				mainFragment.updateAdapter(lists);

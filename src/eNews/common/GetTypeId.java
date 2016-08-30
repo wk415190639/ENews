@@ -12,8 +12,8 @@ public class GetTypeId {
 			return Url.TopId;
 
 		case "新闻详情":
-		
-			return Url.NewDetail; 
+
+			return Url.NewDetail;
 
 		case "足球":
 			return Url.FootId;
@@ -101,18 +101,16 @@ public class GetTypeId {
 		case "游戏":
 			return Url.YouXiId;
 
-		case "图集":
-			return Url.TuJi;
-		case "热点":
-			return Url.TuPianReDian;
-
-		case "独家":
-			return Url.TuPianDuJia;
-		case "明星":
-			return Url.TuPianMeiTu;
-
-		case "美图":
-			return Url.TuPianMeiTu;
+		case "新浪详情":
+			return Url.JINGXUANDETAIL_ID;
+		case "新浪精选":
+			return Url.JINGXUAN_ID;
+		case "新浪趣图":
+			return Url.QUTU_ID;
+		case "新浪美图":
+			return Url.MEITU_ID;
+		case "新浪故事":
+			return Url.GUSHI_ID;
 
 		case "热点视频":
 			return Url.VideoReDianId;

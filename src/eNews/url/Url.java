@@ -10,8 +10,9 @@ public class Url {
 	// 头条
 	public static final String TopUrl = host + "nc/article/headline/";
 	public static final String TopId = "T1348647909107";
+	
 	// 新闻详情
-	public static final String NewDetail = host + "nc/article/";
+	public static final String NewDetail = host + "/nc/article/";
 
 	public static final String CommonUrl = host + "nc/article/list/";
 	// 足球
@@ -90,7 +91,7 @@ public class Url {
 
 	// 热点42577
 	public static final String TuPianReDian = host
-			+ "photo/api/morelist/0096/54GI0096/";
+			+ "photo/api/morelist/0096/54GI0096/42577.json";
 	// 独家42010
 	public static final String TuPianDuJia = host
 			+ "photo/api/morelist/0096/54GJ0096/";
@@ -129,7 +130,9 @@ public class Url {
 	 * 新浪图片新闻
 	 */
 	// 精选列表
+
 	public static final String JINGXUAN_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_toutiao&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=&imei=867064013906290&uid=802909da86d9f5fc&p=";
+
 	// 图片详情
 	public static final String JINGXUANDETAIL_ID = "http://api.sina.cn/sinago/article.json?postt=hdpic_hdpic_toutiao_4&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&id=";
 	// 趣图列表

@@ -1,14 +1,14 @@
 package eNews.activity;
 
-import eNews.app.R;
-import eNews.fragments.MainFragment;
-import eNews.fragments.VideoFragment;
-import eNews.fragments.WeatherFragment;
+import java.lang.ref.WeakReference;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,8 +17,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import eNews.app.R;
+import eNews.common.HandlerWhat;
+import eNews.fragments.MainFragment;
+import eNews.fragments.MoreAboutFragment;
+import eNews.fragments.PictureFragment;
+import eNews.fragments.VideoFragment;
+import eNews.fragments.WeatherFragment;
 
 public class MainWindows extends Activity implements OnClickListener {
+
+	@SuppressWarnings("unused")
+	private MainWindowsHandler mainWindowsHandler;
 
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -31,8 +41,10 @@ public class MainWindows extends Activity implements OnClickListener {
 	private LinearLayout menu_moreLayout;
 
 	public MainFragment mainFragment;
+	public PictureFragment pictureFragment;
 	public VideoFragment videoFragment;
 	public WeatherFragment weatherFragment;
+	public MoreAboutFragment aboutFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +59,15 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	private void init() {
 
+		mainWindowsHandler = new MainWindowsHandler(this);
 		mainFragment = new MainFragment();
 		videoFragment = new VideoFragment();
 		weatherFragment = new WeatherFragment();
+		pictureFragment = new PictureFragment();
+		aboutFragment = new MoreAboutFragment();
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-		drawerLayout.setDrawerShadow(R.drawable.shadow,
-				GravityCompat.START);
+		drawerLayout.setDrawerShadow(R.drawable.shadow, GravityCompat.START);
 		menu_left = (LinearLayout) findViewById(R.id.menuLayout);
 
 		menu_mainLayout = (LinearLayout) findViewById(R.id.menuMain);
@@ -70,8 +84,6 @@ public class MainWindows extends Activity implements OnClickListener {
 
 		menu_moreLayout = (LinearLayout) findViewById(R.id.menuMore);
 		menu_moreLayout.setOnClickListener(this);
-		
-	
 
 	}
 
@@ -138,10 +150,10 @@ public class MainWindows extends Activity implements OnClickListener {
 
 			drawerLayout.closeDrawer(menu_left);
 
-			if (mainFragment == null)
-				mainFragment = new MainFragment();
+			if (pictureFragment == null)
+				pictureFragment = new PictureFragment();
 
-			transaction.replace(R.id.frame_content, mainFragment);
+			transaction.replace(R.id.frame_content, pictureFragment);
 
 			System.out.println("menuPic");
 			break;
@@ -167,9 +179,9 @@ public class MainWindows extends Activity implements OnClickListener {
 		case R.id.menuMore:
 
 			drawerLayout.closeDrawer(menu_left);
-			if (mainFragment == null)
-				mainFragment = new MainFragment();
-			transaction.replace(R.id.frame_content, mainFragment);
+			if (aboutFragment == null)
+				aboutFragment = new MoreAboutFragment();
+			transaction.replace(R.id.frame_content, aboutFragment);
 			System.out.println("menuMore");
 			break;
 
@@ -210,9 +222,50 @@ public class MainWindows extends Activity implements OnClickListener {
 		public void onDrawerStateChanged(int newState) {
 			// TODO Auto-generated method stub
 			actionBarDrawerToggle.onDrawerStateChanged(newState);
+		}
+
+	}
+
+	static class MainWindowsHandler extends Handler {
+		WeakReference<MainWindows> mainReference;
+
+		public MainWindowsHandler(MainWindows mainWindows) {
+			// TODO Auto-generated constructor stub
+			mainReference = new WeakReference<MainWindows>(mainWindows);
 
 		}
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+
+			MainWindows mainWindows = mainReference.get();
+
+			if (mainWindows != null) {
+				System.out.println("mainReference.get()");
+
+				switch (msg.what) {
+
+				case HandlerWhat.mainNews:
+					break;
+
+				case HandlerWhat.pictureNews:
+					break;
+
+				case HandlerWhat.videoNews:
+					break;
+
+				case HandlerWhat.weatherNews:
+					break;
+
+				default:
+					break;
+				}
+
+			}
+
+		}
 	}
 
 }
