@@ -1,8 +1,6 @@
 package eNews.httpContent;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +14,6 @@ import com.android.volley.toolbox.Volley;
 
 import eNews.activity.PictureDetailActivity;
 import eNews.bean.PictureDetailModel;
-import eNews.bean.PictureModel;
-import eNews.fragments.PictureFragment;
 import eNews.url.Url;
 
 public class GetPictureNewsDetailContent {

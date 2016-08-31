@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import eNews.bean.NewsModel;
+import eNews.common.GetTypeId;
 import eNews.fragments.MainFragment;
 import eNews.url.Url;
 
@@ -66,14 +67,17 @@ public class GetNewsContent {
 				JSONArray rootAyyar = jo.getJSONArray(typeId);
 
 				for (int i = 0; i < rootAyyar.length(); i++) {
-
-					newsModel = new NewsModel();
 					JSONObject newsItemObject = rootAyyar.getJSONObject(i);
-					newsModel.setTitle(newsItemObject.getString("title"));
-					newsModel.setDigest(newsItemObject.getString("digest"));
-					newsModel.setImagesrc(newsItemObject.getString("imgsrc"));
-					newsModel.setPostid(newsItemObject.getString("postid"));
-					lists.add(newsModel);
+					if (GetTypeId.isBvNews(newsItemObject.getString("postid"))) {
+						newsModel = new NewsModel();
+						newsModel.setTitle(newsItemObject.getString("title"));
+						newsModel.setDigest(newsItemObject.getString("digest"));
+						newsModel.setImagesrc(newsItemObject
+								.getString("imgsrc"));
+						newsModel.setPostid(newsItemObject.getString("postid"));
+						newsModel.setDocid(newsItemObject.getString("docid"));
+						lists.add(newsModel);
+					}
 				}
 				mainFragment.updateAdapter(lists);
 			} catch (JSONException e) {

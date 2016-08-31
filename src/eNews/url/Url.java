@@ -10,7 +10,7 @@ public class Url {
 	// 头条
 	public static final String TopUrl = host + "nc/article/headline/";
 	public static final String TopId = "T1348647909107";
-	
+
 	// 新闻详情
 	public static final String NewDetail = host + "/nc/article/";
 
@@ -141,4 +141,7 @@ public class Url {
 	public static final String MEITU_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_pretty&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
 	// 故事列表
 	public static final String GUSHI_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_story&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
+
+	public static final String GeocoderUrl = "http://maps.google.cn/maps/api/geocode/json?language=zh-CN&sensor=true&";// latlng=38.92,121.62&sensor=false
+
 }

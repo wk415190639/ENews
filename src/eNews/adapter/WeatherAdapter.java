@@ -33,6 +33,7 @@ public class WeatherAdapter extends BaseAdapter {
 	public void updateAdapter(ArrayList<WeatherInfo> list) {
 
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
+			lists.clear();
 			lists.addAll(list);
 
 		}

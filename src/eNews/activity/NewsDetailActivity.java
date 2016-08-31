@@ -79,8 +79,8 @@ public class NewsDetailActivity extends Activity {
 		for (int i = 0; i < strList.length; i++) {
 			if (i < strList.length - 1)
 				newsDetailText.append(Html.fromHtml(strList[i] + "<img src="
-						+ String.valueOf(i) + "></img><br>", new MyImageGetter(),
-						null));
+						+ String.valueOf(i) + "></img><br>",
+						new MyImageGetter(), null));
 			else
 				newsDetailText.append(Html.fromHtml(strList[i]));
 
@@ -98,7 +98,7 @@ public class NewsDetailActivity extends Activity {
 
 	}
 
-	class ImageRequestListener implements Listener<Bitmap> {
+	public class ImageRequestListener implements Listener<Bitmap> {
 
 		private int position;
 
@@ -117,7 +117,7 @@ public class NewsDetailActivity extends Activity {
 
 			arrayDrawable.add(drawable);
 
-			if (position == newsDetailModel.getImg().size()-1)
+			if (position == newsDetailModel.getImg().size() - 1)
 				setNewsDetailText();
 
 		}

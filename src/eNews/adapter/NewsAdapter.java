@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import eNews.activity.NewsDetailActivity;
 import eNews.app.R;
 import eNews.bean.NewsModel;
+import eNews.common.GetTypeId;
 
 public class NewsAdapter extends BaseAdapter {
 
@@ -73,62 +74,79 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(context);
+		NewsModel newsModel = lists.get(position);
 		if (news_item == null)
 			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
+		if (GetTypeId.isBvNews(newsModel.getPostid())) {
+			RequestQueue rq = Volley.newRequestQueue(context);
 
-		final ImageView news_item_p1 = (ImageView) news_item
-				.findViewById(R.id.news_item_p1);
+			final ImageView news_item_p1 = (ImageView) news_item
+					.findViewById(R.id.news_item_p1);
 
-		TextView news_item_title = (TextView) news_item
-				.findViewById(R.id.news_item_title);
-		TextView news_item_digest = (TextView) news_item
-				.findViewById(R.id.news_item_digest);
-		NewsModel newsModel = lists.get(position);
+			TextView news_item_title = (TextView) news_item
+					.findViewById(R.id.news_item_title);
+			TextView news_item_digest = (TextView) news_item
+					.findViewById(R.id.news_item_digest);
 
-		news_item_title.setText(newsModel.getTitle());
-		news_item_digest.setText(newsModel.getDigest());
+			news_item_title.setText(newsModel.getTitle());
+			news_item_digest.setText(newsModel.getDigest());
 
-		ImageRequest imageRequest = new ImageRequest(newsModel.getImagesrc(),
-				new Listener<Bitmap>() {
+			ImageRequest imageRequest = new ImageRequest(
+					newsModel.getImagesrc(), new imageRequestListener(
+							news_item_p1), 80, 80, Config.ARGB_8888,
+					new imageRequestErrorListener());
 
-					@Override
-					public void onResponse(Bitmap bitmap) {
-						// TODO Auto-generated method stub
-						news_item_p1.setImageBitmap(bitmap);
-						// System.out.println("set image " + position);
-					}
+			rq.add(imageRequest);
 
-				}, 80, 80, Config.ARGB_8888, new ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
-
-					}
-				});
-
-		rq.add(imageRequest);
+		}
 		news_item.setOnClickListener(new newsItemOnclick(newsModel));
-
 		return news_item;
+	}
+
+	class imageRequestListener implements Listener<Bitmap> {
+
+		private ImageView iv;
+
+		public imageRequestListener(ImageView iv) {
+
+			this.iv = iv;
+		}
+
+		@Override
+		public void onResponse(Bitmap bitmap) {
+			// TODO Auto-generated method stub
+
+			iv.setImageBitmap(bitmap);
+
+		}
+
+	}
+
+	class imageRequestErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+			System.out.println(error.toString());
+		}
+
 	}
 
 	class newsItemOnclick implements OnClickListener {
 
 		private NewsModel model;
+
 		public newsItemOnclick(NewsModel model) {
 			// TODO Auto-generated constructor stub
-			
-			this.model=model;
+
+			this.model = model;
 		}
-		
+
 		@Override
 		public void onClick(View v) {
 
-
-			Intent intent = new Intent(context,NewsDetailActivity.class);
+			Intent intent = new Intent(context, NewsDetailActivity.class);
 			intent.putExtra("postId", model.getPostid());
 			context.startActivity(intent);
 		}

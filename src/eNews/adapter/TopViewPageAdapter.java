@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout.LayoutParams;
@@ -23,7 +25,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
+import eNews.activity.VideoPlayActivity;
 import eNews.bean.NewsModel;
+import eNews.bean.VideoModel;
 
 public class TopViewPageAdapter extends PagerAdapter {
 
@@ -81,7 +85,6 @@ public class TopViewPageAdapter extends PagerAdapter {
 				relativeLayout.addView(tv);
 				arrayList.add(relativeLayout);
 
-//				System.out.println(i + "-->top");
 
 			}
 
@@ -114,35 +117,18 @@ public class TopViewPageAdapter extends PagerAdapter {
 		
 		
 		
+		RelativeLayout relativeLayout = (RelativeLayout) arrayList
+				.get(position);
+		ImageView iv = (ImageView) relativeLayout.getChildAt(0);
+
+		
+		
 		RequestQueue rq = Volley.newRequestQueue(context);
-//		System.out.println(lists.get(position).getImagesrc());
-		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),
-				new Listener<Bitmap>() {
-
-					@Override
-					public void onResponse(Bitmap bitmap) {
-						// TODO Auto-generated method stub
-
-						RelativeLayout relativeLayout = (RelativeLayout) arrayList
-								.get(position);
-						ImageView iv = (ImageView) relativeLayout.getChildAt(0);
-						iv.setImageBitmap(bitmap);
-
-					}
-				}, 400, 300, Config.ARGB_8888, new ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
-
-						System.out.println("erro ErrorListener "
-								+ arg0.toString());
-
-					}
-				});
+		
+		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),new imageRequestListener(iv), 400, 300, Config.ARGB_8888,new imageRequestErrorListener());
 		rq.add(ir);
 
-		((ViewPager) top_news).addView(arrayList.get(position));
+	  ((ViewPager) top_news).addView(arrayList.get(position));
 
 		return arrayList.get(position);
 
@@ -160,4 +146,56 @@ public class TopViewPageAdapter extends PagerAdapter {
 		return POSITION_NONE;
 	}
 
+	class imageRequestListener implements Listener<Bitmap> {
+
+		private ImageView iv;
+
+		public imageRequestListener(ImageView iv) {
+
+			this.iv = iv;
+		}
+
+		@Override
+		public void onResponse(Bitmap bitmap) {
+			// TODO Auto-generated method stub
+
+			iv.setImageBitmap(bitmap);
+		
+
+		}
+
+	}
+
+	class imageRequestErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+			System.out.println(error.toString());
+		}
+
+	}
+
+	class newsItemOnclick implements OnClickListener {
+
+		private VideoModel videoModel;
+
+		public newsItemOnclick(VideoModel videoModel) {
+			// TODO Auto-generated constructor stub
+
+			this.videoModel = videoModel;
+		}
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(context, VideoPlayActivity.class);
+			intent.putExtra("videoUrl", videoModel.getMp4_url());
+			context.startActivity(intent);
+
+		}
+
+	}
+	
+	
 }

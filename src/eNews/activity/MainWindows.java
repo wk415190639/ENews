@@ -119,7 +119,7 @@ public class MainWindows extends Activity implements OnClickListener {
 	private void initActionBarDrawerToggle() {
 
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				R.drawable.newsicon, R.string.app_name, R.string.app_name);
+				R.drawable.goback, R.string.app_name, R.string.app_name);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayShowTitleEnabled(false);

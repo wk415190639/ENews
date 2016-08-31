@@ -90,43 +90,63 @@ public class PictureNewsAdapter extends BaseAdapter {
 		title.setText(pictureModel.getTitle());
 
 		ImageRequest imageRequest = new ImageRequest(pictureModel.getKpic(),
-				new Listener<Bitmap>() {
-
-					@Override
-					public void onResponse(Bitmap bitmap) {
-
-						int scaleFactor = 400 / bitmap.getWidth();
-						Bitmap mBitmap = Bitmap.createScaledBitmap(bitmap, 400,
-								bitmap.getHeight() * scaleFactor, true);
-						pictureImage.setImageBitmap(mBitmap);
-
-					}
-
-				}, 80, 80, Config.ARGB_8888, new ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
-
-					}
-				});
+				new imageRequestListener(pictureImage), 80, 80,
+				Config.ARGB_8888, new imageRequestErrorListener());
 
 		rq.add(imageRequest);
 
-		picture_item.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				Intent intent = new Intent(context, PictureDetailActivity.class);
-				intent.putExtra("kpic", pictureModel.getId());
-				context.startActivity(intent);
-
-			}
-		});
+		picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
 
 		return picture_item;
+	}
+
+	class imageRequestListener implements Listener<Bitmap> {
+
+		private ImageView iv;
+
+		public imageRequestListener(ImageView iv) {
+
+			this.iv = iv;
+		}
+
+		@Override
+		public void onResponse(Bitmap bitmap) {
+
+			iv.setImageBitmap(bitmap);
+
+		}
+
+	}
+
+	class imageRequestErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+			System.out.println(error.toString());
+		}
+
+	}
+
+	class newsItemOnclick implements OnClickListener {
+
+		private PictureModel pictureModel;
+
+		public newsItemOnclick(PictureModel pictureModel) {
+			// TODO Auto-generated constructor stub
+
+			this.pictureModel = pictureModel;
+		}
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(context, PictureDetailActivity.class);
+			intent.putExtra("kpic", pictureModel.getId());
+			context.startActivity(intent);
+
+		}
+
 	}
 
 }

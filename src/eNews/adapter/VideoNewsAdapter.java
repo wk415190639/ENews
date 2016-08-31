@@ -79,8 +79,8 @@ public class VideoNewsAdapter extends BaseAdapter {
 		if (video_item == null)
 			video_item = LayoutInflater.from(context).inflate(
 					R.layout.videonews_item, null);
-		final VideoModel videoModel = lists.get(position);
-		final ImageView videoNewsItemImg = (ImageView) video_item
+		VideoModel videoModel = lists.get(position);
+		ImageView videoNewsItemImg = (ImageView) video_item
 				.findViewById(R.id.videoNewsItemImg);
 
 		TextView title = (TextView) video_item
@@ -91,43 +91,64 @@ public class VideoNewsAdapter extends BaseAdapter {
 		time.setText(videoModel.getLength());
 
 		ImageRequest imageRequest = new ImageRequest(videoModel.getTopicImg(),
-				new Listener<Bitmap>() {
-
-					@Override
-					public void onResponse(Bitmap bitmap) {
-
-						int scaleFactor = 400 / bitmap.getWidth();
-						Bitmap mBitmap = Bitmap.createScaledBitmap(bitmap, 400,
-								bitmap.getHeight() * scaleFactor, true);
-						videoNewsItemImg.setImageBitmap(mBitmap);
-
-					}
-
-				}, 80, 80, Config.ARGB_8888, new ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
-
-					}
-				});
+				new imageRequestListener(videoNewsItemImg), 80, 80,
+				Config.ARGB_8888, new imageRequestErrorListener());
 
 		rq.add(imageRequest);
 
-		video_item.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				Intent intent = new Intent(context, VideoPlayActivity.class);
-				intent.putExtra("videoUrl", videoModel.getMp4_url());
-				context.startActivity(intent);
-
-			}
-		});
+		video_item.setOnClickListener(new newsItemOnclick(videoModel));
 
 		return video_item;
+	}
+
+	class imageRequestListener implements Listener<Bitmap> {
+
+		private ImageView iv;
+
+		public imageRequestListener(ImageView iv) {
+
+			this.iv = iv;
+		}
+
+		@Override
+		public void onResponse(Bitmap bitmap) {
+			// TODO Auto-generated method stub
+
+			iv.setImageBitmap(bitmap);
+
+		}
+
+	}
+
+	class imageRequestErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+			System.out.println(error.toString());
+		}
+
+	}
+
+	class newsItemOnclick implements OnClickListener {
+
+		private VideoModel videoModel;
+
+		public newsItemOnclick(VideoModel videoModel) {
+			// TODO Auto-generated constructor stub
+
+			this.videoModel = videoModel;
+		}
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(context, VideoPlayActivity.class);
+			intent.putExtra("videoUrl", videoModel.getMp4_url());
+			context.startActivity(intent);
+
+		}
+
 	}
 
 }

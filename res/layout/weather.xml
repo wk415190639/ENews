@@ -6,11 +6,19 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
+    <Button
+        android:id="@+id/getLocateCityBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/weatherLayout_center"
+        android:text="Button" />
+
     <TextView
         android:id="@+id/weatherDate_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/button1"
         android:gravity="center"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -18,10 +26,10 @@
     <ImageView
         android:id="@+id/weatherIcon_top"
         android:layout_width="80dp"
-        android:contentDescription="@string/app_name"
         android:layout_height="120dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/weatherDate_top"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerInside"
         android:src="@drawable/p1" />
 
@@ -45,14 +53,14 @@
             android:text="" />
 
         <TextView
-             android:id="@+id/weatherType_top"
+            android:id="@+id/weatherType_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="" />
 
         <TextView
-             android:id="@+id/weatherFengXinag_top"
+            android:id="@+id/weatherFengXinag_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
