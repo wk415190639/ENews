@@ -118,12 +118,13 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	private void initActionBarDrawerToggle() {
 
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				R.drawable.goback, R.string.app_name, R.string.app_name);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(true);
+		getActionBar().setTitle("–¬Œ≈e—€");
 
+		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+				R.drawable.space, R.string.app_name, R.string.app_name);
 	}
 
 	@Override
@@ -192,6 +193,18 @@ public class MainWindows extends Activity implements OnClickListener {
 			break;
 		}
 		transaction.commit();
+
+	}
+
+	public void showMainFragment() {
+		FragmentManager fm = getFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();
+		if (mainFragment == null)
+			mainFragment = new MainFragment();
+		transaction.replace(R.id.frame_content, mainFragment);
+		transaction.commit();
+		
+		 getActionBar().show();
 
 	}
 

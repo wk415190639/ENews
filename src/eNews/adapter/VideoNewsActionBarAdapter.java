@@ -1,7 +1,7 @@
 package eNews.adapter;
 
 import android.content.Context;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,14 +47,18 @@ public class VideoNewsActionBarAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View bar, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		TextView tv = new TextView(context);
+		if (bar == null)
+			bar = LayoutInflater.from(context).inflate(
+					R.layout.gridview_bar_item, null);
+
+		TextView tv = (TextView) bar.findViewById(R.id.gridview_bar_item_Tv);
 		tv.setText(actionbarList[position]);
-		tv.setGravity(Gravity.CENTER);
+		tv.setBackgroundResource(R.drawable.gridview_bar_item);
 
 		if (selectedIndex == position)
 			tv.setBackgroundResource(R.drawable.actionbar_text_style);
 
-		return tv;
+		return bar;
 	}
 
 }

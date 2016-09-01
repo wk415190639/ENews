@@ -28,7 +28,8 @@ public class GetWeatherContent {
 
 		if (localCityName == null)
 			localCityName = getLocalCityName();
-		RequestQueue queue = Volley.newRequestQueue(weatherFragment.getActivity());
+		RequestQueue queue = Volley.newRequestQueue(weatherFragment
+				.getActivity());
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.WeatherHost
 				+ URLEncoder.encode(localCityName, "utf-8"), jsonObject,
@@ -43,7 +44,7 @@ public class GetWeatherContent {
 
 		public JsonListener(WeatherFragment weatherFragment) {
 
-			this.weatherFragment =weatherFragment;
+			this.weatherFragment = weatherFragment;
 
 		}
 
@@ -64,25 +65,36 @@ public class GetWeatherContent {
 				JSONObject yesterdayJsonObj = dataJsonObj
 						.getJSONObject("yesterday");
 
+				// 昨天天气
 				info = new WeatherInfo();
 				info.setFengxiang(yesterdayJsonObj.getString("fx"));
 				info.setFengli(yesterdayJsonObj.getString("fl"));
 				info.setHigh(yesterdayJsonObj.getString("high"));
 				info.setType(yesterdayJsonObj.getString("type"));
 				info.setLow(yesterdayJsonObj.getString("low"));
-				info.setDate(yesterdayJsonObj.getString("date"));
+
+				String date = yesterdayJsonObj.getString("date");
+				info.setDate("昨天 ");
+
 				lists.add(info);
 
 				for (int i = 0; i < forecaseJsonArr.length(); i++) {
 					JSONObject tempJsonObject = forecaseJsonArr
 							.getJSONObject(i);
 					info = new WeatherInfo();
+
 					info.setFengxiang(tempJsonObject.getString("fengxiang"));
 					info.setFengli(tempJsonObject.getString("fengli"));
 					info.setHigh(tempJsonObject.getString("high"));
 					info.setType(tempJsonObject.getString("type"));
 					info.setLow(tempJsonObject.getString("low"));
-					info.setDate(tempJsonObject.getString("date"));
+					date = tempJsonObject.getString("date");
+			
+					if(i>0)
+					info.setDate("周"+date.substring(date.length() - 1,
+							date.length()));
+					else
+						info.setDate(date);
 					lists.add(info);
 
 				}

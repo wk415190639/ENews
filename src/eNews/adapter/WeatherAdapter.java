@@ -77,17 +77,19 @@ public class WeatherAdapter extends BaseAdapter {
 		TextView weatherType = (TextView) weatherView
 				.findViewById(R.id.weatherType);
 
-		TextView weatherFengXiang = (TextView) weatherView
-				.findViewById(R.id.weatherFengXiang);
-
 		WeatherInfo weatherInfo = lists.get(position);
-		weatherDate.setText(weatherInfo.getDate());
+		
+		String date =weatherInfo.getDate();
+		
+		weatherDate.setText(date);
 
-		weatherTemp.setText(weatherInfo.getHigh());
-		weatherType.setText(weatherInfo.getType());
-		weatherFengXiang.setText(weatherInfo.getFengxiang());
-		weatherIcon.setImageResource(GetWeatherIcon.get(weatherInfo.getType()));
-	 weatherIcon.setImageResource(GetWeatherIconTypeId.getTypeId(weatherInfo.getType()));
+		weatherTemp.setText(weatherInfo.getLow().substring(2).trim() + "~"
+				+ weatherInfo.getHigh().substring(2).trim());
+		weatherType.setText(weatherInfo.getType() + "  "
+				+ weatherInfo.getFengxiang()+ weatherInfo.getFengli());
+	
+		weatherIcon.setImageResource(GetWeatherIconTypeId.getTypeId(weatherInfo
+				.getType()));
 
 		return weatherView;
 	}

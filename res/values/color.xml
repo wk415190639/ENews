@@ -7,5 +7,7 @@
     <color name="list_view_digest">#878787</color>
     <color name="menu_state_pressed">#00F</color>
     <color name="menu_state_unpressed">#0F0</color>
+    <color name="grivview_bar_item">#00f</color>
+    <color name="menu_layout_bg">#e3e3e3</color>
 
 </resources>

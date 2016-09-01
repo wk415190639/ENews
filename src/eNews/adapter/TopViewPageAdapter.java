@@ -70,7 +70,6 @@ public class TopViewPageAdapter extends PagerAdapter {
 				relativeLayout.setLayoutParams(params);
 				iv = new ImageView(context);
 				iv.setBackgroundColor(Color.BLACK);
-				iv.setPadding(10, 5, 10, 5);
 				iv.setLayoutParams(params);
 				iv.setScaleType(ScaleType.FIT_XY);
 

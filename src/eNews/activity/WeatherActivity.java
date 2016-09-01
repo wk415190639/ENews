@@ -23,8 +23,8 @@ public class WeatherActivity extends Activity {
 	private TextView TopTypeTv;
 	private TextView TopFengXiangTv;
 	public GridView weekWeathersGridView;
-	
-	private Button  getLocateCityBtn;
+
+	private Button getLocateCityBtn;
 
 	private WeatherAdapter weatherAdapter;
 
@@ -39,7 +39,7 @@ public class WeatherActivity extends Activity {
 		TopTempTv = (TextView) findViewById(R.id.weatherTemp_top);
 		TopTypeTv = (TextView) findViewById(R.id.weatherType_top);
 		TopFengXiangTv = (TextView) findViewById(R.id.weatherFengXinag_top);
-		weekWeathersGridView = (GridView) findViewById(R.id.weekWeathersGridView);
+		weekWeathersGridView = (GridView) findViewById(R.id.weekWeathersListView);
 		weatherAdapter = new WeatherAdapter(getApplicationContext());
 		weekWeathersGridView.setAdapter(weatherAdapter);
 		// try {

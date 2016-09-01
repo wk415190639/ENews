@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -21,21 +22,19 @@ public class NewsActionBarAdapter extends BaseAdapter {
 	private ArrayList<ChannelItemModel> actionbarList;
 	private ActionBarView actionBarView;
 
-	public  NewsActionBarAdapter(Context context, ArrayList<ChannelItemModel> lists,ActionBarView actionBarView) {
-	
-		actionbarList =new ArrayList<ChannelItemModel>();
+	public NewsActionBarAdapter(Context context,
+			ArrayList<ChannelItemModel> lists, ActionBarView actionBarView) {
+
+		actionbarList = new ArrayList<ChannelItemModel>();
 		this.context = context;
 		this.actionbarList = lists;
-		this.actionBarView=actionBarView;
+		this.actionBarView = actionBarView;
 		updateActionBar();
-		
 
 	}
-	
-	
-	private void updateActionBar()
-	{
-		actionBarView.setNumColumns(getCount());		
+
+	private void updateActionBar() {
+		actionBarView.setNumColumns(getCount());
 		LayoutParams params = actionBarView.getLayoutParams();
 		params.width = 100 * getCount();
 		actionBarView.setLayoutParams(params);
@@ -43,7 +42,7 @@ public class NewsActionBarAdapter extends BaseAdapter {
 	}
 
 	public void updateList(ArrayList<ChannelItemModel> lists) {
-		
+
 		actionbarList = lists;
 		notifyDataSetChanged();
 		updateActionBar();
@@ -74,14 +73,19 @@ public class NewsActionBarAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View bar, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		TextView tv = new TextView(context);
+
+		if (bar == null)
+			bar = LayoutInflater.from(context).inflate(
+					R.layout.gridview_bar_item, null);
+
+		TextView tv = (TextView) bar.findViewById(R.id.gridview_bar_item_Tv);
 		tv.setText(actionbarList.get(position).getName());
-		tv.setGravity(Gravity.CENTER);
+		tv.setBackgroundResource(R.drawable.gridview_bar_item);
 
 		if (selectedIndex == position)
 			tv.setBackgroundResource(R.drawable.actionbar_text_style);
 
-		return tv;
+		return bar;
 	}
 
 }

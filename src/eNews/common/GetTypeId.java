@@ -131,8 +131,6 @@ public class GetTypeId {
 	public static boolean isBvNews(String postId) {
 
 		String capture = postId.substring(0, 1);
-		System.out.println(capture);
-
 		if (capture.equals("P"))
 			return false;
 

@@ -6,11 +6,15 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import eNews.activity.MainWindows;
 import eNews.adapter.PictureNewsActionBarAdapter;
 import eNews.adapter.PictureNewsAdapter;
 import eNews.app.R;
@@ -22,6 +26,7 @@ import eNews.httpContent.GetPictureNewsContent;
 public class PictureFragment extends Fragment {
 
 	private View view;
+	private Button backBtn;
 	private ActionBarView actionbar;
 	private ListView pictureListView;
 	private PictureNewsActionBarAdapter pictureNewsActionBarAdapter;
@@ -38,8 +43,21 @@ public class PictureFragment extends Fragment {
 	}
 
 	private void init() {
+
+		getActivity().getActionBar().hide();
 		actionbar = (ActionBarView) view
 				.findViewById(R.id.pictureNewsactionBar);
+
+		backBtn = (Button) view.findViewById(R.id.backBtn);
+		backBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				((MainWindows) getActivity()).showMainFragment();
+
+			}
+		});
 
 		pictureListView = (ListView) view.findViewById(R.id.pictureList);
 		pictureNewsActionBarAdapter = new PictureNewsActionBarAdapter(
@@ -51,8 +69,10 @@ public class PictureFragment extends Fragment {
 
 		pictureListView.setAdapter(pictureNewsAdapter);
 
-		GetPictureNewsContent.getNewsContent(GetTypeId.getTypeId("新浪精选"),
-				PictureFragment.this);
+		String url = GetTypeId.getTypeId("新浪精选");
+		System.out.println(url);
+		GetPictureNewsContent.getNewsContent(url, this);
+
 	}
 
 	class PictureItemClick implements OnItemClickListener {
@@ -64,10 +84,11 @@ public class PictureFragment extends Fragment {
 
 			pictureNewsActionBarAdapter.setSelectedIndex(position);
 
-			String text = ((TextView) tv).getText().toString();
+			String text = ((TextView) tv
+					.findViewById(R.id.gridview_bar_item_Tv)).getText()
+					.toString();
 
 			String url = GetTypeId.getTypeId("新浪" + text);
-			System.out.println(url);
 			GetPictureNewsContent.getNewsContent(url, PictureFragment.this);
 		}
 	}

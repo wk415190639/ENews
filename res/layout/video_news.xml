@@ -5,17 +5,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="#e3e3e3"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/back_btn_shape"
+            android:gravity="center"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="视频新闻"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
     <eNews.customview.ActionBarView
         android:id="@+id/videoNewsactionBar"
         android:layout_width="wrap_content"
-        android:layout_height="73dp"
+        android:layout_height="0dp"
+        android:layout_weight="4.5"
         android:padding="5dp" >
     </eNews.customview.ActionBarView>
 
     <ListView
         android:id="@+id/videoList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight="51.5"
+        android:divider="#000"
+        android:dividerHeight="1dp" >
     </ListView>
 
 </LinearLayout>

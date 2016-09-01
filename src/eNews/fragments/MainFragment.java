@@ -122,7 +122,7 @@ public class MainFragment extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View tv, int position,
 				long id) {
 
-			String text = ((TextView) tv).getText().toString();
+			String text = ((TextView) tv.findViewById(R.id.gridview_bar_item_Tv)).getText().toString();
 
 			// System.out.println(GetTypeId.getTypeId(text));
 

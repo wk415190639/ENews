@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <Button
-        android:id="@+id/getLocateCityBtn"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/weatherLayout_center"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/weatherDate_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button1"
-        android:gravity="center"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/weatherIcon_top"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/weatherDate_top"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerInside"
-        android:src="@drawable/p1" />
-
-    <LinearLayout
-        android:id="@+id/weatherLayout_center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/weatherIcon_top"
-        android:layout_alignTop="@id/weatherIcon_top"
-        android:layout_below="@id/weatherDate_top"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/weatherIcon_top"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="2.76" >
 
         <TextView
-            android:id="@+id/weatherTemp_top"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="" />
+            android:id="@+id/getLocateCityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="城市" />
+
+        <TextView
+            android:id="@+id/weatherDate_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="2016年9月1日"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/weatherWeek_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weatherDate_top"
+            android:layout_marginTop="10dp"
+            android:text="星期一" />
+
+        <ImageView
+            android:id="@+id/weatherIcon_top"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/weatherWeek_top"
+            android:src="@drawable/daxue_0" />
 
         <TextView
             android:id="@+id/weatherType_top"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="天气情况" />
+
+        <TextView
+            android:id="@+id/weatherTemp_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weatherType_top"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:text="气温" />
 
         <TextView
             android:id="@+id/weatherFengXinag_top"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/weatherTemp_top"
+            android:layout_toRightOf="@id/weatherTemp_top"
+            android:text="ddddddddd" />
+
+        <TextView
+            android:id="@+id/weatherGanMao_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:text="" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/weekWeathersListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.7"
+        android:divider="#000"
+        android:dividerHeight="1dp"
+        android:scrollbars="none" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_btn_shape"
+            android:text="返回" />
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/weatherLayout_center" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-            <GridView
-                android:id="@+id/weekWeathersGridView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none" >
-            </GridView>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-</RelativeLayout>
+</LinearLayout>
