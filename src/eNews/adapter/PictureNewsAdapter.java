@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,12 +18,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 
 import eNews.activity.PictureDetailActivity;
 import eNews.app.R;
 import eNews.bean.PictureModel;
+import eNews.common.BitmapCache;
 
 public class PictureNewsAdapter extends BaseAdapter {
 
@@ -33,10 +34,13 @@ public class PictureNewsAdapter extends BaseAdapter {
 	List<ImageView> topImageLists = new ArrayList<ImageView>();
 
 	Context context;
+	private BitmapCache bitmapCache;
 
 	public PictureNewsAdapter(Context context) {
 
 		this.context = context;
+		
+		bitmapCache = BitmapCache.instance();
 
 	}
 
@@ -89,11 +93,18 @@ public class PictureNewsAdapter extends BaseAdapter {
 				.findViewById(R.id.pictureTitle);
 		title.setText(pictureModel.getTitle());
 
-		ImageRequest imageRequest = new ImageRequest(pictureModel.getKpic(),
-				new imageRequestListener(pictureImage), 80, 80,
-				Config.ARGB_8888, new imageRequestErrorListener());
+//		ImageRequest imageRequest = new ImageRequest(pictureModel.getKpic(),
+//				new imageRequestListener(pictureImage), 80, 80,
+//				Config.ARGB_8888, new imageRequestErrorListener());
+//
+//		rq.add(imageRequest);
+		
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
-		rq.add(imageRequest);
+		ImageListener listener = ImageLoader.getImageListener(pictureImage,
+				R.drawable.p1, R.drawable.p2);
+
+		imageLoader.get(pictureModel.getKpic(), listener);
 
 		picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
-import eNews.common.GetWeatherIcon;
 import eNews.common.GetWeatherIconTypeId;
 
 import android.content.Context;

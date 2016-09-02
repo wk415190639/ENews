@@ -4,7 +4,7 @@ package eNews.url;
 
 public class Url {
 	public static final String host = "http://c.m.163.com/";
-	public static final String endUrl = "-20.html";
+	public static final String endUrl = "-100.html";
 	public static final String endDetailUrl = "/full.html";
 
 	// 头条

@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,12 +18,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 
 import eNews.activity.VideoPlayActivity;
 import eNews.app.R;
 import eNews.bean.VideoModel;
+import eNews.common.BitmapCache;
 
 public class VideoNewsAdapter extends BaseAdapter {
 
@@ -34,9 +35,12 @@ public class VideoNewsAdapter extends BaseAdapter {
 
 	Context context;
 
+	private BitmapCache bitmapCache;
+
 	public VideoNewsAdapter(Context context) {
 
 		this.context = context;
+		bitmapCache = BitmapCache.instance();
 
 	}
 
@@ -90,11 +94,18 @@ public class VideoNewsAdapter extends BaseAdapter {
 				.findViewById(R.id.videoNewsItemTime);
 		time.setText(videoModel.getLength());
 
-		ImageRequest imageRequest = new ImageRequest(videoModel.getTopicImg(),
-				new imageRequestListener(videoNewsItemImg), 80, 80,
-				Config.ARGB_8888, new imageRequestErrorListener());
+//		ImageRequest imageRequest = new ImageRequest(videoModel.getTopicImg(),
+//				new imageRequestListener(videoNewsItemImg), 80, 80,
+//				Config.ARGB_8888, new imageRequestErrorListener());
+//
+//		rq.add(imageRequest);
+		
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
-		rq.add(imageRequest);
+		ImageListener listener = ImageLoader.getImageListener(videoNewsItemImg,
+				R.drawable.p1, R.drawable.p2);
+
+		imageLoader.get(videoModel.getTopicImg(), listener);
 
 		video_item.setOnClickListener(new newsItemOnclick(videoModel));
 

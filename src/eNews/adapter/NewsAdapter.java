@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,12 +18,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
 
 import eNews.activity.NewsDetailActivity;
 import eNews.app.R;
 import eNews.bean.NewsModel;
+import eNews.common.BitmapCache;
 import eNews.common.GetTypeId;
 
 public class NewsAdapter extends BaseAdapter {
@@ -32,10 +33,12 @@ public class NewsAdapter extends BaseAdapter {
 	List<NewsModel> lists = new ArrayList<NewsModel>();
 
 	Context context;
+	private BitmapCache bitmapCache;
 
 	public NewsAdapter(Context context) {
 
 		this.context = context;
+		bitmapCache = BitmapCache.instance();
 
 	}
 
@@ -92,13 +95,19 @@ public class NewsAdapter extends BaseAdapter {
 			news_item_title.setText(newsModel.getTitle());
 			news_item_digest.setText(newsModel.getDigest());
 
-			ImageRequest imageRequest = new ImageRequest(
-					newsModel.getImagesrc(), new imageRequestListener(
-							news_item_p1), 80, 80, Config.ARGB_8888,
-					new imageRequestErrorListener());
+			// ImageRequest imageRequest = new ImageRequest(
+			// newsModel.getImagesrc(), new imageRequestListener(
+			// news_item_p1), 0, 0, Config.ARGB_8888,
+			// new imageRequestErrorListener());
+			//
+			// rq.add(imageRequest);
 
-			rq.add(imageRequest);
+			ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
+			ImageListener listener = ImageLoader.getImageListener(news_item_p1,
+					R.drawable.p1, R.drawable.p2);
+
+			imageLoader.get(newsModel.getImagesrc(), listener);
 		}
 		news_item.setOnClickListener(new newsItemOnclick(newsModel));
 		return news_item;
@@ -152,4 +161,5 @@ public class NewsAdapter extends BaseAdapter {
 		}
 
 	}
+
 }

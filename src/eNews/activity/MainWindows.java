@@ -2,6 +2,7 @@ package eNews.activity;
 
 import java.lang.ref.WeakReference;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,9 +14,11 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import eNews.app.R;
 import eNews.common.HandlerWhat;
@@ -46,6 +49,8 @@ public class MainWindows extends Activity implements OnClickListener {
 	public WeatherFragment weatherFragment;
 	public MoreAboutFragment aboutFragment;
 
+	private boolean isOpen;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -54,6 +59,9 @@ public class MainWindows extends Activity implements OnClickListener {
 		init();
 		initActionBarDrawerToggle();
 		initFragment();
+
+		int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
+		System.out.println("Max memory is " + maxMemory + "m");
 
 	}
 
@@ -116,15 +124,40 @@ public class MainWindows extends Activity implements OnClickListener {
 				|| super.onOptionsItemSelected(item);
 	}
 
-	private void initActionBarDrawerToggle() {
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayShowTitleEnabled(true);
-		getActionBar().setTitle("ÐÂÎÅeÑÛ");
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		actionBar.setCustomView(R.layout.actionbar_layout);
+		actionBar.setDisplayShowCustomEnabled(true);
+
+		ImageView logo = (ImageView) actionBar.getCustomView().findViewById(
+				R.id.actionbar_logo);
+		logo.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (isOpen) {
+					drawerLayout.openDrawer(Gravity.LEFT);
+					isOpen = false;
+
+				} else {
+					drawerLayout.closeDrawer(Gravity.LEFT);
+					isOpen = true;
+				}
+			}
+		});
+
+	}
+
+	private void initActionBarDrawerToggle() {
 
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
 				R.drawable.space, R.string.app_name, R.string.app_name);
+
 	}
 
 	@Override
@@ -203,8 +236,8 @@ public class MainWindows extends Activity implements OnClickListener {
 			mainFragment = new MainFragment();
 		transaction.replace(R.id.frame_content, mainFragment);
 		transaction.commit();
-		
-		 getActionBar().show();
+
+		getActionBar().show();
 
 	}
 
@@ -213,6 +246,8 @@ public class MainWindows extends Activity implements OnClickListener {
 		@Override
 		public void onDrawerClosed(View drawerView) {
 			// TODO Auto-generated method stub
+
+			System.out.println("onDrawerClosed ->" + isOpen + "");
 			actionBarDrawerToggle.onDrawerClosed(drawerView);
 		}
 
@@ -220,6 +255,7 @@ public class MainWindows extends Activity implements OnClickListener {
 		public void onDrawerOpened(View drawerView) {
 			// TODO Auto-generated method stub
 
+			System.out.println("onDrawerClosed ->" + isOpen + "");
 			actionBarDrawerToggle.onDrawerOpened(drawerView);
 
 		}

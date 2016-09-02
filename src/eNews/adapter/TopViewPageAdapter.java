@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -22,12 +21,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 
 import eNews.activity.VideoPlayActivity;
+import eNews.app.R;
 import eNews.bean.NewsModel;
 import eNews.bean.VideoModel;
+import eNews.common.BitmapCache;
 
 public class TopViewPageAdapter extends PagerAdapter {
 
@@ -36,9 +38,12 @@ public class TopViewPageAdapter extends PagerAdapter {
 	Context context;
 	ArrayList<View> arrayList;
 
+	private BitmapCache bitmapCache;
+
 	public TopViewPageAdapter(Context context) {
 		this.context = context;
 		arrayList = new ArrayList<View>();
+		bitmapCache = BitmapCache.instance();
 	}
 
 
@@ -123,9 +128,17 @@ public class TopViewPageAdapter extends PagerAdapter {
 		
 		
 		RequestQueue rq = Volley.newRequestQueue(context);
+//		
+//		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),new imageRequestListener(iv), 400, 300, Config.ARGB_8888,new imageRequestErrorListener());
+//		rq.add(ir);
 		
-		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),new imageRequestListener(iv), 400, 300, Config.ARGB_8888,new imageRequestErrorListener());
-		rq.add(ir);
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+
+		ImageListener listener = ImageLoader.getImageListener(iv,
+				R.drawable.p1, R.drawable.p2);
+
+		imageLoader.get(lists.get(position).getImagesrc(), listener);
+	
 
 	  ((ViewPager) top_news).addView(arrayList.get(position));
 
