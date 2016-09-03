@@ -72,11 +72,15 @@ public class GetVideoNewsContent {
 					videoModel.setTitle(newsItemObject.getString("title"));
 					videoModel.setMp4Hd_url(newsItemObject
 							.getString("mp4Hd_url"));
-					videoModel.setTopicDesc(newsItemObject
-							.getString("topicDesc"));
+
+					if (!typeId.equals("00850FRB")) {
+						videoModel.setTopicDesc(newsItemObject
+								.getString("topicDesc"));
+						videoModel.setVideosource(newsItemObject
+								.getString("videosource"));
+					}
+
 					videoModel.setTopicImg(newsItemObject.getString("cover"));
-					videoModel.setVideosource(newsItemObject
-							.getString("videosource"));
 					videoModel.setMp4_url(newsItemObject.getString("mp4_url"));
 
 					videoModel.setLength(newsItemObject.getString("length"));

@@ -46,15 +46,14 @@ public class TopViewPageAdapter extends PagerAdapter {
 		bitmapCache = BitmapCache.instance();
 	}
 
-
 	public void appendList(List<NewsModel> list) {
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
-		//	System.out.println("Size ->" + lists.size() + "");
+			// System.out.println("Size ->" + lists.size() + "");
 
-			if(lists.size()<4)
-				return ;
-			
+			if (lists.size() < 4)
+				return;
+
 			arrayList = new ArrayList<View>();
 			ImageView iv;
 			TextView tv;
@@ -89,24 +88,21 @@ public class TopViewPageAdapter extends PagerAdapter {
 				relativeLayout.addView(tv);
 				arrayList.add(relativeLayout);
 
-
 			}
 
 		}
 		notifyDataSetChanged();
 
 	}
-	
 
-	public void clear()
-	{
+	public void clear() {
 		lists.clear();
 	}
-	
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return lists.size()>4?4:0;
+		return lists.size() > 4 ? 4 : 0;
 	}
 
 	@Override
@@ -118,29 +114,28 @@ public class TopViewPageAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(View top_news, final int position) {
 		// TODO Auto-generated method stub
-		
-		
-		
+
 		RelativeLayout relativeLayout = (RelativeLayout) arrayList
 				.get(position);
 		ImageView iv = (ImageView) relativeLayout.getChildAt(0);
 
-		
-		
 		RequestQueue rq = Volley.newRequestQueue(context);
-//		
-//		ImageRequest ir = new ImageRequest(lists.get(position).getImagesrc(),new imageRequestListener(iv), 400, 300, Config.ARGB_8888,new imageRequestErrorListener());
-//		rq.add(ir);
-		
-		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+		//
+		// ImageRequest ir = new
+		// ImageRequest(lists.get(position).getImagesrc(),new
+		// imageRequestListener(iv), 400, 300, Config.ARGB_8888,new
+		// imageRequestErrorListener());
+		// rq.add(ir);
 
-		ImageListener listener = ImageLoader.getImageListener(iv,
-				R.drawable.p1, R.drawable.p2);
-
-		imageLoader.get(lists.get(position).getImagesrc(), listener);
-	
-
-	  ((ViewPager) top_news).addView(arrayList.get(position));
+		/*
+		 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+		 * 
+		 * ImageListener listener = ImageLoader.getImageListener(iv,
+		 * R.drawable.p1, R.drawable.p2);
+		 * 
+		 * imageLoader.get(lists.get(position).getImagesrc(), listener);
+		 */
+		((ViewPager) top_news).addView(arrayList.get(position));
 
 		return arrayList.get(position);
 
@@ -151,7 +146,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 		// TODO Auto-generated method stub
 		((ViewPager) container).removeView(arrayList.get(position));
 	}
-	
+
 	@Override
 	public int getItemPosition(Object object) {
 		// TODO Auto-generated method stub
@@ -172,7 +167,6 @@ public class TopViewPageAdapter extends PagerAdapter {
 			// TODO Auto-generated method stub
 
 			iv.setImageBitmap(bitmap);
-		
 
 		}
 
@@ -208,6 +202,5 @@ public class TopViewPageAdapter extends PagerAdapter {
 		}
 
 	}
-	
-	
+
 }

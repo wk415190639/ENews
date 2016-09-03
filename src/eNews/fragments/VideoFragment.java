@@ -2,6 +2,19 @@ package eNews.fragments;
 
 import java.util.List;
 
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import eNews.activity.MainWindows;
 import eNews.adapter.VideoNewsActionBarAdapter;
 import eNews.adapter.VideoNewsAdapter;
@@ -10,17 +23,6 @@ import eNews.bean.VideoModel;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
 import eNews.httpContent.GetVideoNewsContent;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class VideoFragment extends Fragment {
 
@@ -28,6 +30,9 @@ public class VideoFragment extends Fragment {
 	private ActionBarView actionBarView;
 	public VideoNewsAdapter newsAdapter;
 	private ListView videoList;
+	private String selectTag;
+	private int pageCount = 0;
+	private boolean isLoadContent = false;
 
 	private Button backBtn;
 
@@ -38,7 +43,7 @@ public class VideoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		getActivity().getActionBar().hide();
 		view = inflater.inflate(R.layout.video_news, null);
-
+		selectTag = "热点";
 		backBtn = (Button) view.findViewById(R.id.backBtn);
 		backBtn.setOnClickListener(new OnClickListener() {
 
@@ -60,8 +65,38 @@ public class VideoFragment extends Fragment {
 
 		newsAdapter = new VideoNewsAdapter(getActivity());
 		videoList.setAdapter(newsAdapter);
-		GetVideoNewsContent.getNewsContent(GetTypeId.getTypeId("热点视频"), "0",
-				VideoFragment.this);
+		GetVideoNewsContent.getNewsContent(
+				GetTypeId.getTypeId(selectTag + "视频"),
+				String.valueOf(pageCount), VideoFragment.this);
+
+		videoList.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+
+				if (videoList.getLastVisiblePosition() == (videoList.getCount() - 1)) {
+
+					System.out.println("到底了");
+					if (!isLoadContent) {
+						isLoadContent=true;
+						String typeId = GetTypeId.getTypeId(selectTag + "视频");
+						GetVideoNewsContent.getNewsContent(typeId,
+								String.valueOf(pageCount++ * 20),
+								VideoFragment.this);
+					}
+
+				}
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		return view;
 	}
@@ -78,19 +113,20 @@ public class VideoFragment extends Fragment {
 			String text = ((TextView) tv
 					.findViewById(R.id.gridview_bar_item_Tv)).getText()
 					.toString();
-
-			String typeId = GetTypeId.getTypeId(text + "视频");
+			selectTag = text;
+			pageCount = 0;
+			newsAdapter.clear();
+			String typeId = GetTypeId.getTypeId(selectTag + "视频");
 			System.out.println(typeId);
-			GetVideoNewsContent.getNewsContent(typeId, "0", VideoFragment.this);
+			GetVideoNewsContent.getNewsContent(typeId,
+					String.valueOf(pageCount), VideoFragment.this);
 		}
 	}
 
 	public void updateAdapter(List<VideoModel> lists) {
 
-		if (newsAdapter.getCount() > 0) {
-			newsAdapter.clear();
-		}
 		newsAdapter.appendList(lists);
+		isLoadContent=false;
 	}
 
 }

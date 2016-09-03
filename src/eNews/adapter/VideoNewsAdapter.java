@@ -76,39 +76,56 @@ public class VideoNewsAdapter extends BaseAdapter {
 		return position;
 	}
 
+	class ViewHolder {
+		public ImageView videoNewsItemImg;
+		public TextView videoNewsItemTime;
+		public TextView videoNewsItemTitle;
+
+	}
+
 	@Override
 	public View getView(final int position, View video_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		RequestQueue rq = Volley.newRequestQueue(context);
-		if (video_item == null)
+		ViewHolder viewHolder = null;
+		VideoModel videoModel = lists.get(position);
+		if (video_item == null) {
 			video_item = LayoutInflater.from(context).inflate(
 					R.layout.videonews_item, null);
-		VideoModel videoModel = lists.get(position);
-		ImageView videoNewsItemImg = (ImageView) video_item
-				.findViewById(R.id.videoNewsItemImg);
+			viewHolder = new ViewHolder();
 
-		TextView title = (TextView) video_item
-				.findViewById(R.id.videoNewsItemTitle);
-		title.setText(videoModel.getTitle());
-		TextView time = (TextView) video_item
-				.findViewById(R.id.videoNewsItemTime);
-		time.setText(videoModel.getLength());
+			viewHolder.videoNewsItemImg = (ImageView) video_item
+					.findViewById(R.id.videoNewsItemImg);
+			viewHolder.videoNewsItemTime = (TextView) video_item
+					.findViewById(R.id.videoNewsItemTime);
+			viewHolder.videoNewsItemTitle = (TextView) video_item
+					.findViewById(R.id.videoNewsItemTitle);
+			video_item.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) video_item.getTag();
+			viewHolder.videoNewsItemTitle.setText(videoModel.getTitle());
+			viewHolder.videoNewsItemTime.setText(videoModel.getLength());
 
-//		ImageRequest imageRequest = new ImageRequest(videoModel.getTopicImg(),
-//				new imageRequestListener(videoNewsItemImg), 80, 80,
-//				Config.ARGB_8888, new imageRequestErrorListener());
-//
-//		rq.add(imageRequest);
-		
-		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+		}
 
-		ImageListener listener = ImageLoader.getImageListener(videoNewsItemImg,
-				R.drawable.p1, R.drawable.p2);
+		// ImageRequest imageRequest = new
+		// ImageRequest(videoModel.getTopicImg(),
+		// new imageRequestListener(videoNewsItemImg), 80, 80,
+		// Config.ARGB_8888, new imageRequestErrorListener());
+		//
+		// rq.add(imageRequest);
 
-		imageLoader.get(videoModel.getTopicImg(), listener);
-
-		video_item.setOnClickListener(new newsItemOnclick(videoModel));
-
+		/*
+		 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+		 * 
+		 * ImageListener listener =
+		 * ImageLoader.getImageListener(videoNewsItemImg, R.drawable.p1,
+		 * R.drawable.p2);
+		 * 
+		 * imageLoader.get(videoModel.getTopicImg(), listener);
+		 * 
+		 * video_item.setOnClickListener(new newsItemOnclick(videoModel));
+		 */
 		return video_item;
 	}
 

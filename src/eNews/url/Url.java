@@ -4,7 +4,7 @@ package eNews.url;
 
 public class Url {
 	public static final String host = "http://c.m.163.com/";
-	public static final String endUrl = "-100.html";
+	public static final String endUrl = "-20.html";
 	public static final String endDetailUrl = "/full.html";
 
 	// 头条
@@ -83,6 +83,11 @@ public class Url {
 	// 房产id
 	public static final String FangChanId = "5YyX5Lqs";
 
+	
+	
+	//美女   图片
+	
+	
 	// 图集
 	public static final String TuJi = host
 			+ "photo/api/morelist/0096/4GJ60096/";// 42358.json
@@ -98,17 +103,20 @@ public class Url {
 	// 明星 42599.json
 	public static final String TuPianMingXing = host
 			+ "photo/api/morelist/0096/54GK0096/";
-	// 明星 42262.json
+	// 体坛 42262.json
 	public static final String TuPianTiTan = host
 			+ "photo/api/morelist/0096/54GM0096/";
 	// 美图 39683.json
 	public static final String TuPianMeiTu = host
 			+ "photo/api/morelist/0096/54GN0096/";
 
-	// 视频 http://c.3g.163.com/nc/video/list/V9LG4B3A0/n/10-10.html
+	
+	
+	
+	// 视频 http://c.3g.163.com/nc/video/list/00850FRB/n/10-10.html
 	public static final String Video = host + "nc/video/list/";
 	public static final String VideoCenter = "/n/";
-	public static final String videoEndUrl = "-10.html";
+	public static final String videoEndUrl = "-20.html";
 	// 热点视频
 	public static final String VideoReDianId = "V9LG4B3A0";
 	// 娱乐视频

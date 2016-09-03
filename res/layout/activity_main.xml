@@ -44,22 +44,33 @@
             android:text="+" />
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/topViewPager"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="14.5" >
-    </android.support.v4.view.ViewPager>
+        android:layout_weight="23.5" >
 
-    <ListView
-        android:id="@+id/newsListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="19"
-        android:background="@color/list_view_bg"
-        android:divider="@color/list_view_divier"
-        android:dividerHeight="1dp"
-        android:padding="5dp" >
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/topViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" >
+            </android.support.v4.view.ViewPager>
+
+            <eNews.customview.NewsListView
+                android:id="@+id/newsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/list_view_bg"
+                android:divider="@color/list_view_divier"
+                android:dividerHeight="1dp"
+                android:padding="5dp" >
+            </eNews.customview.NewsListView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

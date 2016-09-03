@@ -128,9 +128,9 @@ public class GetTypeId {
 		}
 	}
 
-	public static boolean isBvNews(String postId) {
+	public static boolean isBvNews(String docId) {
 
-		String capture = postId.substring(0, 1);
+		String capture = docId.substring(0, 1);
 		if (capture.equals("P"))
 			return false;
 

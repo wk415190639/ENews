@@ -177,7 +177,8 @@ public class WeatherFragment extends Fragment {
 				locationListener);
 		location = locationManager.getLastKnownLocation(locationProvider);
 		if (location == null)
-			Toast.makeText(getActivity(), "正在定位...........", 1).show();
+			Toast.makeText(getActivity(), "正在定位...........", Toast.LENGTH_SHORT)
+					.show();
 		else
 			getLocationJson(location);
 	}

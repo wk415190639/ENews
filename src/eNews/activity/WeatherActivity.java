@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +22,6 @@ public class WeatherActivity extends Activity {
 	private TextView TopTypeTv;
 	private TextView TopFengXiangTv;
 	public GridView weekWeathersGridView;
-
-	private Button getLocateCityBtn;
 
 	private WeatherAdapter weatherAdapter;
 

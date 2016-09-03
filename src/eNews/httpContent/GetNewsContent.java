@@ -34,14 +34,16 @@ public class GetNewsContent {
 	static public void getNewsContent(String url, String typeId,
 			String startNum, MainFragment mainActivity) {
 
+		String httpUrl = Url.host + url + typeId + "/" + startNum + Url.endUrl;
 		JSONObject jsonObject = null;
 		RequestQueue queue = Volley.newRequestQueue(mainActivity.getActivity()
 				.getApplicationContext());
 
-		JsonObjectRequest jrq = new JsonObjectRequest(Url.host + url + typeId
-				+ "/" + startNum + Url.endUrl, jsonObject, new JsonListener(
-				mainActivity, typeId), new JsonErrorListener());
+		JsonObjectRequest jrq = new JsonObjectRequest(httpUrl, jsonObject,
+				new JsonListener(mainActivity, typeId), new JsonErrorListener());
 		queue.add(jrq);
+
+		System.out.println(httpUrl);
 
 	}
 
@@ -66,18 +68,20 @@ public class GetNewsContent {
 			try {
 				JSONArray rootAyyar = jo.getJSONArray(typeId);
 
-				for (int i = 0; i < rootAyyar.length(); i++) {
+
+				for (int i = 0; i <rootAyyar.length(); i++) {
+					
 					JSONObject newsItemObject = rootAyyar.getJSONObject(i);
-					if (GetTypeId.isBvNews(newsItemObject.getString("postid"))) {
+					//if (GetTypeId.isBvNews(newsItemObject.getString("postid"))) {
 						newsModel = new NewsModel();
 						newsModel.setTitle(newsItemObject.getString("title"));
 						newsModel.setDigest(newsItemObject.getString("digest"));
 						newsModel.setImagesrc(newsItemObject
 								.getString("imgsrc"));
-						newsModel.setPostid(newsItemObject.getString("postid"));
+						//newsModel.setPostid(newsItemObject.getString("postid"));
 						newsModel.setDocid(newsItemObject.getString("docid"));
 						lists.add(newsModel);
-					}
+				//	}
 				}
 				mainFragment.updateAdapter(lists);
 			} catch (JSONException e) {

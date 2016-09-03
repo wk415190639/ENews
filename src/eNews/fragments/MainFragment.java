@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
@@ -26,27 +28,33 @@ import eNews.app.R;
 import eNews.bean.NewsModel;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
+import eNews.customview.NewsListView;
 import eNews.dao.ChannelManage;
 import eNews.httpContent.GetNewsContent;
 import eNews.url.Url;
 
 public class MainFragment extends Fragment {
 
+	private int TopCount;
 	private View view;
 	public NewsAdapter newsAdapter;
 	public NewsActionBarAdapter actionbarAdapter;
 	public TopViewPageAdapter topViewPageAdapter;
-	public ListView newsListView;
+	public NewsListView newsListView;
 	public ViewPager topViewPager;
 	public ActionBarView actionBar;
 	private TextView channelManageBtn;
+	ScrollView scrollView;
+	private String selectTag;
+	private int pageCount = 1;
+	private boolean isLoadContent = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.activity_main, null);
-		newsListView = (ListView) view.findViewById(R.id.newsListView);
+		newsListView = (NewsListView) view.findViewById(R.id.newsListView);
 		topViewPager = (ViewPager) view.findViewById(R.id.topViewPager);
 		actionBar = (ActionBarView) view.findViewById(R.id.actionBar);
 		channelManageBtn = (TextView) view.findViewById(R.id.channelManageBtn);
@@ -69,7 +77,7 @@ public class MainFragment extends Fragment {
 				newsAdapter);
 		LvAnimationAdapter.setAbsListView(newsListView);
 		newsListView.setAdapter(LvAnimationAdapter);
-
+		selectTag="头条";
 		GetNewsContent.getNewsContent("nc/article/headline/", Url.TopId, "0",
 				this);
 
@@ -83,7 +91,53 @@ public class MainFragment extends Fragment {
 			}
 		});
 
+		scrollView = (ScrollView) view.findViewById(R.id.scrollView1);
+
+		scrollView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+
+				if (scrollView.getHeight() + scrollView.getScrollY() >= getNewsListViewHeight()) {
+					System.out.println(scrollView.getHeight()
+							+ scrollView.getScrollY() + "在底部"
+							+ getNewsListViewHeight());
+
+			
+
+					// System.out.println(GetTypeId.getTypeId(text));
+
+					String typeId = GetTypeId.getTypeId(selectTag);
+
+					
+					
+					if (!isLoadContent) {
+						isLoadContent = true;
+					if(selectTag.equals("头条"))
+					{
+						GetNewsContent.getNewsContent("nc/article/list/headline/",
+								typeId, String.valueOf(pageCount++ * 20),
+								MainFragment.this);
+					}
+					else
+					{
+						GetNewsContent.getNewsContent("nc/article/list/",
+								typeId, String.valueOf(pageCount++ * 20),
+								MainFragment.this);
+					}
+
+					}
+				}
+				return false;
+			}
+		});
 		return view;
+	}
+
+	private int getNewsListViewHeight() {
+		return scrollView.getChildAt(0).getMeasuredHeight();
+
 	}
 
 	@Override
@@ -94,25 +148,26 @@ public class MainFragment extends Fragment {
 		actionbarAdapter.updateList(ChannelManage.getInstance(getActivity())
 				.getDefaultUserChannelsList());
 		actionBar.setSelection(0);
-			
+
 		System.out.println("onActivityResult");
 
 	}
 
 	public void updateAdapter(List<NewsModel> lists) {
 
-		if (newsAdapter.getCount() > 0) {
-			newsAdapter.clear();
-		}
-		if (topViewPageAdapter.getCount() > 0) {
-			topViewPageAdapter.clear();
-			topViewPager.removeAllViews();
+		if (!isLoadContent) {
+			if (topViewPageAdapter.getCount() > 0) {
+				topViewPageAdapter.clear();
+				topViewPager.removeAllViews();
 
+			}
+			topViewPageAdapter.appendList(lists);
 		}
-
 		newsAdapter.appendList(lists);
-		topViewPageAdapter.appendList(lists);
 
+		TopCount = topViewPageAdapter.getCount();
+		// new ScrollTopWindow().start();
+		isLoadContent = false;
 		System.out.println("--------appendList");
 	}
 
@@ -122,22 +177,69 @@ public class MainFragment extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View tv, int position,
 				long id) {
 
-			String text = ((TextView) tv.findViewById(R.id.gridview_bar_item_Tv)).getText().toString();
-
+			TopCount = 0;
+			String text = ((TextView) tv
+					.findViewById(R.id.gridview_bar_item_Tv)).getText()
+					.toString();
+			selectTag=text;
 			// System.out.println(GetTypeId.getTypeId(text));
 
 			String typeId = GetTypeId.getTypeId(text);
 
-			newsListView.setSelection(0);
 			topViewPager.setCurrentItem(0);
-			GetNewsContent.getNewsContent("nc/article/headline/", typeId, "0",
+			pageCount =0;
+			newsAdapter.clear();
+			GetNewsContent.getNewsContent("nc/article/list/", typeId, String.valueOf(pageCount),
 					MainFragment.this);
 
 			actionbarAdapter.setSelectedIndex(position);
 			actionbarAdapter.notifyDataSetChanged();
+	
 
 		}
 
+	}
+
+	class ScrollTopWindow extends Thread {
+
+		private boolean start = true;
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			super.run();
+
+			try {
+
+				while (start) {
+
+					Thread.sleep(5000);
+
+					getActivity().runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if (TopCount > 0)
+								topViewPager.setCurrentItem((topViewPager
+										.getCurrentItem() + 1) % TopCount);
+
+						}
+					});
+				}
+
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		public void stopScroll() {
+			if (start) {
+				start = false;
+			}
+		}
 	}
 
 }

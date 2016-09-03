@@ -115,14 +115,14 @@ public final class R {
     public static final class id {
         public static final int LinearLayout1=0x7f080003;
         public static final int RelativeLayout1=0x7f080000;
-        public static final int TextView01=0x7f08000a;
+        public static final int TextView01=0x7f08000b;
         public static final int TextView04=0x7f08000f;
         public static final int actionBar=0x7f080005;
         public static final int actionbar_logo=0x7f080001;
         public static final int actionbar_title=0x7f080002;
         public static final int backBtn=0x7f080035;
         public static final int button1=0x7f080042;
-        public static final int channelManageBack=0x7f080009;
+        public static final int channelManageBack=0x7f08000a;
         public static final int channelManageBtn=0x7f080006;
         public static final int drawerLayout=0x7f080012;
         public static final int frame_content=0x7f080013;
@@ -146,7 +146,7 @@ public final class R {
         public static final int menuTop=0x7f080015;
         public static final int menuVideo=0x7f08001b;
         public static final int menuWeather=0x7f08001d;
-        public static final int newsListView=0x7f080008;
+        public static final int newsListView=0x7f080009;
         public static final int news_detail_text=0x7f080028;
         public static final int news_item=0x7f080029;
         public static final int news_item_detail_content=0x7f080033;
@@ -166,14 +166,14 @@ public final class R {
         public static final int pictureNewsactionBar=0x7f080036;
         public static final int pictureTitle=0x7f080039;
         public static final int pictureViewPager=0x7f080034;
-        public static final int scrollView1=0x7f08000b;
+        public static final int scrollView1=0x7f080007;
         public static final int surface_view=0x7f080041;
         public static final int textView1=0x7f08000c;
         public static final int textView2=0x7f08000d;
         public static final int textView3=0x7f08001f;
         public static final int textView4=0x7f080022;
         public static final int topNewsImg=0x7f08003b;
-        public static final int topViewPager=0x7f080007;
+        public static final int topViewPager=0x7f080008;
         public static final int tv1=0x7f080018;
         public static final int userChannelGV=0x7f08000e;
         public static final int videoList=0x7f08003d;

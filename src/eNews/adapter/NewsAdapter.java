@@ -31,7 +31,7 @@ import eNews.common.GetTypeId;
 public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
-
+	long sumTime;
 	Context context;
 	private BitmapCache bitmapCache;
 
@@ -74,41 +74,74 @@ public class NewsAdapter extends BaseAdapter {
 		return position;
 	}
 
+	class ViewHolder {
+		public ImageView news_item_p1;
+		public TextView news_item_title;
+		public TextView news_item_digest;
+
+	}
+
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		long startTime = System.nanoTime();
 		NewsModel newsModel = lists.get(position);
-		if (news_item == null)
+		ViewHolder viewHolder = null;
+		 ImageView iv = null;
+
+		if (news_item == null) {
+
+			viewHolder = new ViewHolder();
 			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
-		if (GetTypeId.isBvNews(newsModel.getPostid())) {
-			RequestQueue rq = Volley.newRequestQueue(context);
 
-			final ImageView news_item_p1 = (ImageView) news_item
+			//viewHolder.news_item_p1
+			viewHolder.news_item_p1= (ImageView) news_item
 					.findViewById(R.id.news_item_p1);
 
-			TextView news_item_title = (TextView) news_item
+			viewHolder.news_item_title = (TextView) news_item
 					.findViewById(R.id.news_item_title);
-			TextView news_item_digest = (TextView) news_item
+			viewHolder.news_item_digest = (TextView) news_item
 					.findViewById(R.id.news_item_digest);
 
-			news_item_title.setText(newsModel.getTitle());
-			news_item_digest.setText(newsModel.getDigest());
+			viewHolder.news_item_title.setText(newsModel.getTitle());
+			viewHolder.news_item_digest.setText(newsModel.getDigest());
+			news_item.setTag(viewHolder);
+			System.out.println("setTag");
 
-			// ImageRequest imageRequest = new ImageRequest(
-			// newsModel.getImagesrc(), new imageRequestListener(
-			// news_item_p1), 0, 0, Config.ARGB_8888,
-			// new imageRequestErrorListener());
-			//
-			// rq.add(imageRequest);
+		} else {
+			if (GetTypeId.isBvNews(newsModel.getDocid())) {
 
-			ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+				
+				viewHolder = (ViewHolder) news_item.getTag();
+				viewHolder.news_item_title.setText(newsModel.getTitle());
+				viewHolder.news_item_digest.setText(newsModel.getDigest());
 
-			ImageListener listener = ImageLoader.getImageListener(news_item_p1,
-					R.drawable.p1, R.drawable.p2);
+				RequestQueue rq = Volley.newRequestQueue(context);
+				// ImageRequest imageRequest = new ImageRequest(
+				// newsModel.getImagesrc(), new imageRequestListener(
+				// news_item_p1), 0, 0, Config.ARGB_8888,
+				// new imageRequestErrorListener());
+				//
+				// rq.add(imageRequest);
+/*
+				ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
-			imageLoader.get(newsModel.getImagesrc(), listener);
+				ImageListener listener = ImageLoader.getImageListener(
+						iv, R.drawable.p1, R.drawable.p2);
+
+				imageLoader.get(newsModel.getImagesrc(), listener);
+*/
+			}
 		}
+
+		long endTime = System.nanoTime();
+		// ºÄÊ±
+		long spendTime = (endTime - startTime);
+
+		sumTime += spendTime;
+		System.out.println("position at:" + position + "--sumTime:"
+				+ String.valueOf(sumTime));
 		news_item.setOnClickListener(new newsItemOnclick(newsModel));
 		return news_item;
 	}
