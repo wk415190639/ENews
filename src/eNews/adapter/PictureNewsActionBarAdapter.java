@@ -16,7 +16,7 @@ public class PictureNewsActionBarAdapter extends BaseAdapter {
 	private String[] actionbarList;
 
 	public PictureNewsActionBarAdapter(Context context) {
-		actionbarList = new String[] { "精选", "趣图", "美图", "故事" };
+		actionbarList = new String[] { "精选", "体坛", "美图" };
 		this.context = context;
 
 	}

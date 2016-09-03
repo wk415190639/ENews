@@ -33,18 +33,20 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 	List<ImageView> topImageLists = new ArrayList<ImageView>();
 
+	private String selectTag;
 	Context context;
 	private BitmapCache bitmapCache;
 
 	public PictureNewsAdapter(Context context) {
 
 		this.context = context;
-		
+		selectTag = "¾«Æ·";
 		bitmapCache = BitmapCache.instance();
 
 	}
 
-	public void appendList(List<PictureModel> list) {
+	public void appendList(List<PictureModel> list, String selectTag) {
+		this.selectTag = selectTag;
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
 
@@ -76,38 +78,78 @@ public class PictureNewsAdapter extends BaseAdapter {
 		return position;
 	}
 
+	static class ViewHolder {
+		private ImageView pictureImage;
+		private TextView title;
+
+	}
+
 	@Override
 	public View getView(final int position, View picture_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
+
 		RequestQueue rq = Volley.newRequestQueue(context);
-		if (picture_item == null)
-			picture_item = LayoutInflater.from(context).inflate(
-					R.layout.picturenews_item, null);
-
 		final PictureModel pictureModel = lists.get(position);
+		ViewHolder holder = null;
 
-		final ImageView pictureImage = (ImageView) picture_item
-				.findViewById(R.id.pictureImage);
+		if (!selectTag.equals("ÃÀÍ¼")) {
 
-		TextView title = (TextView) picture_item
-				.findViewById(R.id.pictureTitle);
-		title.setText(pictureModel.getTitle());
+			if (picture_item == null) {
+				picture_item = LayoutInflater.from(context).inflate(
+						R.layout.picturenews_item, null);
+				holder = new ViewHolder();
+				holder.pictureImage = (ImageView) picture_item
+						.findViewById(R.id.pictureImage);
 
-//		ImageRequest imageRequest = new ImageRequest(pictureModel.getKpic(),
-//				new imageRequestListener(pictureImage), 80, 80,
-//				Config.ARGB_8888, new imageRequestErrorListener());
-//
-//		rq.add(imageRequest);
-		
-		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+				holder.title = (TextView) picture_item
+						.findViewById(R.id.pictureTitle);
+				holder.title.setText(pictureModel.getSetName());
+				picture_item.setTag(holder);
 
-		ImageListener listener = ImageLoader.getImageListener(pictureImage,
-				R.drawable.p1, R.drawable.p2);
+			} else {
 
-		imageLoader.get(pictureModel.getKpic(), listener);
+				holder = (ViewHolder) picture_item.getTag();
+				holder.title.setText(pictureModel.getSetName());
+			}
 
-		picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
+			// ImageRequest imageRequest = new
+			// ImageRequest(pictureModel.getKpic(),
+			// new imageRequestListener(pictureImage), 80, 80,
+			// Config.ARGB_8888, new imageRequestErrorListener());
+			//
+			// rq.add(imageRequest);
+			/*
+			 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+			 * 
+			 * ImageListener listener =
+			 * ImageLoader.getImageListener(pictureImage, R.drawable.p1,
+			 * R.drawable.p2);
+			 * 
+			 * imageLoader.get(pictureModel.getKpic(), listener);
+			 * 
+			 * picture_item.setOnClickListener(new
+			 * newsItemOnclick(pictureModel));
+			 */
+		} else {
 
+			if (picture_item == null) {
+				picture_item = LayoutInflater.from(context).inflate(
+						R.layout.picturenews_item, null);
+				holder = new ViewHolder();
+				holder.pictureImage = (ImageView) picture_item
+						.findViewById(R.id.pictureImage);
+
+				holder.title = (TextView) picture_item
+						.findViewById(R.id.pictureTitle);
+				holder.title.setText(pictureModel.getTitle());
+				picture_item.setTag(holder);
+
+			} else {
+
+				holder = (ViewHolder) picture_item.getTag();
+				holder.title.setText(pictureModel.getTitle());
+			}
+		}
 		return picture_item;
 	}
 
@@ -153,7 +195,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(context, PictureDetailActivity.class);
-			intent.putExtra("kpic", pictureModel.getId());
+			// intent.putExtra("kpic", pictureModel.getId());
 			context.startActivity(intent);
 
 		}

@@ -11,44 +11,35 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import eNews.bean.PictureModel;
 import eNews.fragments.PictureFragment;
+import eNews.url.Url;
 
 public class GetPictureNewsContent {
-
-	// // 精选列表
-	// public static final String JINGXUAN_ID =
-	// "http://api.sina.cn/sinago/list.json?channel=hdpic_toutiao&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=&imei=867064013906290&uid=802909da86d9f5fc&p=";
-	// // 图片详情
-	// public static final String JINGXUANDETAIL_ID =
-	// "http://api.sina.cn/sinago/article.json?postt=hdpic_hdpic_toutiao_4&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&id=";
-	// // 趣图列表
-	// public static final String QUTU_ID =
-	// "http://api.sina.cn/sinago/list.json?channel=hdpic_funny&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
-	// // 美图列表
-	// public static final String MEITU_ID =
-	// "http://api.sina.cn/sinago/list.json?channel=hdpic_pretty&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
-	// // 故事列表
-	// public static final String GUSHI_ID =
-	// "http://api.sina.cn/sinago/list.json?channel=hdpic_story&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
 
 	static public void getNewsContent(String url,
 			PictureFragment pictureFragment) {
 
-		JSONObject jsonObject = null;
+		// http://c.m.163.comphoto/api/morelist/0096/54GM0096/ 42262.json
+
+		System.out.println(url);
 		RequestQueue queue = Volley.newRequestQueue(pictureFragment
 				.getActivity());
 
-		JsonObjectRequest jrq = new JsonObjectRequest(url, jsonObject,
-				new JsonListener(pictureFragment), new JsonErrorListener());
-		queue.add(jrq);
+		JsonArrayRequest jaq = new JsonArrayRequest(url, new JsonListener(
+				pictureFragment), new JsonErrorListener());
+
+		// new JsonArrayRequest(url, null,
+		// new JsonListener(pictureFragment), ));
+		queue.add(jaq);
 
 	}
 
-	static class JsonListener implements Listener<JSONObject> {
+	static class JsonListener implements Listener<JSONArray> {
 
 		private PictureFragment pictureFragment;
 
@@ -59,35 +50,92 @@ public class GetPictureNewsContent {
 		}
 
 		@Override
-		public void onResponse(final JSONObject jo) {
+		public void onResponse(JSONArray ja) {
 
-			// System.out.println("Josn OK->" + jo.toString());
 			PictureModel pictureModel;
 			final List<PictureModel> lists = new ArrayList<PictureModel>();
 			try {
-				JSONObject dataJsonObject = jo.getJSONObject("data");
-				JSONArray rootAyyar = dataJsonObject.getJSONArray("list");
-				for (int i = 0; i < rootAyyar.length(); i++) {
 
-					JSONObject newsItemObject = rootAyyar.getJSONObject(i);
+				for (int i = 0; i < ja.length(); i++) {
+
+					JSONObject newsItemObject = ja.getJSONObject(i);
 					pictureModel = new PictureModel();
-					pictureModel.setId(newsItemObject.getString("id"));
-					pictureModel.setKpic(newsItemObject.getString("kpic"));
-					pictureModel.setLong_title(newsItemObject
-							.getString("long_title"));
+
+					pictureModel.setSetId(newsItemObject.getString("setid"));
+					pictureModel.setSetName(newsItemObject.getString("setname"));
+					System.out.println(pictureModel.getSetId());
+					lists.add(pictureModel);
+				}
+
+				pictureFragment.updateAdapter(lists);
+
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
+	static public void getMeiTuContent(String url,
+			PictureFragment pictureFragment) {
+
+		// http://c.m.163.comphoto/api/morelist/0096/54GM0096/ 42262.json
+
+		System.out.println(url);
+		RequestQueue queue = Volley.newRequestQueue(pictureFragment
+				.getActivity());
+
+		JsonObjectRequest joq = new JsonObjectRequest(url, null,
+				new JsonObjectListener(pictureFragment),
+				new JsonErrorListener());
+		queue.add(joq);
+
+	}
+
+	static class JsonObjectListener implements Listener<JSONObject> {
+		private PictureFragment pictureFragment;
+
+		public JsonObjectListener(PictureFragment pictureFragment) {
+			// TODO Auto-generated constructor stub
+			this.pictureFragment = pictureFragment;
+		}
+
+		@Override
+		public void onResponse(JSONObject jo) {
+			// TODO Auto-generated method stub
+			PictureModel pictureModel;
+			final List<PictureModel> lists = new ArrayList<PictureModel>();
+			try {
+
+				JSONArray root = jo.getJSONArray("美女");
+
+				for (int i = 0; i < root.length(); i++) {
+
+					JSONObject newsItemObject = root.getJSONObject(i);
+					pictureModel = new PictureModel();
+
+					pictureModel.setDigest(newsItemObject.getString("digest"));
+
+					pictureModel.setDocid(newsItemObject.getString("docid"));
+					pictureModel.setDownTimes(newsItemObject
+							.getString("downTimes"));
+					pictureModel.setImg(newsItemObject.getString("img"));
+					pictureModel.setImg(newsItemObject.getString("imgsrc"));
+					pictureModel.setSource(newsItemObject.getString("source"));
 					pictureModel.setTitle(newsItemObject.getString("title"));
+					pictureModel
+							.setUpTimes(newsItemObject.getString("upTimes"));
 
 					lists.add(pictureModel);
 				}
 
 				pictureFragment.updateAdapter(lists);
 
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception e) {
+
 			}
 
 		}
+
 	}
 
 	static class JsonErrorListener implements ErrorListener {

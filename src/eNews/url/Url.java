@@ -84,13 +84,21 @@ public class Url {
 	public static final String FangChanId = "5YyX5Lqs";
 
 	
+	// 美 图
+  public static final String TuPianMeitu=	"http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138&size=20&offset=";
+	//体育
 	
-	//美女   图片
+	// 体坛 42262.json
+	public static final String TuPianTiTanInit = host
+			+ "photo/api/morelist/0096/54GM0096/42262.json";	
+	// 初始图集
+	public static final String TuJiInit = host
+			+ "photo/api/list/0096/54GI0096.json";// 42358.json
 	
-	
-	// 图集
 	public static final String TuJi = host
-			+ "photo/api/morelist/0096/4GJ60096/";// 42358.json
+			+ "photo/api/morelist/0096/54GI0096/";// 42358.json
+	
+	
 	// 图集end
 	public static final String TuJiEnd = ".json";
 
@@ -103,16 +111,13 @@ public class Url {
 	// 明星 42599.json
 	public static final String TuPianMingXing = host
 			+ "photo/api/morelist/0096/54GK0096/";
-	// 体坛 42262.json
-	public static final String TuPianTiTan = host
-			+ "photo/api/morelist/0096/54GM0096/";
-	// 美图 39683.json
-	public static final String TuPianMeiTu = host
-			+ "photo/api/morelist/0096/54GN0096/";
 
-	
-	
-	
+
+	// http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138
+	// &size=20&offset=40&fn=1&passport=&devId=1W%2FpqPI0eimZMOMbswN2gw%3D%3D&lat=w7Ifc7bHs%2Bfw2bqO4TuUNw%3D%3D&lon=KuBH1jAZjiNo60aoq4e1Ag%3D%3D&version=14.2&net=wifi&ts=1472895595&sign=sU4j0lqP9jfsfmwV9dwTTAGpFOwYk2mWrXTRAA3nHPh48ErR02zJ6%2FKXOnxX046I&encryption=1&canal=meizu_store2014_news&mac=oHWFn0cEzVi3yidKr0L43U8dvF5D%2FPPigcKX35%2FLlyc%3D
+
+	// http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138
+
 	// 视频 http://c.3g.163.com/nc/video/list/00850FRB/n/10-10.html
 	public static final String Video = host + "nc/video/list/";
 	public static final String VideoCenter = "/n/";

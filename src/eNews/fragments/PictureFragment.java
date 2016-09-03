@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -18,9 +20,9 @@ import eNews.adapter.PictureNewsActionBarAdapter;
 import eNews.adapter.PictureNewsAdapter;
 import eNews.app.R;
 import eNews.bean.PictureModel;
-import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
 import eNews.httpContent.GetPictureNewsContent;
+import eNews.url.Url;
 
 public class PictureFragment extends Fragment {
 
@@ -30,13 +32,57 @@ public class PictureFragment extends Fragment {
 	private ListView pictureListView;
 	private PictureNewsActionBarAdapter pictureNewsActionBarAdapter;
 	private PictureNewsAdapter pictureNewsAdapter;
+	private String finalLink;
+	
+
+	private String selectTag;
+	private int pageCount = 1;
+	private boolean isLoadContent = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.picture_news, null);
-
+		selectTag = "精选";
 		init();
+
+		pictureListView.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+
+				if (pictureListView.getLastVisiblePosition() == (pictureListView
+						.getCount() - 1)) {
+
+					System.out.println("到底了");
+					if (!isLoadContent) {
+						isLoadContent = true;
+						String url = "";
+						if (selectTag.equals("美图")) {
+							url = Url.TuPianMeitu
+									+ String.valueOf(pageCount++ * 20);
+							GetPictureNewsContent.getMeiTuContent(url,
+									PictureFragment.this);
+						} else {
+							url = Url.TuJi + finalLink + ".json";
+
+							GetPictureNewsContent.getNewsContent(url,
+									PictureFragment.this);
+						}
+					}
+
+				}
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		return view;
 	}
@@ -68,8 +114,10 @@ public class PictureFragment extends Fragment {
 
 		pictureListView.setAdapter(pictureNewsAdapter);
 
-		String url = GetTypeId.getTypeId("新浪精选");
-		System.out.println(url);
+		selectTag = "精选";
+
+		pageCount = 1;
+		String url = Url.TuJiInit;
 		GetPictureNewsContent.getNewsContent(url, this);
 
 	}
@@ -83,21 +131,40 @@ public class PictureFragment extends Fragment {
 
 			pictureNewsActionBarAdapter.setSelectedIndex(position);
 
+			pictureNewsAdapter.clear();
 			String text = ((TextView) tv
 					.findViewById(R.id.gridview_bar_item_Tv)).getText()
 					.toString();
 
-			String url = GetTypeId.getTypeId("新浪" + text);
-			GetPictureNewsContent.getNewsContent(url, PictureFragment.this);
+			pageCount = 1;
+			selectTag = text;
+			String url = "";
+			if (selectTag.equals("美图")) {
+				url = Url.TuPianMeitu + "0";
+				GetPictureNewsContent
+						.getMeiTuContent(url, PictureFragment.this);
+			}
+
+			else if (selectTag.equals("体坛")) {
+				url = Url.TuPianTiTanInit;
+				GetPictureNewsContent.getNewsContent(url, PictureFragment.this);
+			} else if (selectTag.equals("精选")) {
+				url = Url.TuJiInit;
+				GetPictureNewsContent.getNewsContent(url, PictureFragment.this);
+			}
+
 		}
 	}
 
 	public void updateAdapter(List<PictureModel> lists) {
 
-		if (pictureNewsAdapter.getCount() > 0) {
-			pictureNewsAdapter.clear();
+		pictureNewsAdapter.appendList(lists,selectTag);
+
+		if (!selectTag.equals("美图")) {
+			finalLink = lists.get(lists.size() - 1).getSetId();
+			System.out.println("finalLink->" + finalLink);
 		}
-		pictureListView.setSelection(0);
-		pictureNewsAdapter.appendList(lists);
+
+		isLoadContent = false;
 	}
 }
