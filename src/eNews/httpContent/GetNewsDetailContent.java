@@ -23,6 +23,7 @@ public class GetNewsDetailContent {
 		JSONObject jsonObject = null;
 		RequestQueue queue = Volley.newRequestQueue(newsDetailActivity);
 
+		System.out.println(Url.NewDetail +postId+ Url.endDetailUrl);
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.NewDetail + postId
 				+ Url.endDetailUrl, jsonObject, new JsonListener(
 				newsDetailActivity, postId), new JsonErrorListener());
@@ -48,6 +49,7 @@ public class GetNewsDetailContent {
 			// System.out.println("Josn OK->" + jo.toString());
 			try {
 
+				System.out.println(jo);
 				NewsDetailModel detailModel = new NewsDetailModel();
 
 				JSONObject root = jo.getJSONObject(postId);
@@ -67,7 +69,6 @@ public class GetNewsDetailContent {
 				}
 
 				newsDetailActivity.setContent(detailModel);
-				System.out.println("setContent");
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

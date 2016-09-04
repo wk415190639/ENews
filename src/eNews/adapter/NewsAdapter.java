@@ -31,7 +31,6 @@ import eNews.common.GetTypeId;
 public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
-	long sumTime;
 	Context context;
 	private BitmapCache bitmapCache;
 
@@ -48,12 +47,11 @@ public class NewsAdapter extends BaseAdapter {
 
 		}
 		notifyDataSetChanged();
-
 	}
 
 	public void clear() {
+		System.gc();
 		lists.clear();
-		notifyDataSetChanged();
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class NewsAdapter extends BaseAdapter {
 		return position;
 	}
 
-	class ViewHolder {
+	static class ViewHolder {
 		public ImageView news_item_p1;
 		public TextView news_item_title;
 		public TextView news_item_digest;
@@ -84,10 +82,10 @@ public class NewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		long startTime = System.nanoTime();
+
+		System.out.println("create   ->" + position);
 		NewsModel newsModel = lists.get(position);
 		ViewHolder viewHolder = null;
-		 ImageView iv = null;
 
 		if (news_item == null) {
 
@@ -95,8 +93,8 @@ public class NewsAdapter extends BaseAdapter {
 			news_item = LayoutInflater.from(context).inflate(
 					R.layout.news_item, null);
 
-			//viewHolder.news_item_p1
-			viewHolder.news_item_p1= (ImageView) news_item
+			// viewHolder.news_item_p1
+			viewHolder.news_item_p1 = (ImageView) news_item
 					.findViewById(R.id.news_item_p1);
 
 			viewHolder.news_item_title = (TextView) news_item
@@ -104,46 +102,46 @@ public class NewsAdapter extends BaseAdapter {
 			viewHolder.news_item_digest = (TextView) news_item
 					.findViewById(R.id.news_item_digest);
 
-			viewHolder.news_item_title.setText(newsModel.getTitle());
-			viewHolder.news_item_digest.setText(newsModel.getDigest());
 			news_item.setTag(viewHolder);
-			System.out.println("setTag");
 
 		} else {
-			if (GetTypeId.isBvNews(newsModel.getDocid())) {
-
-				
-				viewHolder = (ViewHolder) news_item.getTag();
-				viewHolder.news_item_title.setText(newsModel.getTitle());
-				viewHolder.news_item_digest.setText(newsModel.getDigest());
-
-				RequestQueue rq = Volley.newRequestQueue(context);
-				// ImageRequest imageRequest = new ImageRequest(
-				// newsModel.getImagesrc(), new imageRequestListener(
-				// news_item_p1), 0, 0, Config.ARGB_8888,
-				// new imageRequestErrorListener());
-				//
-				// rq.add(imageRequest);
-/*
-				ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-
-				ImageListener listener = ImageLoader.getImageListener(
-						iv, R.drawable.p1, R.drawable.p2);
-
-				imageLoader.get(newsModel.getImagesrc(), listener);
-*/
-			}
+			viewHolder = (ViewHolder) news_item.getTag();
 		}
 
-		long endTime = System.nanoTime();
-		// ºÄÊ±
-		long spendTime = (endTime - startTime);
+		if (GetTypeId.isBvNews(newsModel.getDocid())) {
 
-		sumTime += spendTime;
-		System.out.println("position at:" + position + "--sumTime:"
-				+ String.valueOf(sumTime));
-		news_item.setOnClickListener(new newsItemOnclick(newsModel));
+			viewHolder.news_item_title.setText(newsModel.getTitle());
+			viewHolder.news_item_digest.setText(newsModel.getDigest());
+
+			 RequestQueue rq = Volley.newRequestQueue(context);
+			
+			 // ImageRequest imageRequest = new ImageRequest(
+			// newsModel.getImagesrc(), new imageRequestListener(
+			// news_item_p1), 0, 0, Config.ARGB_8888,
+			// new imageRequestErrorListener());
+			//
+			// rq.add(imageRequest);
+			
+			ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+			 
+			  ImageListener listener = ImageLoader.getImageListener( viewHolder.news_item_p1,
+			  R.drawable.p1, R.drawable.p2);
+			  
+			  imageLoader.get(newsModel.getImagesrc(), listener);
+			 
+
+			 
+		}
+
+		 news_item.setOnClickListener(new newsItemOnclick(newsModel));
+
 		return news_item;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	class imageRequestListener implements Listener<Bitmap> {
@@ -189,7 +187,7 @@ public class NewsAdapter extends BaseAdapter {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(context, NewsDetailActivity.class);
-			intent.putExtra("postId", model.getPostid());
+			intent.putExtra("postId", model.getDocid());
 			context.startActivity(intent);
 		}
 

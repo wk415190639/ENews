@@ -6,12 +6,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ScrollView;
@@ -47,7 +50,7 @@ public class MainFragment extends Fragment {
 	ScrollView scrollView;
 	private String selectTag;
 	private int pageCount = 1;
-	private boolean isLoadContent = false;
+	public boolean isLoadContent = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +80,7 @@ public class MainFragment extends Fragment {
 				newsAdapter);
 		LvAnimationAdapter.setAbsListView(newsListView);
 		newsListView.setAdapter(LvAnimationAdapter);
-		selectTag="头条";
+		selectTag = "头条";
 		GetNewsContent.getNewsContent("nc/article/headline/", Url.TopId, "0",
 				this);
 
@@ -104,28 +107,22 @@ public class MainFragment extends Fragment {
 							+ scrollView.getScrollY() + "在底部"
 							+ getNewsListViewHeight());
 
-			
-
 					// System.out.println(GetTypeId.getTypeId(text));
 
 					String typeId = GetTypeId.getTypeId(selectTag);
 
-					
-					
 					if (!isLoadContent) {
 						isLoadContent = true;
-					if(selectTag.equals("头条"))
-					{
-						GetNewsContent.getNewsContent("nc/article/list/headline/",
-								typeId, String.valueOf(pageCount++ * 20),
-								MainFragment.this);
-					}
-					else
-					{
-						GetNewsContent.getNewsContent("nc/article/list/",
-								typeId, String.valueOf(pageCount++ * 20),
-								MainFragment.this);
-					}
+						if (selectTag.equals("头条")) {
+							GetNewsContent.getNewsContent(
+									"nc/article/headline/", typeId,
+									String.valueOf(pageCount++ * 20),
+									MainFragment.this);
+						} else {
+							GetNewsContent.getNewsContent("nc/article/list/",
+									typeId, String.valueOf(pageCount++ * 20),
+									MainFragment.this);
+						}
 
 					}
 				}
@@ -163,8 +160,13 @@ public class MainFragment extends Fragment {
 			}
 			topViewPageAdapter.appendList(lists);
 		}
-		newsAdapter.appendList(lists);
+		System.out.println("--------append");
 
+		LayoutParams layoutParams = newsListView.getLayoutParams();
+		layoutParams.height += 80 * 20;
+		newsListView.setLayoutParams(layoutParams);
+
+		newsAdapter.appendList(lists);
 		TopCount = topViewPageAdapter.getCount();
 		// new ScrollTopWindow().start();
 		isLoadContent = false;
@@ -181,20 +183,24 @@ public class MainFragment extends Fragment {
 			String text = ((TextView) tv
 					.findViewById(R.id.gridview_bar_item_Tv)).getText()
 					.toString();
-			selectTag=text;
+			selectTag = text;
 			// System.out.println(GetTypeId.getTypeId(text));
 
 			String typeId = GetTypeId.getTypeId(text);
 
 			topViewPager.setCurrentItem(0);
-			pageCount =0;
+			pageCount = 0;
 			newsAdapter.clear();
-			GetNewsContent.getNewsContent("nc/article/list/", typeId, String.valueOf(pageCount),
-					MainFragment.this);
+
+			LayoutParams layoutParams = newsListView.getLayoutParams();
+			layoutParams.height = 0;
+			newsListView.setLayoutParams(layoutParams);
+			GetNewsContent.getNewsContent("nc/article/list/", typeId,
+					String.valueOf(pageCount), MainFragment.this);
 
 			actionbarAdapter.setSelectedIndex(position);
 			actionbarAdapter.notifyDataSetChanged();
-	
+			scrollView.setScrollY(0);
 
 		}
 

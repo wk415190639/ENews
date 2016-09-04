@@ -18,10 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.ImageLoader.ImageListener;
-
 import eNews.activity.VideoPlayActivity;
 import eNews.app.R;
 import eNews.bean.VideoModel;

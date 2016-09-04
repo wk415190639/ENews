@@ -56,19 +56,27 @@ public class NewsDetailActivity extends Activity {
 	public void setContent(NewsDetailModel newsDetailModel) {
 		this.newsDetailModel = newsDetailModel;
 		strList = newsDetailModel.getBody().split("<!--IMG#\\d*-->");
+		System.out.println("setContent");
 		getDetailImages();
 	}
 
 	private void getDetailImages() {
 
 		RequestQueue jr = Volley.newRequestQueue(getApplicationContext());
-
+		System.out.println("getDetailImages");
+		
+		if(newsDetailModel.getImg().size()==0)
+		{
+			setNewsDetailText();
+		}
+		else
 		for (int i = 0; i < newsDetailModel.getImg().size(); i++) {
 
+			System.out.println(newsDetailModel.getImg().get(i));
 			ImageRequest ir = new ImageRequest(newsDetailModel.getImg().get(i),
 					new ImageRequestListener(i), 300, 300, Config.ARGB_8888,
 					new ImageRequestError());
-			System.out.println("getDetailImages");
+
 			jr.add(ir);
 		}
 

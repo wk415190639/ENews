@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.RequestQueue;
@@ -17,24 +16,20 @@ import com.android.volley.toolbox.Volley;
 
 import eNews.bean.PictureModel;
 import eNews.fragments.PictureFragment;
-import eNews.url.Url;
 
 public class GetPictureNewsContent {
 
 	static public void getNewsContent(String url,
 			PictureFragment pictureFragment) {
 
-		// http://c.m.163.comphoto/api/morelist/0096/54GM0096/ 42262.json
+		// http://c.m.163.com/photo/api/morelist/0096/54GM0096/ 42262.json
 
 		System.out.println(url);
 		RequestQueue queue = Volley.newRequestQueue(pictureFragment
 				.getActivity());
-
 		JsonArrayRequest jaq = new JsonArrayRequest(url, new JsonListener(
-				pictureFragment), new JsonErrorListener());
+				pictureFragment), new JsonErrorListener(pictureFragment));
 
-		// new JsonArrayRequest(url, null,
-		// new JsonListener(pictureFragment), ));
 		queue.add(jaq);
 
 	}
@@ -53,17 +48,27 @@ public class GetPictureNewsContent {
 		public void onResponse(JSONArray ja) {
 
 			PictureModel pictureModel;
+			System.out.println(ja);
 			final List<PictureModel> lists = new ArrayList<PictureModel>();
 			try {
 
 				for (int i = 0; i < ja.length(); i++) {
 
+					System.out.println("¾«Æ·");
 					JSONObject newsItemObject = ja.getJSONObject(i);
 					pictureModel = new PictureModel();
 
 					pictureModel.setSetId(newsItemObject.getString("setid"));
-					pictureModel.setSetName(newsItemObject.getString("setname"));
-					System.out.println(pictureModel.getSetId());
+					pictureModel
+							.setSetName(newsItemObject.getString("setname"));
+
+					JSONArray jsonPics = newsItemObject.getJSONArray("pics");
+					for (int j = 0; i < jsonPics.length(); j++) {
+						pictureModel.getPics().add(jsonPics.getString(j));
+					}
+
+					pictureModel.setImgsrc(jsonPics.getString(0));
+
 					lists.add(pictureModel);
 				}
 
@@ -78,23 +83,23 @@ public class GetPictureNewsContent {
 	static public void getMeiTuContent(String url,
 			PictureFragment pictureFragment) {
 
-		// http://c.m.163.comphoto/api/morelist/0096/54GM0096/ 42262.json
+		// http://c.m.163.com/photo/api/morelist/0096/54GM0096/ 42262.json
 
 		System.out.println(url);
 		RequestQueue queue = Volley.newRequestQueue(pictureFragment
 				.getActivity());
 
 		JsonObjectRequest joq = new JsonObjectRequest(url, null,
-				new JsonObjectListener(pictureFragment),
-				new JsonErrorListener());
+				new JsonMeituListener(pictureFragment), new JsonErrorListener(
+						pictureFragment));
 		queue.add(joq);
 
 	}
 
-	static class JsonObjectListener implements Listener<JSONObject> {
+	static class JsonMeituListener implements Listener<JSONObject> {
 		private PictureFragment pictureFragment;
 
-		public JsonObjectListener(PictureFragment pictureFragment) {
+		public JsonMeituListener(PictureFragment pictureFragment) {
 			// TODO Auto-generated constructor stub
 			this.pictureFragment = pictureFragment;
 		}
@@ -119,7 +124,7 @@ public class GetPictureNewsContent {
 					pictureModel.setDownTimes(newsItemObject
 							.getString("downTimes"));
 					pictureModel.setImg(newsItemObject.getString("img"));
-					pictureModel.setImg(newsItemObject.getString("imgsrc"));
+					pictureModel.setImgsrc(newsItemObject.getString("imgsrc"));
 					pictureModel.setSource(newsItemObject.getString("source"));
 					pictureModel.setTitle(newsItemObject.getString("title"));
 					pictureModel
@@ -140,10 +145,18 @@ public class GetPictureNewsContent {
 
 	static class JsonErrorListener implements ErrorListener {
 
+		private PictureFragment pictureFragment;
+
+		public JsonErrorListener(PictureFragment pictureFragment) {
+			// TODO Auto-generated constructor stub
+			this.pictureFragment = pictureFragment;
+		}
+
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+
 		}
 
 	}

@@ -15,8 +15,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import eNews.bean.NewsModel;
-import eNews.common.GetTypeId;
 import eNews.fragments.MainFragment;
+import eNews.fragments.PictureFragment;
 import eNews.url.Url;
 
 public class GetNewsContent {
@@ -34,13 +34,14 @@ public class GetNewsContent {
 	static public void getNewsContent(String url, String typeId,
 			String startNum, MainFragment mainActivity) {
 
+		System.gc();
 		String httpUrl = Url.host + url + typeId + "/" + startNum + Url.endUrl;
 		JSONObject jsonObject = null;
 		RequestQueue queue = Volley.newRequestQueue(mainActivity.getActivity()
 				.getApplicationContext());
 
 		JsonObjectRequest jrq = new JsonObjectRequest(httpUrl, jsonObject,
-				new JsonListener(mainActivity, typeId), new JsonErrorListener());
+				new JsonListener(mainActivity, typeId), new JsonErrorListener(mainActivity));
 		queue.add(jrq);
 
 		System.out.println(httpUrl);
@@ -95,9 +96,15 @@ public class GetNewsContent {
 
 	static class JsonErrorListener implements ErrorListener {
 
+		private MainFragment mainFragment;
+		public JsonErrorListener( MainFragment mainFragment) {
+			// TODO Auto-generated constructor stub
+			this.mainFragment = mainFragment;
+		}
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
+			mainFragment.isLoadContent=false;
 			System.out.println("Json array volley error->" + error);
 		}
 

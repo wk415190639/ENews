@@ -14,7 +14,7 @@ public class BitmapCache implements ImageCache {
 	private BitmapCache() {
 		// TODO Auto-generated constructor stub
 		int maxSize = (int) Runtime.getRuntime().maxMemory();
-		mCache = new LruCache<String, Bitmap>(maxSize/6) {
+		mCache = new LruCache<String, Bitmap>(maxSize/8) {
 			@Override
 			protected int sizeOf(String key, Bitmap bitmap) {
 				return bitmap.getRowBytes() * bitmap.getHeight();

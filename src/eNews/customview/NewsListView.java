@@ -17,6 +17,6 @@ public class NewsListView extends ListView {
 
 		int height = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
 				MeasureSpec.AT_MOST);
-		super.onMeasure(widthMeasureSpec, height);
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
 }

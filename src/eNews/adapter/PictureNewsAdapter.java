@@ -19,8 +19,8 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
+import com.android.volley.toolbox.Volley;
 
 import eNews.activity.PictureDetailActivity;
 import eNews.app.R;
@@ -92,8 +92,9 @@ public class PictureNewsAdapter extends BaseAdapter {
 		final PictureModel pictureModel = lists.get(position);
 		ViewHolder holder = null;
 
-		if (!selectTag.equals("√¿Õº")) {
+		if (selectTag.equals("√¿Õº")) {
 
+			
 			if (picture_item == null) {
 				picture_item = LayoutInflater.from(context).inflate(
 						R.layout.picturenews_item, null);
@@ -103,33 +104,29 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 				holder.title = (TextView) picture_item
 						.findViewById(R.id.pictureTitle);
-				holder.title.setText(pictureModel.getSetName());
+
 				picture_item.setTag(holder);
 
 			} else {
 
 				holder = (ViewHolder) picture_item.getTag();
-				holder.title.setText(pictureModel.getSetName());
-			}
 
-			// ImageRequest imageRequest = new
-			// ImageRequest(pictureModel.getKpic(),
-			// new imageRequestListener(pictureImage), 80, 80,
-			// Config.ARGB_8888, new imageRequestErrorListener());
-			//
-			// rq.add(imageRequest);
-			/*
-			 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-			 * 
-			 * ImageListener listener =
-			 * ImageLoader.getImageListener(pictureImage, R.drawable.p1,
-			 * R.drawable.p2);
-			 * 
-			 * imageLoader.get(pictureModel.getKpic(), listener);
-			 * 
-			 * picture_item.setOnClickListener(new
-			 * newsItemOnclick(pictureModel));
-			 */
+			}
+			holder.title.setText(pictureModel.getTitle());
+			
+		
+			
+			  ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+			  
+			  ImageListener listener =
+			  ImageLoader.getImageListener(holder.pictureImage, R.drawable.p1,
+			  R.drawable.p2);
+			  
+			  imageLoader.get(pictureModel.getImgsrc(), listener);
+			  
+			  picture_item.setOnClickListener(new
+			  newsItemOnclick(pictureModel));
+			 
 		} else {
 
 			if (picture_item == null) {
@@ -141,13 +138,12 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 				holder.title = (TextView) picture_item
 						.findViewById(R.id.pictureTitle);
-				holder.title.setText(pictureModel.getTitle());
 				picture_item.setTag(holder);
 
 			} else {
 
 				holder = (ViewHolder) picture_item.getTag();
-				holder.title.setText(pictureModel.getTitle());
+				holder.title.setText(pictureModel.getSetName());
 			}
 		}
 		return picture_item;
