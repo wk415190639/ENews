@@ -11,6 +11,12 @@ public class PictureModel {
 	private String setName;
 	private String cover;
 	private ArrayList<String> pics;
+	
+	
+	public PictureModel() {
+		// TODO Auto-generated constructor stub
+		pics = new ArrayList<String>();
+	}
 	private String setUrl;
 	private String imgSum;
 

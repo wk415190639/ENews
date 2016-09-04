@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
@@ -24,7 +27,6 @@ public class GetPictureNewsContent {
 
 		// http://c.m.163.com/photo/api/morelist/0096/54GM0096/ 42262.json
 
-		System.out.println(url);
 		RequestQueue queue = Volley.newRequestQueue(pictureFragment
 				.getActivity());
 		JsonArrayRequest jaq = new JsonArrayRequest(url, new JsonListener(
@@ -48,26 +50,27 @@ public class GetPictureNewsContent {
 		public void onResponse(JSONArray ja) {
 
 			PictureModel pictureModel;
-			System.out.println(ja);
 			final List<PictureModel> lists = new ArrayList<PictureModel>();
 			try {
 
 				for (int i = 0; i < ja.length(); i++) {
 
-					System.out.println("¾«Æ·");
 					JSONObject newsItemObject = ja.getJSONObject(i);
+
 					pictureModel = new PictureModel();
 
 					pictureModel.setSetId(newsItemObject.getString("setid"));
 					pictureModel
 							.setSetName(newsItemObject.getString("setname"));
+					pictureModel.setTitle(newsItemObject.getString("setname"));
 
 					JSONArray jsonPics = newsItemObject.getJSONArray("pics");
-					for (int j = 0; i < jsonPics.length(); j++) {
+
+					for (int j = 0; j < jsonPics.length(); j++) {
 						pictureModel.getPics().add(jsonPics.getString(j));
 					}
 
-					pictureModel.setImgsrc(jsonPics.getString(0));
+					pictureModel.setImgsrc(newsItemObject.getString("tcover"));
 
 					lists.add(pictureModel);
 				}
@@ -129,6 +132,7 @@ public class GetPictureNewsContent {
 					pictureModel.setTitle(newsItemObject.getString("title"));
 					pictureModel
 							.setUpTimes(newsItemObject.getString("upTimes"));
+					pictureModel.setSetName(newsItemObject.getString("title"));
 
 					lists.add(pictureModel);
 				}

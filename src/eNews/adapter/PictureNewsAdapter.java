@@ -92,60 +92,35 @@ public class PictureNewsAdapter extends BaseAdapter {
 		final PictureModel pictureModel = lists.get(position);
 		ViewHolder holder = null;
 
-		if (selectTag.equals("√¿Õº")) {
+		if (picture_item == null) {
+			picture_item = LayoutInflater.from(context).inflate(
+					R.layout.picturenews_item, null);
+			holder = new ViewHolder();
+			holder.pictureImage = (ImageView) picture_item
+					.findViewById(R.id.pictureImage);
 
-			
-			if (picture_item == null) {
-				picture_item = LayoutInflater.from(context).inflate(
-						R.layout.picturenews_item, null);
-				holder = new ViewHolder();
-				holder.pictureImage = (ImageView) picture_item
-						.findViewById(R.id.pictureImage);
+			holder.title = (TextView) picture_item
+					.findViewById(R.id.pictureTitle);
 
-				holder.title = (TextView) picture_item
-						.findViewById(R.id.pictureTitle);
+			picture_item.setTag(holder);
 
-				picture_item.setTag(holder);
-
-			} else {
-
-				holder = (ViewHolder) picture_item.getTag();
-
-			}
-			holder.title.setText(pictureModel.getTitle());
-			
-		
-			
-			  ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-			  
-			  ImageListener listener =
-			  ImageLoader.getImageListener(holder.pictureImage, R.drawable.p1,
-			  R.drawable.p2);
-			  
-			  imageLoader.get(pictureModel.getImgsrc(), listener);
-			  
-			  picture_item.setOnClickListener(new
-			  newsItemOnclick(pictureModel));
-			 
 		} else {
 
-			if (picture_item == null) {
-				picture_item = LayoutInflater.from(context).inflate(
-						R.layout.picturenews_item, null);
-				holder = new ViewHolder();
-				holder.pictureImage = (ImageView) picture_item
-						.findViewById(R.id.pictureImage);
+			holder = (ViewHolder) picture_item.getTag();
 
-				holder.title = (TextView) picture_item
-						.findViewById(R.id.pictureTitle);
-				picture_item.setTag(holder);
-
-			} else {
-
-				holder = (ViewHolder) picture_item.getTag();
-				holder.title.setText(pictureModel.getSetName());
-			}
 		}
+
+		holder.title.setText(pictureModel.getTitle());
+		holder.title.setText(pictureModel.getSetName());
+
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+
+		ImageListener listener = ImageLoader.getImageListener(
+				holder.pictureImage, R.drawable.p1, R.drawable.p2);
+
+		imageLoader.get(pictureModel.getImgsrc(), listener);
+
+		picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
 		return picture_item;
 	}
 
