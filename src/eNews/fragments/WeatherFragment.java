@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -36,6 +37,7 @@ import eNews.activity.MainWindows;
 import eNews.adapter.WeatherAdapter;
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
+import eNews.common.GetWeatherBackground;
 import eNews.common.GetWeatherIconTypeId;
 import eNews.httpContent.GetWeatherContent;
 import eNews.url.Url;
@@ -117,6 +119,11 @@ public class WeatherFragment extends Fragment {
 		weatherGanMaoTv.setText(waInfo.getGanmao());
 		System.out.println(waInfo.getGanmao());
 
+		Drawable drawable = getResources().getDrawable(
+				GetWeatherBackground.getBackgroundId(waInfo.getType()));
+		drawable.setAlpha(90);
+		view.setBackground(drawable);
+
 	}
 
 	public void fillAdapter(ArrayList<WeatherInfo> lists) {
@@ -195,13 +202,17 @@ public class WeatherFragment extends Fragment {
 				String longLocateName = firstResultObject
 						.getString("formatted_address");
 
-				int before = longLocateName.indexOf("省") + 1;
+				int before = longLocateName.indexOf("省");
 				int after = longLocateName.indexOf("市");
 
-				if (before == -1 || after == -1) {
-					progressDialog.dismiss();
-					System.out.println("没有找到");
+				if (before > after) {
+					before = longLocateName.indexOf("县");
+				}
 
+				if (before == -1 || after == -1) {
+					System.out.println("没有找到");
+					getLocateCityTv.setText("没有定位到城市");
+					longLocateName = "没有定位到城市";
 					try {
 						GetWeatherContent.getNewsContent(null,
 								WeatherFragment.this);
@@ -213,9 +224,14 @@ public class WeatherFragment extends Fragment {
 					return;
 				}
 
-				String cityName = longLocateName.substring(before, after);
-
 				try {
+					System.out.println(before + "<---------->" + after + "<-->"
+							+ longLocateName.length() + "<--->"
+							+ longLocateName);
+
+					String cityName = longLocateName.substring(before + 1,
+							after);
+
 					System.out.println(cityName);
 					GetWeatherContent.getNewsContent(cityName,
 							WeatherFragment.this);
@@ -242,7 +258,7 @@ public class WeatherFragment extends Fragment {
 		public void onErrorResponse(VolleyError arg0) {
 
 			System.out.println(arg0.toString());
-			progressDialog.dismiss();
+
 		}
 
 	}

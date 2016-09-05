@@ -2,21 +2,24 @@ package eNews.activity;
 
 import java.util.ArrayList;
 
-import eNews.adapter.PictureDetailViewPageAdapter;
-import eNews.app.R;
-import eNews.bean.PictureDetailModel;
-import eNews.bean.PictureModel;
-import eNews.httpContent.GetPictureNewsDetailContent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import eNews.adapter.PictureDetailViewPageAdapter;
+import eNews.app.R;
+import eNews.bean.PictureDetailModel;
+import eNews.bean.PictureModel;
 
 public class PictureDetailActivity extends Activity {
 
 	private ViewPager viewPager;
 	private PictureDetailViewPageAdapter detailViewPageAdapter;
 	private PictureModel model;
+	private Button backBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,17 @@ public class PictureDetailActivity extends Activity {
 
 		init();
 
+		backBtn = (Button) findViewById(R.id.backBtn);
+
+		backBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				finish();
+			}
+		});
 		// GetPictureNewsDetailContent.getNewsContent(kpic, this);
 
 		if (model.getPics().size() > 0)

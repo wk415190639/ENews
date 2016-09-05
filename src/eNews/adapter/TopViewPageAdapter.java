@@ -13,16 +13,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
+
 import eNews.activity.VideoPlayActivity;
+import eNews.app.R;
 import eNews.bean.NewsModel;
 import eNews.bean.VideoModel;
 import eNews.common.BitmapCache;
@@ -116,21 +120,15 @@ public class TopViewPageAdapter extends PagerAdapter {
 		ImageView iv = (ImageView) relativeLayout.getChildAt(0);
 
 		RequestQueue rq = Volley.newRequestQueue(context);
-		//
-		// ImageRequest ir = new
-		// ImageRequest(lists.get(position).getImagesrc(),new
-		// imageRequestListener(iv), 400, 300, Config.ARGB_8888,new
-		// imageRequestErrorListener());
-		// rq.add(ir);
 
-		/*
-		 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-		 * 
-		 * ImageListener listener = ImageLoader.getImageListener(iv,
-		 * R.drawable.p1, R.drawable.p2);
-		 * 
-		 * imageLoader.get(lists.get(position).getImagesrc(), listener);
-		 */
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+
+		ImageListener listener = ImageLoader.getImageListener(iv,
+				R.drawable.p1, R.drawable.p2);
+
+		imageLoader.get(lists.get(position).getImagesrc(), listener);
+		System.out.println(lists.get(position).getImagesrc()+"---------------");
+
 		((ViewPager) top_news).addView(arrayList.get(position));
 
 		return arrayList.get(position);

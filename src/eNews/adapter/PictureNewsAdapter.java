@@ -6,11 +6,11 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +23,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
 
+import eNews.activity.MeiTuDetailActivity;
 import eNews.activity.PictureDetailActivity;
 import eNews.app.R;
 import eNews.bean.PictureModel;
@@ -82,6 +83,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 	static class ViewHolder {
 		private ImageView pictureImage;
 		private TextView title;
+		private TextView replayNum;
 
 	}
 
@@ -103,6 +105,8 @@ public class PictureNewsAdapter extends BaseAdapter {
 			holder.title = (TextView) picture_item
 					.findViewById(R.id.pictureTitle);
 
+			holder.replayNum = (TextView) picture_item
+					.findViewById(R.id.pictureReplay);
 			picture_item.setTag(holder);
 
 		} else {
@@ -113,6 +117,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 		holder.title.setText(pictureModel.getTitle());
 		holder.title.setText(pictureModel.getSetName());
+		holder.replayNum.setText(pictureModel.getReplyid());
 
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
@@ -121,7 +126,11 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 		imageLoader.get(pictureModel.getImgsrc(), listener);
 
-		picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
+		if (selectTag.equals("√¿Õº")) {
+			picture_item.setOnClickListener(new MeiTuItemOnclick(pictureModel));
+		} else {
+			picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
+		}
 		return picture_item;
 	}
 
@@ -168,6 +177,27 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 			Intent intent = new Intent(context, PictureDetailActivity.class);
 			intent.putExtra("picModel", pictureModel);
+			context.startActivity(intent);
+
+		}
+
+	}
+
+	class MeiTuItemOnclick implements OnClickListener {
+
+		private PictureModel pictureModel;
+
+		public MeiTuItemOnclick(PictureModel pictureModel) {
+			// TODO Auto-generated constructor stub
+
+			this.pictureModel = pictureModel;
+		}
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(context, MeiTuDetailActivity.class);
+			intent.putExtra("postId", pictureModel.getDocid());
 			context.startActivity(intent);
 
 		}

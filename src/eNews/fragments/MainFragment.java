@@ -160,7 +160,6 @@ public class MainFragment extends Fragment {
 			}
 			topViewPageAdapter.appendList(lists);
 		}
-		System.out.println("--------append");
 
 		LayoutParams layoutParams = newsListView.getLayoutParams();
 		layoutParams.height += 80 * 20;
@@ -168,9 +167,7 @@ public class MainFragment extends Fragment {
 
 		newsAdapter.appendList(lists);
 		TopCount = topViewPageAdapter.getCount();
-		// new ScrollTopWindow().start();
 		isLoadContent = false;
-		System.out.println("--------appendList");
 	}
 
 	class ActionBarItemOnListener implements OnItemClickListener {

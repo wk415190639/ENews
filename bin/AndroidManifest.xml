@@ -32,6 +32,8 @@
         </activity>
         <activity android:name="eNews.activity.PictureDetailActivity" >
         </activity>
+        <activity android:name="eNews.activity.MeiTuDetailActivity" >
+        </activity>
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

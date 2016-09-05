@@ -64,7 +64,9 @@ public class GetPictureNewsContent {
 							.setSetName(newsItemObject.getString("setname"));
 					pictureModel.setTitle(newsItemObject.getString("setname"));
 					pictureModel.setDesc(newsItemObject.getString("desc"));
-
+					// replynum
+					pictureModel.setReplyid(newsItemObject
+							.getString("replynum"));
 					JSONArray jsonPics = newsItemObject.getJSONArray("pics");
 
 					for (int j = 0; j < jsonPics.length(); j++) {
@@ -136,6 +138,9 @@ public class GetPictureNewsContent {
 					pictureModel.getPics().add(
 							newsItemObject.getString("imgsrc"));
 					pictureModel.setDesc(newsItemObject.getString("source"));
+					// replyCount
+					pictureModel.setReplyid(newsItemObject
+							.getString("replyCount"));
 					lists.add(pictureModel);
 
 				}
