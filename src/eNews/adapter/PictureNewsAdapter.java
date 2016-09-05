@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -166,7 +167,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(context, PictureDetailActivity.class);
-			// intent.putExtra("kpic", pictureModel.getId());
+			intent.putExtra("picModel", pictureModel);
 			context.startActivity(intent);
 
 		}

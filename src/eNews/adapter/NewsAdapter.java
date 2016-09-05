@@ -83,7 +83,7 @@ public class NewsAdapter extends BaseAdapter {
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
-		System.out.println("create   ->" + position);
+	//	System.out.println("create   ->" + position);
 		NewsModel newsModel = lists.get(position);
 		ViewHolder viewHolder = null;
 

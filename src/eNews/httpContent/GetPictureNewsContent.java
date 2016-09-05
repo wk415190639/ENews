@@ -63,6 +63,7 @@ public class GetPictureNewsContent {
 					pictureModel
 							.setSetName(newsItemObject.getString("setname"));
 					pictureModel.setTitle(newsItemObject.getString("setname"));
+					pictureModel.setDesc(newsItemObject.getString("desc"));
 
 					JSONArray jsonPics = newsItemObject.getJSONArray("pics");
 
@@ -122,7 +123,6 @@ public class GetPictureNewsContent {
 					pictureModel = new PictureModel();
 
 					pictureModel.setDigest(newsItemObject.getString("digest"));
-
 					pictureModel.setDocid(newsItemObject.getString("docid"));
 					pictureModel.setDownTimes(newsItemObject
 							.getString("downTimes"));
@@ -133,8 +133,11 @@ public class GetPictureNewsContent {
 					pictureModel
 							.setUpTimes(newsItemObject.getString("upTimes"));
 					pictureModel.setSetName(newsItemObject.getString("title"));
-
+					pictureModel.getPics().add(
+							newsItemObject.getString("imgsrc"));
+					pictureModel.setDesc(newsItemObject.getString("source"));
 					lists.add(pictureModel);
+
 				}
 
 				pictureFragment.updateAdapter(lists);

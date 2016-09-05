@@ -1,11 +1,9 @@
 package eNews.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -19,24 +17,32 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
 
-import eNews.bean.PictureDetailModel;
+import eNews.app.R;
+import eNews.bean.PictureModel;
+import eNews.common.BitmapCache;
 
 public class PictureDetailViewPageAdapter extends PagerAdapter {
 
-	List<PictureDetailModel> lists = new ArrayList<PictureDetailModel>();
+	ArrayList<String> lists = new ArrayList<String>();
 
 	Context context;
 	ArrayList<View> arrayList;
+	private BitmapCache bitmapCache;
+	private PictureModel model;
 
 	public PictureDetailViewPageAdapter(Context context) {
 		this.context = context;
 		arrayList = new ArrayList<View>();
+		bitmapCache = BitmapCache.instance();
 	}
 
-	public void appendList(List<PictureDetailModel> list) {
+	public void appendList(PictureModel model) {
+		this.model = model;
+		ArrayList<String> list = model.getPics();
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
 
@@ -50,7 +56,7 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 			LayoutParams linearParams = new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			
+
 			LayoutParams imageParams = new LayoutParams(
 					LayoutParams.WRAP_CONTENT, 0);
 			imageParams.weight = 1;
@@ -61,7 +67,6 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 			for (int i = 0; i < lists.size(); i++) {
 
-				
 				linearLayout = new LinearLayout(context);
 				linearLayout.setLayoutParams(linearParams);
 				linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -72,8 +77,15 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 				tv = new TextView(context);
 				tv.setLayoutParams(textParams);
-				tv.setText(lists.get(i).getAlt());
 				tv.setPadding(15, 5, 10, 5);
+
+				String desc = "\t ͼ " + String.valueOf(i) + " \n";
+				if (i == 0)
+					desc += model.getTitle() + "\n" + model.getDesc();
+				else
+					desc += model.getTitle();
+
+				tv.setText(desc);
 
 				linearLayout.addView(iv);
 				linearLayout.addView(tv);
@@ -107,20 +119,14 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 		// TODO Auto-generated method stub
 
 		RequestQueue rq = Volley.newRequestQueue(context);
-		ImageRequest ir = new ImageRequest(lists.get(position).getKpic(),
-				new ImageRequestListener(position), 400, 300, Config.ARGB_8888,
-				new ErrorListener() {
+		ImageView iv = (ImageView) ((LinearLayout) arrayList.get(position))
+				.getChildAt(0);
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
+		ImageListener listener = ImageLoader.getImageListener(iv,
+				R.drawable.p1, R.drawable.p2);
 
-						System.out.println("erro ErrorListener "
-								+ arg0.toString());
-
-					}
-				});
-		rq.add(ir);
+		imageLoader.get(lists.get(position), listener);
 
 		((ViewPager) top_news).addView(arrayList.get(position));
 
@@ -128,27 +134,31 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 	}
 
-	class ImageRequestListener implements Listener<Bitmap> {
+	class imageRequestListener implements Listener<Bitmap> {
 
-		private int position;
+		private ImageView iv;
 
-		public ImageRequestListener(int position) {
-			// TODO Auto-generated constructor stub
-			this.position = position;
+		public imageRequestListener(ImageView iv) {
+
+			this.iv = iv;
 		}
 
 		@Override
 		public void onResponse(Bitmap bitmap) {
-
-			ImageView iv = (ImageView) ((LinearLayout) arrayList.get(position))
-					.getChildAt(0);
-			TextView tv = (TextView) ((LinearLayout) arrayList.get(position))
-					.getChildAt(1);
+			// TODO Auto-generated method stub
 
 			iv.setImageBitmap(bitmap);
-			tv.setText(lists.get(position).getAlt());
-			System.out.println(lists.get(position).getAlt());
 
+		}
+
+	}
+
+	class imageRequestErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+			System.out.println(error.toString());
 		}
 
 	}

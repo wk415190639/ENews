@@ -1,9 +1,14 @@
 package eNews.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PictureModel {
+public class PictureModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String setId;
 	private String desc;
 	private String createDate;

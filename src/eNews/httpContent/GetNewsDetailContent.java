@@ -49,7 +49,7 @@ public class GetNewsDetailContent {
 			// System.out.println("Josn OK->" + jo.toString());
 			try {
 
-				System.out.println(jo);
+			//	System.out.println(jo);
 				NewsDetailModel detailModel = new NewsDetailModel();
 
 				JSONObject root = jo.getJSONObject(postId);

@@ -121,12 +121,11 @@ public final class R {
         public static final int actionbar_logo=0x7f080001;
         public static final int actionbar_title=0x7f080002;
         public static final int backBtn=0x7f080035;
-        public static final int button1=0x7f080042;
         public static final int channelManageBack=0x7f08000a;
         public static final int channelManageBtn=0x7f080006;
         public static final int drawerLayout=0x7f080012;
         public static final int frame_content=0x7f080013;
-        public static final int getLocateCityTv=0x7f080043;
+        public static final int getLocateCityTv=0x7f080042;
         public static final int gridview_bar_item_Tv=0x7f080011;
         public static final int horizontalScrollView1=0x7f080004;
         public static final int imageView1=0x7f08001a;
@@ -181,18 +180,18 @@ public final class R {
         public static final int videoNewsItemTime=0x7f080040;
         public static final int videoNewsItemTitle=0x7f08003f;
         public static final int videoNewsactionBar=0x7f08003c;
-        public static final int weatherDate=0x7f08004d;
-        public static final int weatherDate_top=0x7f080044;
-        public static final int weatherFengXinag_top=0x7f080049;
-        public static final int weatherGanMao_top=0x7f08004a;
-        public static final int weatherIcon=0x7f08004c;
-        public static final int weatherIcon_top=0x7f080046;
-        public static final int weatherTemp=0x7f08004f;
-        public static final int weatherTemp_top=0x7f080048;
-        public static final int weatherType=0x7f08004e;
-        public static final int weatherType_top=0x7f080047;
-        public static final int weatherWeek_top=0x7f080045;
-        public static final int weekWeathersListView=0x7f08004b;
+        public static final int weatherDate=0x7f08004c;
+        public static final int weatherDate_top=0x7f080043;
+        public static final int weatherFengXinag_top=0x7f080048;
+        public static final int weatherGanMao_top=0x7f080049;
+        public static final int weatherIcon=0x7f08004b;
+        public static final int weatherIcon_top=0x7f080045;
+        public static final int weatherTemp=0x7f08004e;
+        public static final int weatherTemp_top=0x7f080047;
+        public static final int weatherType=0x7f08004d;
+        public static final int weatherType_top=0x7f080046;
+        public static final int weatherWeek_top=0x7f080044;
+        public static final int weekWeathersListView=0x7f08004a;
     }
     public static final class layout {
         public static final int actionbar_layout=0x7f030000;

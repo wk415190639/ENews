@@ -18,7 +18,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
+
 import eNews.activity.VideoPlayActivity;
 import eNews.app.R;
 import eNews.bean.VideoModel;
@@ -100,29 +103,18 @@ public class VideoNewsAdapter extends BaseAdapter {
 			video_item.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) video_item.getTag();
-			viewHolder.videoNewsItemTitle.setText(videoModel.getTitle());
-			viewHolder.videoNewsItemTime.setText(videoModel.getLength());
-
 		}
+		viewHolder.videoNewsItemTitle.setText(videoModel.getTitle());
+		viewHolder.videoNewsItemTime.setText(videoModel.getLength());
+		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
-		// ImageRequest imageRequest = new
-		// ImageRequest(videoModel.getTopicImg(),
-		// new imageRequestListener(videoNewsItemImg), 80, 80,
-		// Config.ARGB_8888, new imageRequestErrorListener());
-		//
-		// rq.add(imageRequest);
+		ImageListener listener = ImageLoader.getImageListener(
+				viewHolder.videoNewsItemImg, R.drawable.p1, R.drawable.p2);
 
-		/*
-		 * ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-		 * 
-		 * ImageListener listener =
-		 * ImageLoader.getImageListener(videoNewsItemImg, R.drawable.p1,
-		 * R.drawable.p2);
-		 * 
-		 * imageLoader.get(videoModel.getTopicImg(), listener);
-		 * 
-		 * video_item.setOnClickListener(new newsItemOnclick(videoModel));
-		 */
+		imageLoader.get(videoModel.getTopicImg(), listener);
+
+		video_item.setOnClickListener(new newsItemOnclick(videoModel));
+
 		return video_item;
 	}
 

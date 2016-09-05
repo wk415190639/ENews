@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import eNews.adapter.PictureDetailViewPageAdapter;
 import eNews.app.R;
 import eNews.bean.PictureDetailModel;
+import eNews.bean.PictureModel;
 import eNews.httpContent.GetPictureNewsDetailContent;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ public class PictureDetailActivity extends Activity {
 
 	private ViewPager viewPager;
 	private PictureDetailViewPageAdapter detailViewPageAdapter;
+	private PictureModel model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,15 @@ public class PictureDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.picture_detail);
 		Intent intent = getIntent();
-		String kpic = intent.getStringExtra("kpic");
-		
-		
+
+		model = (PictureModel) intent.getSerializableExtra("picModel");
+
 		init();
-		
-		GetPictureNewsDetailContent.getNewsContent(kpic, this);
+
+		// GetPictureNewsDetailContent.getNewsContent(kpic, this);
+
+		if (model.getPics().size() > 0)
+			detailViewPageAdapter.appendList(model);
 	}
 
 	private void init() {
@@ -39,7 +44,7 @@ public class PictureDetailActivity extends Activity {
 	}
 
 	public void updateAdapter(ArrayList<PictureDetailModel> lists) {
-		detailViewPageAdapter.appendList(lists);
+		// detailViewPageAdapter.appendList(lists);
 
 	}
 }

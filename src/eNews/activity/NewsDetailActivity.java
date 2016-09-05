@@ -56,14 +56,14 @@ public class NewsDetailActivity extends Activity {
 	public void setContent(NewsDetailModel newsDetailModel) {
 		this.newsDetailModel = newsDetailModel;
 		strList = newsDetailModel.getBody().split("<!--IMG#\\d*-->");
-		System.out.println("setContent");
+	//	System.out.println("setContent");
 		getDetailImages();
 	}
 
 	private void getDetailImages() {
 
 		RequestQueue jr = Volley.newRequestQueue(getApplicationContext());
-		System.out.println("getDetailImages");
+		//System.out.println("getDetailImages");
 		
 		if(newsDetailModel.getImg().size()==0)
 		{
@@ -84,6 +84,7 @@ public class NewsDetailActivity extends Activity {
 
 	private void setNewsDetailText() {
 
+		System.out.println(strList.length+"<----->"+arrayDrawable.size());
 		for (int i = 0; i < strList.length; i++) {
 			if (i < strList.length - 1)
 				newsDetailText.append(Html.fromHtml(strList[i] + "<img src="
@@ -101,6 +102,7 @@ public class NewsDetailActivity extends Activity {
 		public Drawable getDrawable(String position) {
 			// TODO Auto-generated method stub
 
+		//	System.out.println("position->"+position);
 			return arrayDrawable.get(Integer.valueOf(position));
 		}
 
@@ -125,8 +127,11 @@ public class NewsDetailActivity extends Activity {
 
 			arrayDrawable.add(drawable);
 
-			if (position == newsDetailModel.getImg().size() - 1)
+			if (arrayDrawable.size() == newsDetailModel.getImg().size())
+			{
+				System.out.println("·ûºÏÌõ¼þ ->arrayDrawable ->"+arrayDrawable.size()+" getImg().size()-1->"+(newsDetailModel.getImg().size()-1));
 				setNewsDetailText();
+			}
 
 		}
 
@@ -138,7 +143,7 @@ public class NewsDetailActivity extends Activity {
 		public void onErrorResponse(VolleyError arg0) {
 			// TODO Auto-generated method stub
 
-			System.out.println(arg0.toString());
+			System.out.println("ErrorListener "+arg0.toString());
 		}
 
 	}
