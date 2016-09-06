@@ -28,6 +28,7 @@ public class PictureDetailActivity extends Activity {
 		setContentView(R.layout.picture_detail);
 		Intent intent = getIntent();
 
+		getActionBar().hide();
 		model = (PictureModel) intent.getSerializableExtra("picModel");
 
 		init();

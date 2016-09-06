@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,7 +34,8 @@ public class GetWeatherContent {
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.WeatherHost
 				+ URLEncoder.encode(localCityName, "utf-8"), jsonObject,
-				new JsonListener(weatherFragment), new JsonErrorListener());
+				new JsonListener(weatherFragment), new JsonErrorListener(
+						weatherFragment));
 		queue.add(jrq);
 
 	}
@@ -89,10 +91,11 @@ public class GetWeatherContent {
 					info.setType(tempJsonObject.getString("type"));
 					info.setLow(tempJsonObject.getString("low"));
 					date = tempJsonObject.getString("date");
-			
-					if(i>0)
-					info.setDate("÷‹"+date.substring(date.length() - 1,
-							date.length()));
+
+					if (i > 0)
+						info.setDate("÷‹"
+								+ date.substring(date.length() - 1,
+										date.length()));
 					else
 						info.setDate(date);
 					lists.add(info);
@@ -111,11 +114,19 @@ public class GetWeatherContent {
 	}
 
 	static class JsonErrorListener implements ErrorListener {
+		WeatherFragment weatherFragment;
+
+		public JsonErrorListener(WeatherFragment weatherFragment) {
+			// TODO Auto-generated constructor stub
+			this.weatherFragment = weatherFragment;
+		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+			if(weatherFragment!=null)
+				weatherFragment.showToast("º”‘ÿ ß∞‹");
 		}
 
 	}

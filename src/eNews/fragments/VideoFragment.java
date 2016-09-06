@@ -15,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import eNews.activity.MainWindows;
 import eNews.adapter.VideoNewsActionBarAdapter;
 import eNews.adapter.VideoNewsAdapter;
@@ -79,7 +80,7 @@ public class VideoFragment extends Fragment {
 
 					System.out.println("到底了");
 					if (!isLoadContent) {
-						isLoadContent=true;
+						isLoadContent = true;
 						String typeId = GetTypeId.getTypeId(selectTag + "视频");
 						GetVideoNewsContent.getNewsContent(typeId,
 								String.valueOf(pageCount++ * 20),
@@ -87,7 +88,7 @@ public class VideoFragment extends Fragment {
 					}
 
 				}
-
+				showToast("正在加载中...........");
 			}
 
 			@Override
@@ -126,7 +127,10 @@ public class VideoFragment extends Fragment {
 	public void updateAdapter(List<VideoModel> lists) {
 
 		newsAdapter.appendList(lists);
-		isLoadContent=false;
+		isLoadContent = false;
 	}
 
+	public void showToast(String text) {
+		Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+	}
 }

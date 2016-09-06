@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:gravity="bottom"
+            android:drawableLeft="@drawable/location"
             android:text="城市" />
 
         <TextView

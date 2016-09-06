@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class MeiTuDetailActivity extends Activity {
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
 	private Button backBtn;
+	private int windowWidth;
 
 	String strList[];
 
@@ -43,6 +45,10 @@ public class MeiTuDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.news_detail);
+
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+		windowWidth = outMetrics.widthPixels;
 
 		backBtn = (Button) findViewById(R.id.backBtn);
 
@@ -71,7 +77,8 @@ public class MeiTuDetailActivity extends Activity {
 
 	public void setContent(NewsDetailModel newsDetailModel) {
 		this.newsDetailModel = newsDetailModel;
-		String body =newsDetailModel.getBody()+" 时间 "+newsDetailModel.getPtime();
+		String body = newsDetailModel.getBody() + " 时间 "
+				+ newsDetailModel.getPtime();
 		strList = body.split("<!--IMG#\\d*-->");
 		System.out.println("setContent");
 		getDetailImages();
@@ -130,9 +137,15 @@ public class MeiTuDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 			Drawable drawable = new BitmapDrawable(getResources(), bitmap);
 
-			drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-					drawable.getIntrinsicHeight());
-
+			int height = drawable.getIntrinsicHeight();
+			int width = drawable.getIntrinsicWidth();
+			double scale = (windowWidth - 40) / width;
+			width = windowWidth - 40;
+			height = (int) scale * height;
+			drawable.setBounds(0, 0, width, height);
+			drawable.setBounds(0, 0, width, height);
+			
+			
 			arrayDrawable.add(drawable);
 
 			if (arrayDrawable.size() == newsDetailModel.getImg().size()) {

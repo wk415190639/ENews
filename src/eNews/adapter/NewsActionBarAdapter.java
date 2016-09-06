@@ -16,7 +16,7 @@ import eNews.customview.ActionBarView;
 public class NewsActionBarAdapter extends BaseAdapter {
 
 	private Context context;
-	private int selectedIndex = -1;
+	private int selectedIndex = 0;
 
 	private ArrayList<ChannelItemModel> actionbarList;
 	private ActionBarView actionBarView;

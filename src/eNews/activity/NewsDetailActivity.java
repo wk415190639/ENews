@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,7 +35,7 @@ public class NewsDetailActivity extends Activity {
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
 	private Button backBtn;
-
+	private int windowWidth;
 	String strList[];
 
 	@Override
@@ -42,8 +43,12 @@ public class NewsDetailActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
+		getActionBar().hide();
 		setContentView(R.layout.news_detail);
 
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+		windowWidth = outMetrics.widthPixels;
 		backBtn = (Button) findViewById(R.id.backBtn);
 
 		backBtn.setOnClickListener(new OnClickListener() {
@@ -88,7 +93,7 @@ public class NewsDetailActivity extends Activity {
 
 				System.out.println(newsDetailModel.getImg().get(i));
 				ImageRequest ir = new ImageRequest(newsDetailModel.getImg()
-						.get(i), new ImageRequestListener(i), 300, 300,
+						.get(i), new ImageRequestListener(), 300, 300,
 						Config.ARGB_8888, new ImageRequestError());
 
 				jr.add(ir);
@@ -102,8 +107,8 @@ public class NewsDetailActivity extends Activity {
 		for (int i = 0; i < strList.length; i++) {
 			if (i < strList.length - 1)
 				newsDetailText.append(Html.fromHtml(strList[i] + "<img src="
-						+ String.valueOf(i) + "></img><br>",
-						new MyImageGetter(), null));
+						+ String.valueOf(i) + " ></img>", new MyImageGetter(),
+						null));
 			else
 				newsDetailText.append(Html.fromHtml(strList[i]));
 
@@ -124,20 +129,18 @@ public class NewsDetailActivity extends Activity {
 
 	public class ImageRequestListener implements Listener<Bitmap> {
 
-		private int position;
-
-		public ImageRequestListener(int position) {
-
-			this.position = position;
-		}
-
 		@Override
 		public void onResponse(Bitmap bitmap) {
 			// TODO Auto-generated method stub
 			Drawable drawable = new BitmapDrawable(getResources(), bitmap);
 
-			drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-					drawable.getIntrinsicHeight());
+			int height = drawable.getIntrinsicHeight();
+			int width = drawable.getIntrinsicWidth();
+			double scale = (windowWidth - 40) / width;
+			width = windowWidth - 40;
+			height = (int) scale * height;
+			drawable.setBounds(0, 0, width, height);
+			drawable.setBounds(0, 0, width, height);
 
 			arrayDrawable.add(drawable);
 

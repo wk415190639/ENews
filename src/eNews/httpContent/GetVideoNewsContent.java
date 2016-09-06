@@ -38,7 +38,7 @@ public class GetVideoNewsContent {
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.Video + typeId
 				+ Url.VideoCenter + startNum + Url.videoEndUrl, jsonObject,
 				new JsonListener(videoNewsFragment, typeId),
-				new JsonErrorListener());
+				new JsonErrorListener(videoNewsFragment));
 		queue.add(jrq);
 
 	}
@@ -102,11 +102,22 @@ public class GetVideoNewsContent {
 	}
 
 	static class JsonErrorListener implements ErrorListener {
+		VideoFragment videoNewsFragment;
+
+		public JsonErrorListener(VideoFragment videoNewsFragment) {
+			// TODO Auto-generated constructor stub
+			this.videoNewsFragment = videoNewsFragment;
+		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+
+			if (videoNewsFragment != null) {
+				videoNewsFragment.showToast("º”‘ÿ ß∞‹");
+
+			}
 		}
 
 	}

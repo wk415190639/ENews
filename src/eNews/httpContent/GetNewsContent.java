@@ -16,7 +16,6 @@ import com.android.volley.toolbox.Volley;
 
 import eNews.bean.NewsModel;
 import eNews.fragments.MainFragment;
-import eNews.fragments.PictureFragment;
 import eNews.url.Url;
 
 public class GetNewsContent {
@@ -41,7 +40,8 @@ public class GetNewsContent {
 				.getApplicationContext());
 
 		JsonObjectRequest jrq = new JsonObjectRequest(httpUrl, jsonObject,
-				new JsonListener(mainActivity, typeId), new JsonErrorListener(mainActivity));
+				new JsonListener(mainActivity, typeId), new JsonErrorListener(
+						mainActivity));
 		queue.add(jrq);
 
 		System.out.println(httpUrl);
@@ -69,20 +69,20 @@ public class GetNewsContent {
 			try {
 				JSONArray rootAyyar = jo.getJSONArray(typeId);
 
+				for (int i = 0; i < rootAyyar.length(); i++) {
 
-				for (int i = 0; i <rootAyyar.length(); i++) {
-					
 					JSONObject newsItemObject = rootAyyar.getJSONObject(i);
-					//if (GetTypeId.isBvNews(newsItemObject.getString("postid"))) {
-						newsModel = new NewsModel();
-						newsModel.setTitle(newsItemObject.getString("title"));
-						newsModel.setDigest(newsItemObject.getString("digest"));
-						newsModel.setImagesrc(newsItemObject
-								.getString("imgsrc"));
-						//newsModel.setPostid(newsItemObject.getString("postid"));
-						newsModel.setDocid(newsItemObject.getString("docid"));
-						lists.add(newsModel);
-				//	}
+					// if
+					// (GetTypeId.isBvNews(newsItemObject.getString("postid")))
+					// {
+					newsModel = new NewsModel();
+					newsModel.setTitle(newsItemObject.getString("title"));
+					newsModel.setDigest(newsItemObject.getString("digest"));
+					newsModel.setImagesrc(newsItemObject.getString("imgsrc"));
+					// newsModel.setPostid(newsItemObject.getString("postid"));
+					newsModel.setDocid(newsItemObject.getString("docid"));
+					lists.add(newsModel);
+					// }
 				}
 				mainFragment.updateAdapter(lists);
 			} catch (JSONException e) {
@@ -97,15 +97,19 @@ public class GetNewsContent {
 	static class JsonErrorListener implements ErrorListener {
 
 		private MainFragment mainFragment;
-		public JsonErrorListener( MainFragment mainFragment) {
+
+		public JsonErrorListener(MainFragment mainFragment) {
 			// TODO Auto-generated constructor stub
 			this.mainFragment = mainFragment;
 		}
+
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
-			mainFragment.isLoadContent=false;
+			mainFragment.isLoadContent = false;
 			System.out.println("Json array volley error->" + error);
+			mainFragment.showToast("º”‘ÿ ß∞‹");
+
 		}
 
 	}

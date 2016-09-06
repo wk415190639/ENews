@@ -25,10 +25,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.VideoPlayActivity;
+import eNews.activity.NewsDetailActivity;
 import eNews.app.R;
 import eNews.bean.NewsModel;
-import eNews.bean.VideoModel;
 import eNews.common.BitmapCache;
 
 public class TopViewPageAdapter extends PagerAdapter {
@@ -70,6 +69,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 			for (int i = 0; i < 4; i++) {
 
 				relativeLayout = new RelativeLayout(context);
+				relativeLayout.setClickable(true);
 
 				relativeLayout.setLayoutParams(params);
 				iv = new ImageView(context);
@@ -124,10 +124,14 @@ public class TopViewPageAdapter extends PagerAdapter {
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
 		ImageListener listener = ImageLoader.getImageListener(iv,
-				R.drawable.p1, R.drawable.p2);
+				R.drawable.video_default, R.drawable.video_default);
 
 		imageLoader.get(lists.get(position).getImagesrc(), listener);
-		System.out.println(lists.get(position).getImagesrc()+"---------------");
+		System.out.println(lists.get(position).getImagesrc()
+				+ "---------------");
+
+		relativeLayout.setOnClickListener(new newsItemOnclick(lists
+				.get(position)));
 
 		((ViewPager) top_news).addView(arrayList.get(position));
 
@@ -178,23 +182,43 @@ public class TopViewPageAdapter extends PagerAdapter {
 
 	class newsItemOnclick implements OnClickListener {
 
-		private VideoModel videoModel;
+		private NewsModel model;
 
-		public newsItemOnclick(VideoModel videoModel) {
+		public newsItemOnclick(NewsModel model) {
 			// TODO Auto-generated constructor stub
 
-			this.videoModel = videoModel;
+			this.model = model;
 		}
 
 		@Override
 		public void onClick(View v) {
 
-			Intent intent = new Intent(context, VideoPlayActivity.class);
-			intent.putExtra("videoUrl", videoModel.getMp4_url());
+			Intent intent = new Intent(context, NewsDetailActivity.class);
+			intent.putExtra("postId", model.getDocid());
 			context.startActivity(intent);
-
 		}
 
 	}
+
+	// class newsItemOnclick implements OnClickListener {
+	//
+	// private VideoModel videoModel;
+	//
+	// public newsItemOnclick(VideoModel videoModel) {
+	// // TODO Auto-generated constructor stub
+	//
+	// this.videoModel = videoModel;
+	// }
+	//
+	// @Override
+	// public void onClick(View v) {
+	//
+	// Intent intent = new Intent(context, VideoPlayActivity.class);
+	// intent.putExtra("videoUrl", videoModel.getMp4_url());
+	// context.startActivity(intent);
+	//
+	// }
+	//
+	// }
 
 }

@@ -296,4 +296,8 @@ public class WeatherFragment extends Fragment {
 
 	}
 
+	public void showToast(String text) {
+		Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+	}
+
 }

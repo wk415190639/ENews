@@ -32,7 +32,6 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 	Context context;
 	ArrayList<View> arrayList;
 	private BitmapCache bitmapCache;
-	private PictureModel model;
 
 	public PictureDetailViewPageAdapter(Context context) {
 		this.context = context;
@@ -41,7 +40,6 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 	}
 
 	public void appendList(PictureModel model) {
-		this.model = model;
 		ArrayList<String> list = model.getPics();
 		if (!lists.containsAll(list) && list != null && list.size() > 0) {
 			lists.addAll(list);
@@ -79,7 +77,7 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 				tv.setLayoutParams(textParams);
 				tv.setPadding(15, 5, 10, 5);
 
-				String desc = "\t ͼ " + String.valueOf(i) + " \n";
+				String desc = "\t ͼ " + String.valueOf(i+1) + " \n";
 				if (i == 0)
 					desc += model.getTitle() + "\n" + model.getDesc();
 				else
@@ -124,7 +122,7 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
 		ImageListener listener = ImageLoader.getImageListener(iv,
-				R.drawable.p1, R.drawable.p2);
+				R.drawable.video_default, R.drawable.video_default);
 
 		imageLoader.get(lists.get(position), listener);
 

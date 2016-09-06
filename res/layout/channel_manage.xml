@@ -5,28 +5,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="#f00" >
+        android:background="#DCDCDC" >
 
         <TextView
             android:id="@+id/channelManageBack"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:background="@drawable/channelitem_btn_back"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/channelitem_btn_back" />
 
         <TextView
             android:id="@+id/TextView01"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:text="频道管理"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -57,7 +56,7 @@
                     android:layout_height="match_parent"
                     android:gravity="bottom"
                     android:paddingLeft="5dp"
-                    android:text="单击增删频道,长按拖拽排序" />
+                    android:text="单击增删频道" />
             </LinearLayout>
 
             <eNews.customview.ChannelGridView

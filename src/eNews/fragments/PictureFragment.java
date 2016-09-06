@@ -15,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import eNews.activity.MainWindows;
 import eNews.adapter.PictureNewsActionBarAdapter;
 import eNews.adapter.PictureNewsAdapter;
@@ -33,7 +34,6 @@ public class PictureFragment extends Fragment {
 	private PictureNewsActionBarAdapter pictureNewsActionBarAdapter;
 	private PictureNewsAdapter pictureNewsAdapter;
 	private String finalLink;
-	
 
 	private String selectTag;
 	private int pageCount = 1;
@@ -70,8 +70,9 @@ public class PictureFragment extends Fragment {
 							GetPictureNewsContent.getNewsContent(url,
 									PictureFragment.this);
 						}
-					}
 
+					}
+					showToast("正在加载中...........");
 				}
 
 			}
@@ -107,9 +108,11 @@ public class PictureFragment extends Fragment {
 		pictureListView = (ListView) view.findViewById(R.id.pictureList);
 		pictureNewsActionBarAdapter = new PictureNewsActionBarAdapter(
 				getActivity());
+
 		pictureNewsAdapter = new PictureNewsAdapter(getActivity());
+
 		actionbar.setAdapter(pictureNewsActionBarAdapter);
-		actionbar.setNumColumns(4);
+		actionbar.setNumColumns(3);
 		actionbar.setOnItemClickListener(new PictureItemClick());
 
 		pictureListView.setAdapter(pictureNewsAdapter);
@@ -158,7 +161,7 @@ public class PictureFragment extends Fragment {
 
 	public void updateAdapter(List<PictureModel> lists) {
 
-		pictureNewsAdapter.appendList(lists,selectTag);
+		pictureNewsAdapter.appendList(lists, selectTag);
 
 		if (!selectTag.equals("美图")) {
 			finalLink = lists.get(lists.size() - 1).getSetId();
@@ -166,5 +169,9 @@ public class PictureFragment extends Fragment {
 		}
 
 		isLoadContent = false;
+	}
+
+	public void showToast(String text) {
+		Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
 	}
 }

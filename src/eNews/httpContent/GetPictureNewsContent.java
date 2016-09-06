@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
@@ -162,12 +159,15 @@ public class GetPictureNewsContent {
 		public JsonErrorListener(PictureFragment pictureFragment) {
 			// TODO Auto-generated constructor stub
 			this.pictureFragment = pictureFragment;
+
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+			if(pictureFragment!=null)
+				pictureFragment.showToast("º”‘ÿ ß∞‹");
 
 		}
 

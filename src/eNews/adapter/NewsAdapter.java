@@ -83,7 +83,7 @@ public class NewsAdapter extends BaseAdapter {
 	public View getView(final int position, View news_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
-	//	System.out.println("create   ->" + position);
+		// System.out.println("create   ->" + position);
 		NewsModel newsModel = lists.get(position);
 		ViewHolder viewHolder = null;
 
@@ -113,27 +113,26 @@ public class NewsAdapter extends BaseAdapter {
 			viewHolder.news_item_title.setText(newsModel.getTitle());
 			viewHolder.news_item_digest.setText(newsModel.getDigest());
 
-			 RequestQueue rq = Volley.newRequestQueue(context);
-			
-			 // ImageRequest imageRequest = new ImageRequest(
+			RequestQueue rq = Volley.newRequestQueue(context);
+
+			// ImageRequest imageRequest = new ImageRequest(
 			// newsModel.getImagesrc(), new imageRequestListener(
 			// news_item_p1), 0, 0, Config.ARGB_8888,
 			// new imageRequestErrorListener());
 			//
 			// rq.add(imageRequest);
-			
-			ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
-			 
-			  ImageListener listener = ImageLoader.getImageListener( viewHolder.news_item_p1,
-			  R.drawable.p1, R.drawable.p2);
-			  
-			  imageLoader.get(newsModel.getImagesrc(), listener);
-			 
 
-			 
+			ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
+
+			ImageListener listener = ImageLoader.getImageListener(
+					viewHolder.news_item_p1, R.drawable.picture_default,
+					R.drawable.picture_default);
+
+			imageLoader.get(newsModel.getImagesrc(), listener);
+
 		}
 
-		 news_item.setOnClickListener(new newsItemOnclick(newsModel));
+		news_item.setOnClickListener(new newsItemOnclick(newsModel));
 
 		return news_item;
 	}

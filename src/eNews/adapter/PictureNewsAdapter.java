@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -122,7 +121,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
 		ImageListener listener = ImageLoader.getImageListener(
-				holder.pictureImage, R.drawable.p1, R.drawable.p2);
+				holder.pictureImage, R.drawable.picture_default, R.drawable.picture_default);
 
 		imageLoader.get(pictureModel.getImgsrc(), listener);
 

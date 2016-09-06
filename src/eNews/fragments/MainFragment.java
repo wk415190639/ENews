@@ -2,11 +2,11 @@ package eNews.fragments;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,11 +14,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 
@@ -64,13 +64,14 @@ public class MainFragment extends Fragment {
 		actionbarAdapter = new NewsActionBarAdapter(getActivity(),
 				ChannelManage.getInstance(getActivity())
 						.getDefaultUserChannelsList(), actionBar);
+
 		actionBar.setAdapter(actionbarAdapter);
-		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
 
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
 
-		topViewPageAdapter = new TopViewPageAdapter(getActivity()
-				.getApplicationContext());
+		actionBar.setOnItemClickListener(new ActionBarItemOnListener());
+
+		topViewPageAdapter = new TopViewPageAdapter(getActivity());
 
 		topViewPager.setAdapter(topViewPageAdapter);
 		topViewPager.setPageTransformer(true, new CubeOutTransformer());
@@ -98,6 +99,7 @@ public class MainFragment extends Fragment {
 
 		scrollView.setOnTouchListener(new OnTouchListener() {
 
+			@SuppressLint("ClickableViewAccessibility")
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
@@ -125,6 +127,8 @@ public class MainFragment extends Fragment {
 						}
 
 					}
+
+					showToast("正在加载中...........");
 				}
 				return false;
 			}
@@ -243,6 +247,10 @@ public class MainFragment extends Fragment {
 				start = false;
 			}
 		}
+	}
+
+	public void showToast(String text) {
+		Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
 	}
 
 }

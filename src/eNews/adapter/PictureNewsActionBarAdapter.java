@@ -11,7 +11,7 @@ import eNews.app.R;
 public class PictureNewsActionBarAdapter extends BaseAdapter {
 
 	private Context context;
-	private int selectedIndex = -1;
+	private int selectedIndex = 0;
 
 	private String[] actionbarList;
 
@@ -53,10 +53,10 @@ public class PictureNewsActionBarAdapter extends BaseAdapter {
 
 		TextView tv = (TextView) bar.findViewById(R.id.gridview_bar_item_Tv);
 		tv.setText(actionbarList[position]);
-		tv.setBackgroundResource(R.drawable.gridview_bar_item);
+		tv.setBackgroundResource(R.drawable.tu_gridview_bar_item);
 
 		if (selectedIndex == position)
-			tv.setBackgroundResource(R.drawable.actionbar_text_style);
+			tv.setBackgroundResource(R.drawable.tu_actionbar_text_style);
 
 		return bar;
 	}

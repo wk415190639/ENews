@@ -11,7 +11,7 @@ import eNews.app.R;
 public class VideoNewsActionBarAdapter extends BaseAdapter {
 
 	private Context context;
-	private int selectedIndex = -1;
+	private int selectedIndex = 0;
 
 	private String[] actionbarList;
 

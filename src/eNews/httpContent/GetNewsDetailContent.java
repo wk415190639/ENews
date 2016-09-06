@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -26,7 +28,7 @@ public class GetNewsDetailContent {
 		System.out.println(Url.NewDetail +postId+ Url.endDetailUrl);
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.NewDetail + postId
 				+ Url.endDetailUrl, jsonObject, new JsonListener(
-				newsDetailActivity, postId), new JsonErrorListener());
+				newsDetailActivity, postId), new JsonErrorListener(newsDetailActivity));
 		queue.add(jrq);
 
 	}
@@ -80,10 +82,17 @@ public class GetNewsDetailContent {
 
 	static class JsonErrorListener implements ErrorListener {
 
+		NewsDetailActivity newsDetailActivity;
+		public JsonErrorListener(NewsDetailActivity newsDetailActivity) {
+			// TODO Auto-generated constructor stub
+			this.newsDetailActivity = newsDetailActivity;
+		}
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+			if (newsDetailActivity != null)
+			Toast.makeText(newsDetailActivity, " ˝æ›º”‘ÿ ß∞‹!", Toast.LENGTH_SHORT).show();
 		}
 
 	}

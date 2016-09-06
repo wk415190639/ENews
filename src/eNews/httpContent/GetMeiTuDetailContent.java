@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -21,12 +23,14 @@ public class GetMeiTuDetailContent {
 			MeiTuDetailActivity meiTuDetailActivity) {
 
 		JSONObject jsonObject = null;
+
 		RequestQueue queue = Volley.newRequestQueue(meiTuDetailActivity);
 
-		System.out.println(Url.NewDetail +postId+ Url.endDetailUrl);
+		System.out.println(Url.NewDetail + postId + Url.endDetailUrl);
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.NewDetail + postId
 				+ Url.endDetailUrl, jsonObject, new JsonListener(
-						meiTuDetailActivity, postId), new JsonErrorListener());
+				meiTuDetailActivity, postId), new JsonErrorListener(
+				meiTuDetailActivity));
 		queue.add(jrq);
 
 	}
@@ -36,7 +40,8 @@ public class GetMeiTuDetailContent {
 		private String postId;
 		private MeiTuDetailActivity meiTuDetailActivity;
 
-		public JsonListener(MeiTuDetailActivity meiTuDetailActivity, String postId) {
+		public JsonListener(MeiTuDetailActivity meiTuDetailActivity,
+				String postId) {
 
 			this.postId = postId;
 			this.meiTuDetailActivity = meiTuDetailActivity;
@@ -49,7 +54,7 @@ public class GetMeiTuDetailContent {
 			// System.out.println("Josn OK->" + jo.toString());
 			try {
 
-			//	System.out.println(jo);
+				// System.out.println(jo);
 				NewsDetailModel detailModel = new NewsDetailModel();
 
 				JSONObject root = jo.getJSONObject(postId);
@@ -79,11 +84,21 @@ public class GetMeiTuDetailContent {
 	}
 
 	static class JsonErrorListener implements ErrorListener {
+		MeiTuDetailActivity meiTuDetailActivity;
+
+		public JsonErrorListener(MeiTuDetailActivity meiTuDetailActivity) {
+			// TODO Auto-generated constructor stub
+
+			this.meiTuDetailActivity = meiTuDetailActivity;
+		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+		if(meiTuDetailActivity!=null)
+			Toast.makeText(meiTuDetailActivity, " ˝æ›º”‘ÿ ß∞‹!", Toast.LENGTH_SHORT)
+					.show();
 		}
 
 	}

@@ -1,7 +1,10 @@
 package eNews.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
@@ -105,11 +108,16 @@ public class VideoNewsAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) video_item.getTag();
 		}
 		viewHolder.videoNewsItemTitle.setText(videoModel.getTitle());
-		viewHolder.videoNewsItemTime.setText(videoModel.getLength());
+
+		SimpleDateFormat format = new SimpleDateFormat("mm:ss", Locale.US);
+		String times = format.format(new Date(Integer.valueOf(videoModel.getLength()) * 1000L));
+		System.out.print("日期格式---->" + times);
+		viewHolder.videoNewsItemTime.setText(times);
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
 		ImageListener listener = ImageLoader.getImageListener(
-				viewHolder.videoNewsItemImg, R.drawable.p1, R.drawable.p2);
+				viewHolder.videoNewsItemImg, R.drawable.video_default,
+				R.drawable.video_default);
 
 		imageLoader.get(videoModel.getTopicImg(), listener);
 

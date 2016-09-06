@@ -5,6 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -42,7 +44,7 @@ public class GetPictureNewsDetailContent {
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.JINGXUANDETAIL_ID
 				+ pid, jsonObject, new JsonListener(detailActivity),
-				new JsonErrorListener());
+				new JsonErrorListener(detailActivity));
 		queue.add(jrq);
 
 	}
@@ -89,11 +91,20 @@ public class GetPictureNewsDetailContent {
 	}
 
 	static class JsonErrorListener implements ErrorListener {
+		PictureDetailActivity detailActivity;
+
+		public JsonErrorListener(PictureDetailActivity detailActivity) {
+			// TODO Auto-generated constructor stub
+			this.detailActivity = detailActivity;
+		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
+			if (detailActivity != null)
+				Toast.makeText(detailActivity, " ˝æ›º”‘ÿ ß∞‹!", Toast.LENGTH_SHORT)
+						.show();
 		}
 
 	}
