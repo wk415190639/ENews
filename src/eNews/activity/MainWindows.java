@@ -2,26 +2,52 @@ package eNews.activity;
 
 import java.lang.ref.WeakReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.res.Configuration;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
+import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
+import android.view.View.OnTouchListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
 import eNews.app.R;
 import eNews.common.HandlerWhat;
 import eNews.fragments.MainFragment;
@@ -29,6 +55,7 @@ import eNews.fragments.MoreAboutFragment;
 import eNews.fragments.PictureFragment;
 import eNews.fragments.VideoFragment;
 import eNews.fragments.WeatherFragment;
+import eNews.thirdParty.AppConstant;
 
 public class MainWindows extends Activity implements OnClickListener {
 
@@ -36,7 +63,6 @@ public class MainWindows extends Activity implements OnClickListener {
 	private MainWindowsHandler mainWindowsHandler;
 	private ImageView logo;
 	private DrawerLayout drawerLayout;
-	private ActionBarDrawerToggle actionBarDrawerToggle;
 
 	private LinearLayout menu_left;
 	private LinearLayout menu_mainLayout;
@@ -51,19 +77,45 @@ public class MainWindows extends Activity implements OnClickListener {
 	public WeatherFragment weatherFragment;
 	public MoreAboutFragment aboutFragment;
 
+	private ImageButton userImgBtn;
+	private TextView userName;
+	private UserInfo mInfo;
+	private boolean isLogin;
+
+	private LoginIUListener iuListener;
+
 	private boolean isOpen;
+	private Tencent mTencent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainwindows);
-		init();
-		// initActionBarDrawerToggle();
-		initFragment();
 
-		int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
-		System.out.println("Max memory is " + maxMemory + "m");
+		init();
+		initFragment();
+		initTencentInstance();
+
+	}
+
+	private void initTencentInstance() {
+		mTencent = Tencent.createInstance(AppConstant.appId, this);
+	}
+
+	private void initOpenidAndToken(JSONObject jsonObject) {
+		try {
+			String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
+			String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
+			String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
+
+			if (!TextUtils.isEmpty(token) && !TextUtils.isEmpty(expires)
+					&& !TextUtils.isEmpty(openId)) {
+				mTencent.setAccessToken(token, expires);
+				mTencent.setOpenId(openId);
+			}
+		} catch (Exception e) {
+		}
 
 	}
 
@@ -78,10 +130,18 @@ public class MainWindows extends Activity implements OnClickListener {
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 		drawerLayout.setDrawerShadow(R.drawable.shadow, GravityCompat.START);
-		// ActionBarDrawerToggleListener
 
 		drawerLayout.setDrawerListener(new ActionBarDrawerToggleListener());
 		menu_left = (LinearLayout) findViewById(R.id.menuLayout);
+		menu_left.setOnTouchListener(new OnTouchListener() {
+
+			@SuppressLint("ClickableViewAccessibility")
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				return true;
+			}
+		});
 
 		menu_mainLayout = (LinearLayout) findViewById(R.id.menuMain);
 		menu_mainLayout.setOnClickListener(this);
@@ -98,6 +158,12 @@ public class MainWindows extends Activity implements OnClickListener {
 		menu_moreLayout = (LinearLayout) findViewById(R.id.menuMore);
 		menu_moreLayout.setOnClickListener(this);
 
+		userImgBtn = (ImageButton) findViewById(R.id.userImg);
+		userImgBtn.setOnClickListener(new LoginBtnClick());
+
+		userName = (TextView) findViewById(R.id.userName);
+
+		iuListener = new LoginIUListener();
 	}
 
 	private void initFragment() {
@@ -145,7 +211,6 @@ public class MainWindows extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
-		System.out.println("----------onClick");
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
 		switch (v.getId()) {
@@ -210,6 +275,16 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	}
 
+	class LoginBtnClick implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+
+			login();
+		}
+
+	}
+
 	public void showMainFragment() {
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
@@ -229,7 +304,7 @@ public class MainWindows extends Activity implements OnClickListener {
 			// TODO Auto-generated method stub
 
 			System.out.println("onDrawerOpen ->" + isOpen + "");
-			
+
 			logo.setRotation(0);
 
 		}
@@ -299,4 +374,159 @@ public class MainWindows extends Activity implements OnClickListener {
 		}
 	}
 
+	private void login() {
+
+		if (!isLogin) {
+			System.out.println("正在登录......");
+
+			if (!mTencent.isSessionValid()) {
+				mTencent.login(this, "all", iuListener);
+
+			} else {
+
+				mTencent.logout(this);
+				mTencent.login(this, "all", iuListener);
+
+			}
+
+		} else {
+			System.out.println("已登录.....");
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+
+		if (requestCode == Constants.REQUEST_LOGIN
+				|| requestCode == Constants.REQUEST_APPBAR) {
+			Tencent.onActivityResultData(requestCode, resultCode, data,
+					iuListener);
+		}
+
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	class LoginIUListener implements IUiListener {
+
+		@Override
+		public void onCancel() {
+
+			System.out.println("OnCancel");
+
+		}
+
+		@Override
+		public void onComplete(Object respone) {
+			// TODO Auto-generated method stub
+			isLogin = true;
+
+			doComplete(respone);
+
+		}
+
+		private void doComplete(Object respone) {
+
+			JSONObject root = (JSONObject) respone;
+			initOpenidAndToken(root);
+			updateUserInfo();
+
+		}
+
+		@Override
+		public void onError(UiError arg0) {
+			// TODO Auto-generated method stub
+			System.out.println("onError");
+		}
+
+	}
+
+	public static Bitmap makeRoundCorner(Bitmap bitmap, int px) {
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+		Bitmap output = Bitmap.createBitmap(width, height,
+				Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+		int color = 0xff424242;
+		Paint paint = new Paint();
+		Rect rect = new Rect(0, 0, width, height);
+		RectF rectF = new RectF(rect);
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+		canvas.drawRoundRect(rectF, px, px, paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+		return output;
+	}
+
+	private void updateUserInfo() {
+
+		if (mTencent != null && mTencent.isSessionValid()) {
+			IUiListener listener = new IUiListener() {
+
+				@Override
+				public void onError(UiError e) {
+
+				}
+
+				@Override
+				public void onComplete(final Object response) {
+
+					JSONObject root = (JSONObject) response;
+					Message msg = new Message();
+					msg.obj = response;
+					msg.what = 0;
+					mainWindowsHandler.sendMessage(msg);
+
+					System.out.println("-------getUserInfo>"
+							+ response.toString());
+					String url = null;
+					try {
+						url = root.getString("figureurl_qq_2");
+						userName.setText(root.getString("nickname"));
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					RequestQueue rq = Volley.newRequestQueue(MainWindows.this);
+					ImageRequest imageRequest = new ImageRequest(url,
+							new Listener<Bitmap>() {
+
+								@Override
+								public void onResponse(Bitmap bitmap) {
+
+									userImgBtn.setImageBitmap(makeRoundCorner(
+											bitmap, 50));
+
+								}
+							}, 100, 100, Config.ARGB_8888, new ErrorListener() {
+
+								@Override
+								public void onErrorResponse(VolleyError arg0) {
+									// TODO Auto-generated method stub
+									System.out.println("onErrorResponse");
+								}
+							});
+
+					rq.add(imageRequest);
+
+				}
+
+				@Override
+				public void onCancel() {
+
+				}
+			};
+			mInfo = new UserInfo(this, mTencent.getQQToken());
+			mInfo.getUserInfo(listener);
+
+		} else {
+			// mUserInfo.setText("");
+			// mUserInfo.setVisibility(android.view.View.GONE);
+			// mUserLogo.setVisibility(android.view.View.GONE);
+		}
+
+	}
 }
