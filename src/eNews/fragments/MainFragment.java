@@ -64,7 +64,7 @@ public class MainFragment extends Fragment {
 		actionbarAdapter = new NewsActionBarAdapter(getActivity(),
 				ChannelManage.getInstance(getActivity())
 						.getDefaultUserChannelsList(), actionBar);
-
+		actionbarAdapter.setSelectedIndex(0);
 		actionBar.setAdapter(actionbarAdapter);
 
 		actionBar.setOnItemClickListener(new ActionBarItemOnListener());

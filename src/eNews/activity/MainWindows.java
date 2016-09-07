@@ -8,8 +8,10 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -389,9 +391,42 @@ public class MainWindows extends Activity implements OnClickListener {
 
 			}
 
+			updateUserInfo();
 		} else {
 			System.out.println("已登录.....");
+
+			new AlertDialog.Builder(this).setTitle("已经登录,是否注销")
+					.setPositiveButton("注销", new NegativeButtonListener())
+					.setNegativeButton("取消", new PositiveButtonListener())
+					.setIcon(android.R.drawable.ic_dialog_info).show();
+
 		}
+	}
+
+	private void logout() {
+		mTencent.logout(this);
+		updateUserInfo();
+	}
+
+	class NegativeButtonListener implements DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+			logout();
+			isLogin = false;
+		}
+
+	}
+
+	class PositiveButtonListener implements DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+		}
+
 	}
 
 	@Override
@@ -435,7 +470,7 @@ public class MainWindows extends Activity implements OnClickListener {
 
 		@Override
 		public void onError(UiError arg0) {
-			// TODO Auto-generated method stub
+
 			System.out.println("onError");
 		}
 
@@ -463,69 +498,69 @@ public class MainWindows extends Activity implements OnClickListener {
 	private void updateUserInfo() {
 
 		if (mTencent != null && mTencent.isSessionValid()) {
-			IUiListener listener = new IUiListener() {
 
-				@Override
-				public void onError(UiError e) {
-
-				}
-
-				@Override
-				public void onComplete(final Object response) {
-
-					JSONObject root = (JSONObject) response;
-					Message msg = new Message();
-					msg.obj = response;
-					msg.what = 0;
-					mainWindowsHandler.sendMessage(msg);
-
-					System.out.println("-------getUserInfo>"
-							+ response.toString());
-					String url = null;
-					try {
-						url = root.getString("figureurl_qq_2");
-						userName.setText(root.getString("nickname"));
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					RequestQueue rq = Volley.newRequestQueue(MainWindows.this);
-					ImageRequest imageRequest = new ImageRequest(url,
-							new Listener<Bitmap>() {
-
-								@Override
-								public void onResponse(Bitmap bitmap) {
-
-									userImgBtn.setImageBitmap(makeRoundCorner(
-											bitmap, 50));
-
-								}
-							}, 100, 100, Config.ARGB_8888, new ErrorListener() {
-
-								@Override
-								public void onErrorResponse(VolleyError arg0) {
-									// TODO Auto-generated method stub
-									System.out.println("onErrorResponse");
-								}
-							});
-
-					rq.add(imageRequest);
-
-				}
-
-				@Override
-				public void onCancel() {
-
-				}
-			};
 			mInfo = new UserInfo(this, mTencent.getQQToken());
-			mInfo.getUserInfo(listener);
+			mInfo.getUserInfo(new UserInfoIUiListener());
 
 		} else {
-			// mUserInfo.setText("");
-			// mUserInfo.setVisibility(android.view.View.GONE);
-			// mUserLogo.setVisibility(android.view.View.GONE);
+			userName.setText("未登录");
+			userImgBtn.setImageResource(R.drawable.people);
+		}
+
+	}
+
+	class UserInfoIUiListener implements IUiListener {
+		@Override
+		public void onError(UiError e) {
+
+		}
+
+		@Override
+		public void onComplete(final Object response) {
+
+			JSONObject root = (JSONObject) response;
+
+			System.out.println("-------getUserInfo>" + response.toString());
+			String url = null;
+			try {
+				url = root.getString("figureurl_qq_2");
+				userName.setText(root.getString("nickname"));
+
+				RequestQueue rq = Volley.newRequestQueue(MainWindows.this);
+				ImageRequest imageRequest = new ImageRequest(url,
+						new ImageListener(), 100, 100, Config.ARGB_8888,
+						new ImageErrorListener());
+
+				rq.add(imageRequest);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		@Override
+		public void onCancel() {
+
+		}
+	};
+
+	class ImageListener implements Listener<Bitmap> {
+
+		@Override
+		public void onResponse(Bitmap bitmap) {
+
+			userImgBtn.setImageBitmap(makeRoundCorner(bitmap, 50));
+
+		}
+
+	}
+
+	class ImageErrorListener implements ErrorListener {
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+			System.out.println("imageResponse" + error);
 		}
 
 	}

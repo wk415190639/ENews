@@ -6,12 +6,14 @@ import io.vov.vitamio.widget.VideoView;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.TextView;
 import eNews.app.R;
+import eNews.bean.VideoModel;
 
 public class VideoPlayActivity extends Activity {
 
-	
 	private VideoView mVideoView;
+	private TextView videoTitle;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -19,12 +21,14 @@ public class VideoPlayActivity extends Activity {
 		if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
 			return;
 		setContentView(R.layout.videoview);
-		
-		String videoUrl = getIntent().getStringExtra("videoUrl");
-		
-		
+		getActionBar().hide();
+		videoTitle = (TextView) findViewById(R.id.videoTitle);
+
+		VideoModel videoModel = (VideoModel) getIntent().getSerializableExtra(
+				"videoModel");
+		videoTitle.setText(videoModel.getTitle());
 		mVideoView = (VideoView) findViewById(R.id.surface_view);
-		mVideoView.setVideoPath(videoUrl);
+		mVideoView.setVideoPath(videoModel.getMp4_url());
 		mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
 		mVideoView.setMediaController(new MediaController(this));
 	}

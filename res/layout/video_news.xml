@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:background="#e3e3e3"
+        android:background="@drawable/actionbar_shape"
         android:orientation="horizontal" >
 
         <Button
@@ -20,7 +20,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/back_btn_shape"
             android:gravity="center"
-            android:text="返回" />
+            android:text="@string/back" />
 
         <TextView
             android:id="@+id/textView1"
@@ -28,25 +28,31 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="视频新闻"
+            android:text="@string/video_title"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
-    <eNews.customview.ActionBarView
-        android:id="@+id/videoNewsactionBar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4.5"
-        android:padding="5dp" >
-    </eNews.customview.ActionBarView>
+        android:background="@color/chanel_item_color"
+        android:gravity="center" >
+
+        <eNews.customview.ActionBarView
+            android:id="@+id/videoNewsactionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/chanel_item_color"
+            android:gravity="center" >
+        </eNews.customview.ActionBarView>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/videoList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="51.5"
-        android:divider="#000"
-        android:dividerHeight="1dp" >
+        android:layout_weight="51.5" >
     </ListView>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package eNews.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,13 @@ public class VideoNewsActionBarAdapter extends BaseAdapter {
 
 		TextView tv = (TextView) bar.findViewById(R.id.gridview_bar_item_Tv);
 		tv.setText(actionbarList[position]);
-		tv.setBackgroundResource(R.drawable.gridview_bar_item);
-
-		if (selectedIndex == position)
+		if (selectedIndex == position) {
 			tv.setBackgroundResource(R.drawable.actionbar_text_style);
+			tv.setTextColor(Color.BLUE);
+		} else {
+			tv.setBackgroundResource(R.drawable.gridview_bar_item);
+			tv.setTextColor(Color.BLACK);
+		}
 
 		return bar;
 	}

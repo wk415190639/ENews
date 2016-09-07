@@ -90,7 +90,7 @@ public class PictureNewsAdapter extends BaseAdapter {
 	public View getView(final int position, View picture_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
-		RequestQueue rq = Volley.newRequestQueue(context);
+		RequestQueue rq = Volley.newRequestQueue(context.getApplicationContext());
 		final PictureModel pictureModel = lists.get(position);
 		ViewHolder holder = null;
 

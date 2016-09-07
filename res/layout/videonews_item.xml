@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingLeft="10dp"
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@drawable/video_default" />
 
@@ -20,17 +21,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/play" />
 
     <TextView
         android:id="@+id/videoNewsItemTitle"
-        android:background="#AA1E90FF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="#2994f1"
         android:singleLine="true"
-        android:text="新闻大标题,大标题,大标题"
-        android:textColor="#000" />
+        android:textColor="#FFF" />
 
     <TextView
         android:id="@+id/videoNewsItemTime"
@@ -38,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="00:90"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000" />
 

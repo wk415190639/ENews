@@ -146,7 +146,8 @@ public class WeatherFragment extends Fragment {
 	}
 
 	private void getLocationJson(Location location) {
-		RequestQueue rq = Volley.newRequestQueue(getActivity());
+		RequestQueue rq = Volley.newRequestQueue(getActivity()
+				.getApplicationContext());
 
 		String locationUrl = Url.GeocoderUrl + "latlng="
 				+ location.getLatitude() + "," + location.getLongitude();

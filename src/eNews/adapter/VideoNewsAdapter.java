@@ -89,7 +89,8 @@ public class VideoNewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View video_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(context);
+		RequestQueue rq = Volley.newRequestQueue(context
+				.getApplicationContext());
 		ViewHolder viewHolder = null;
 		VideoModel videoModel = lists.get(position);
 		if (video_item == null) {
@@ -110,7 +111,8 @@ public class VideoNewsAdapter extends BaseAdapter {
 		viewHolder.videoNewsItemTitle.setText(videoModel.getTitle());
 
 		SimpleDateFormat format = new SimpleDateFormat("mm:ss", Locale.US);
-		String times = format.format(new Date(Integer.valueOf(videoModel.getLength()) * 1000L));
+		String times = format.format(new Date(Integer.valueOf(videoModel
+				.getLength()) * 1000L));
 		System.out.print("日期格式---->" + times);
 		viewHolder.videoNewsItemTime.setText(times);
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
@@ -169,7 +171,7 @@ public class VideoNewsAdapter extends BaseAdapter {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(context, VideoPlayActivity.class);
-			intent.putExtra("videoUrl", videoModel.getMp4_url());
+			intent.putExtra("videoModel", videoModel);
 			context.startActivity(intent);
 
 		}

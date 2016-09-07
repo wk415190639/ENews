@@ -1,7 +1,13 @@
 package eNews.bean;
 
-public class VideoModel {
+import java.io.Serializable;
 
+public class VideoModel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private String topicImg;
 	private String mp4Hd_url;

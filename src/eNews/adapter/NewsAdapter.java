@@ -113,7 +113,7 @@ public class NewsAdapter extends BaseAdapter {
 			viewHolder.news_item_title.setText(newsModel.getTitle());
 			viewHolder.news_item_digest.setText(newsModel.getDigest());
 
-			RequestQueue rq = Volley.newRequestQueue(context);
+			RequestQueue rq = Volley.newRequestQueue(context.getApplicationContext());
 
 			// ImageRequest imageRequest = new ImageRequest(
 			// newsModel.getImagesrc(), new imageRequestListener(

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="新闻e族"
+        android:text="@string/main_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="版本号  1.0.0.1"
+        android:text="@string/app_version"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ScrollView
@@ -27,14 +27,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="The qualified case label HandlerCode.mainNews must be replaced with the unqualified enum constant mainNews"
+                android:text="@string/more_desc"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
     </ScrollView>
