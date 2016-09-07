@@ -18,6 +18,8 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import eNews.app.R;
@@ -32,7 +34,7 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	@SuppressWarnings("unused")
 	private MainWindowsHandler mainWindowsHandler;
-
+	private ImageView logo;
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -57,7 +59,7 @@ public class MainWindows extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainwindows);
 		init();
-		initActionBarDrawerToggle();
+		// initActionBarDrawerToggle();
 		initFragment();
 
 		int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
@@ -76,6 +78,9 @@ public class MainWindows extends Activity implements OnClickListener {
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 		drawerLayout.setDrawerShadow(R.drawable.shadow, GravityCompat.START);
+		// ActionBarDrawerToggleListener
+
+		drawerLayout.setDrawerListener(new ActionBarDrawerToggleListener());
 		menu_left = (LinearLayout) findViewById(R.id.menuLayout);
 
 		menu_mainLayout = (LinearLayout) findViewById(R.id.menuMain);
@@ -104,27 +109,6 @@ public class MainWindows extends Activity implements OnClickListener {
 	}
 
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onPostCreate(savedInstanceState);
-		actionBarDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-		actionBarDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		return actionBarDrawerToggle.onOptionsItemSelected(item)
-				|| super.onOptionsItemSelected(item);
-	}
-
-	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
@@ -134,29 +118,26 @@ public class MainWindows extends Activity implements OnClickListener {
 		actionBar.setCustomView(R.layout.actionbar_layout);
 		actionBar.setDisplayShowCustomEnabled(true);
 
-		ImageView logo = (ImageView) actionBar.getCustomView().findViewById(
+		logo = (ImageView) actionBar.getCustomView().findViewById(
 				R.id.actionbar_logo);
+
 		logo.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (isOpen) {
+				if (!isOpen) {
+
 					drawerLayout.openDrawer(Gravity.LEFT);
-					isOpen = false;
+					isOpen = true;
 
 				} else {
 					drawerLayout.closeDrawer(Gravity.LEFT);
-					isOpen = true;
+					isOpen = false;
+
+					logo.setTranslationX(0);
 				}
 			}
 		});
-
-	}
-
-	private void initActionBarDrawerToggle() {
-
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				R.drawable.space, R.string.app_name, R.string.app_name);
 
 	}
 
@@ -247,8 +228,10 @@ public class MainWindows extends Activity implements OnClickListener {
 		public void onDrawerClosed(View drawerView) {
 			// TODO Auto-generated method stub
 
-			System.out.println("onDrawerClosed ->" + isOpen + "");
-			actionBarDrawerToggle.onDrawerClosed(drawerView);
+			System.out.println("onDrawerOpen ->" + isOpen + "");
+			
+			logo.setRotation(0);
+
 		}
 
 		@Override
@@ -256,21 +239,20 @@ public class MainWindows extends Activity implements OnClickListener {
 			// TODO Auto-generated method stub
 
 			System.out.println("onDrawerClosed ->" + isOpen + "");
-			actionBarDrawerToggle.onDrawerOpened(drawerView);
+			logo.setRotation(180);
 
 		}
 
 		@Override
 		public void onDrawerSlide(View drawerView, float offset) {
 			// TODO Auto-generated method stub
-			actionBarDrawerToggle.onDrawerSlide(drawerView, offset);
 
 		}
 
 		@Override
 		public void onDrawerStateChanged(int newState) {
 			// TODO Auto-generated method stub
-			actionBarDrawerToggle.onDrawerStateChanged(newState);
+
 		}
 
 	}

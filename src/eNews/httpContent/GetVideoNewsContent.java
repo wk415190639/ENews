@@ -114,10 +114,10 @@ public class GetVideoNewsContent {
 
 			System.out.println("Json array volley error->" + error);
 
-			if (videoNewsFragment != null) {
-				videoNewsFragment.showToast("º”‘ÿ ß∞‹");
-
-			}
+			// if (videoNewsFragment.getActivity() != null) {
+			// videoNewsFragment.showToast("º”‘ÿ ß∞‹");
+			//
+			// }
 		}
 
 	}

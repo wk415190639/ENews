@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -91,8 +89,8 @@ public class GetNewsDetailContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-			if (newsDetailActivity != null)
-			Toast.makeText(newsDetailActivity, "数据加载失败!", Toast.LENGTH_SHORT).show();
+//			if (newsDetailActivity != null)
+//			Toast.makeText(newsDetailActivity, "数据加载失败!", Toast.LENGTH_SHORT).show();
 		}
 
 	}

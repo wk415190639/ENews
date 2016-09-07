@@ -154,11 +154,8 @@ public class GetPictureNewsContent {
 
 	static class JsonErrorListener implements ErrorListener {
 
-		private PictureFragment pictureFragment;
-
 		public JsonErrorListener(PictureFragment pictureFragment) {
 			// TODO Auto-generated constructor stub
-			this.pictureFragment = pictureFragment;
 
 		}
 
@@ -166,8 +163,8 @@ public class GetPictureNewsContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-			if(pictureFragment!=null)
-				pictureFragment.showToast("º”‘ÿ ß∞‹");
+			// if(pictureFragment!=null)
+			// pictureFragment.showToast("º”‘ÿ ß∞‹");
 
 		}
 

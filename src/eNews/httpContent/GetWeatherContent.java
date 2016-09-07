@@ -125,8 +125,8 @@ public class GetWeatherContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-			if(weatherFragment!=null)
-				weatherFragment.showToast("º”‘ÿ ß∞‹");
+//			if(weatherFragment!=null)
+//				weatherFragment.showToast("º”‘ÿ ß∞‹");
 		}
 
 	}

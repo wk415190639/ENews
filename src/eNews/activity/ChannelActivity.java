@@ -32,7 +32,7 @@ public class ChannelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.channel_manage);
-
+		getActionBar().hide();
 		channelManageBack = (TextView) findViewById(R.id.channelManageBack);
 
 		userChannelGV = (GridView) findViewById(R.id.userChannelGV);

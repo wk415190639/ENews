@@ -91,26 +91,9 @@ public class GetTypeId {
 
 		case "消息":
 			return Url.XiaoHuaId;
-		case "北京":
-			return Url.BeiJingId;
 
-		case "军事":
-			return Url.FangChanId;
-		case "房产":
-			return Url.FangChanId;
 		case "游戏":
 			return Url.YouXiId;
-
-		case "新浪详情":
-			return Url.JINGXUANDETAIL_ID;
-		case "新浪精选":
-			return Url.JINGXUAN_ID;
-		case "新浪趣图":
-			return Url.QUTU_ID;
-		case "新浪美图":
-			return Url.MEITU_ID;
-		case "新浪故事":
-			return Url.GUSHI_ID;
 
 		case "热点视频":
 			return Url.VideoReDianId;

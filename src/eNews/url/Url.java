@@ -72,33 +72,22 @@ public class Url {
 	// 消息
 	public static final String MsgId = "T1371543208049";
 
-	// 北京
-	public static final String Local = host + "nc/article/local/";
-
-	public static final String BeiJingId = "5YyX5Lqs";
-	// 军事
-	public static final String JunShiId = "T1348648141035";
-	// 房产
-	public static final String FangChan = host + "nc/article/house/";
-	// 房产id
 	public static final String FangChanId = "5YyX5Lqs";
 
-	
 	// 美 图
-  public static final String TuPianMeitu=	"http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138&size=20&offset=";
-	//体育
-	
+	public static final String TuPianMeitu = "http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138&size=20&offset=";
+	// 体育
+
 	// 体坛 42262.json
 	public static final String TuPianTiTanInit = host
-			+ "photo/api/morelist/0096/54GM0096/42262.json";	
+			+ "photo/api/morelist/0096/54GM0096/42262.json";
 	// 初始图集
 	public static final String TuJiInit = host
 			+ "photo/api/list/0096/54GI0096.json";// 42358.json
-	
+
 	public static final String TuJi = host
 			+ "photo/api/morelist/0096/54GI0096/";// 42358.json
-	
-	
+
 	// 图集end
 	public static final String TuJiEnd = ".json";
 
@@ -111,7 +100,6 @@ public class Url {
 	// 明星 42599.json
 	public static final String TuPianMingXing = host
 			+ "photo/api/morelist/0096/54GK0096/";
-
 
 	// http://c.m.163.com/recommend/getChanRecomNews?channel=T1456112189138
 	// &size=20&offset=40&fn=1&passport=&devId=1W%2FpqPI0eimZMOMbswN2gw%3D%3D&lat=w7Ifc7bHs%2Bfw2bqO4TuUNw%3D%3D&lon=KuBH1jAZjiNo60aoq4e1Ag%3D%3D&version=14.2&net=wifi&ts=1472895595&sign=sU4j0lqP9jfsfmwV9dwTTAGpFOwYk2mWrXTRAA3nHPh48ErR02zJ6%2FKXOnxX046I&encryption=1&canal=meizu_store2014_news&mac=oHWFn0cEzVi3yidKr0L43U8dvF5D%2FPPigcKX35%2FLlyc%3D
@@ -138,22 +126,6 @@ public class Url {
 	// http://api.k780.com:88/?app=weather.city&format=json 获取城市列表
 
 	public static final String WeatherKey = "&key=1734f933d24634331a24aaadc1cb088f";
-
-	/**
-	 * 新浪图片新闻
-	 */
-	// 精选列表
-
-	public static final String JINGXUAN_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_toutiao&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=&imei=867064013906290&uid=802909da86d9f5fc&p=";
-
-	// 图片详情
-	public static final String JINGXUANDETAIL_ID = "http://api.sina.cn/sinago/article.json?postt=hdpic_hdpic_toutiao_4&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&id=";
-	// 趣图列表
-	public static final String QUTU_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_funny&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
-	// 美图列表
-	public static final String MEITU_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_pretty&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
-	// 故事列表
-	public static final String GUSHI_ID = "http://api.sina.cn/sinago/list.json?channel=hdpic_story&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=";
 
 	public static final String GeocoderUrl = "http://maps.google.cn/maps/api/geocode/json?language=zh-CN&sensor=true&";// latlng=38.92,121.62&sensor=false
 

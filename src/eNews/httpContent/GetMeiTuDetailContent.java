@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -96,9 +94,9 @@ public class GetMeiTuDetailContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-		if(meiTuDetailActivity!=null)
-			Toast.makeText(meiTuDetailActivity, "数据加载失败!", Toast.LENGTH_SHORT)
-					.show();
+//		if(meiTuDetailActivity!=null)
+//			Toast.makeText(meiTuDetailActivity, "数据加载失败!", Toast.LENGTH_SHORT)
+//					.show();
 		}
 
 	}

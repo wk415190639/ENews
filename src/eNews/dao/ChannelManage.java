@@ -113,11 +113,8 @@ public class ChannelManage implements ChannelInterface {
 		defaultOtherChannelsList.add(new ChannelItemModel(9, "汽车",
 				DataBaseHelper.SelectedOther));
 		defaultOtherChannelsList.add(new ChannelItemModel(10, "时尚",
-				DataBaseHelper.SelectedOther));
-		defaultOtherChannelsList.add(new ChannelItemModel(11, "北京",
-				DataBaseHelper.SelectedOther));
-		defaultOtherChannelsList.add(new ChannelItemModel(12, "军事",
-				DataBaseHelper.SelectedOther));
+
+		DataBaseHelper.SelectedOther));
 		defaultOtherChannelsList.add(new ChannelItemModel(13, "房产",
 				DataBaseHelper.SelectedOther));
 		defaultOtherChannelsList.add(new ChannelItemModel(14, "游戏",

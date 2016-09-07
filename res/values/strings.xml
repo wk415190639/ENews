@@ -19,5 +19,6 @@
     <string name="mediacontroller_play_pause">Play/Pause</string>
     <string name="vitamio_demo_name">sss</string>
     <string name="app_name">新闻e眼</string>
+    <string name="add_channel"> + </string>
 
 </resources>

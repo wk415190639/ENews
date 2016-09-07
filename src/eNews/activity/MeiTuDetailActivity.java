@@ -3,6 +3,7 @@ package eNews.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -36,6 +37,7 @@ public class MeiTuDetailActivity extends Activity {
 	private ArrayList<Drawable> arrayDrawable;
 	private Button backBtn;
 	private int windowWidth;
+	ProgressDialog dialog;
 
 	String strList[];
 
@@ -66,7 +68,7 @@ public class MeiTuDetailActivity extends Activity {
 	}
 
 	private void init() {
-
+		dialog = ProgressDialog.show(this, "提示", "正在加载");
 		newsDetailText = (TextView) findViewById(R.id.news_detail_text);
 		Intent intent = getIntent();
 		postId = intent.getStringExtra("postId");
@@ -116,6 +118,8 @@ public class MeiTuDetailActivity extends Activity {
 				newsDetailText.append(Html.fromHtml(strList[i]));
 
 		}
+		if (dialog.isShowing())
+			dialog.dismiss();
 	}
 
 	class MyImageGetter implements ImageGetter {
@@ -144,8 +148,7 @@ public class MeiTuDetailActivity extends Activity {
 			height = (int) scale * height;
 			drawable.setBounds(0, 0, width, height);
 			drawable.setBounds(0, 0, width, height);
-			
-			
+
 			arrayDrawable.add(drawable);
 
 			if (arrayDrawable.size() == newsDetailModel.getImg().size()) {
@@ -166,6 +169,8 @@ public class MeiTuDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 
 			System.out.println("ErrorListener " + arg0.toString());
+			if (dialog.isShowing())
+				dialog.dismiss();
 		}
 
 	}

@@ -3,6 +3,7 @@ package eNews.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -29,7 +30,7 @@ import eNews.bean.NewsDetailModel;
 import eNews.httpContent.GetNewsDetailContent;
 
 public class NewsDetailActivity extends Activity {
-
+	ProgressDialog dialog;
 	private TextView newsDetailText;
 	private String postId;
 	private NewsDetailModel newsDetailModel;
@@ -60,6 +61,9 @@ public class NewsDetailActivity extends Activity {
 				finish();
 			}
 		});
+
+		dialog = ProgressDialog.show(this, "提示", "正在加载");
+
 		init();
 
 	}
@@ -113,6 +117,8 @@ public class NewsDetailActivity extends Activity {
 				newsDetailText.append(Html.fromHtml(strList[i]));
 
 		}
+		if (dialog.isShowing())
+			dialog.dismiss();
 	}
 
 	class MyImageGetter implements ImageGetter {
@@ -162,6 +168,8 @@ public class NewsDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 
 			System.out.println("ErrorListener " + arg0.toString());
+			if (dialog.isShowing())
+				dialog.dismiss();
 		}
 
 	}

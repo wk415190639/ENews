@@ -46,7 +46,10 @@ public class GetNewsContent {
 
 		System.out.println(httpUrl);
 
+		
 	}
+	
+	
 
 	static class JsonListener implements Listener<JSONObject> {
 
@@ -108,7 +111,6 @@ public class GetNewsContent {
 
 			mainFragment.isLoadContent = false;
 			System.out.println("Json array volley error->" + error);
-			mainFragment.showToast("º”‘ÿ ß∞‹");
 
 		}
 
