@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,7 +57,7 @@ public class WeatherFragment extends Fragment {
 	private TextView getLocateCityTv;
 	private ProgressDialog progressDialog;
 	private TextView weatherGanMaoTv;
-	private Button backBtn;
+	private ImageButton backBtn;
 
 	private myLocationListener locationListener;
 
@@ -72,7 +73,7 @@ public class WeatherFragment extends Fragment {
 		getActivity().getActionBar().hide();
 		view = inflater.inflate(R.layout.weather, null);
 
-		backBtn = (Button) view.findViewById(R.id.backBtn);
+		backBtn = (ImageButton) view.findViewById(R.id.backBtn);
 
 		backBtn.setOnClickListener(new OnClickListener() {
 

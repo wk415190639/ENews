@@ -13,6 +13,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ import eNews.url.Url;
 public class PictureFragment extends Fragment {
 
 	private View view;
-	private Button backBtn;
+	private ImageButton backBtn;
 	private ActionBarView actionbar;
 	private ListView pictureListView;
 	private PictureNewsActionBarAdapter pictureNewsActionBarAdapter;
@@ -94,7 +95,7 @@ public class PictureFragment extends Fragment {
 		actionbar = (ActionBarView) view
 				.findViewById(R.id.pictureNewsactionBar);
 
-		backBtn = (Button) view.findViewById(R.id.backBtn);
+		backBtn = (ImageButton) view.findViewById(R.id.backBtn);
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

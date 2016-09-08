@@ -56,7 +56,7 @@ public class PictureNewsActionBarAdapter extends BaseAdapter {
 		tv.setText(actionbarList[position]);
 		if (selectedIndex == position) {
 			tv.setBackgroundResource(R.drawable.actionbar_text_style);
-			tv.setTextColor(Color.BLUE);
+			tv.setTextColor(Color.WHITE);
 		} else {
 			tv.setBackgroundResource(R.drawable.gridview_bar_item);
 			tv.setTextColor(Color.BLACK);

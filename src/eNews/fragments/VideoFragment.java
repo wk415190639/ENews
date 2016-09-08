@@ -13,6 +13,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class VideoFragment extends Fragment {
 	private int pageCount = 0;
 	private boolean isLoadContent = false;
 
-	private Button backBtn;
+	private ImageButton backBtn;
 
 	private VideoNewsActionBarAdapter videoNewsAdapter;
 
@@ -45,7 +46,7 @@ public class VideoFragment extends Fragment {
 		getActivity().getActionBar().hide();
 		view = inflater.inflate(R.layout.video_news, null);
 		selectTag = "»»µ„";
-		backBtn = (Button) view.findViewById(R.id.backBtn);
+		backBtn = (ImageButton) view.findViewById(R.id.backBtn);
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import eNews.adapter.PictureDetailViewPageAdapter;
 import eNews.app.R;
 import eNews.bean.PictureDetailModel;
@@ -19,7 +20,7 @@ public class PictureDetailActivity extends Activity {
 	private ViewPager viewPager;
 	private PictureDetailViewPageAdapter detailViewPageAdapter;
 	private PictureModel model;
-	private Button backBtn;
+	private ImageButton backBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class PictureDetailActivity extends Activity {
 
 		init();
 
-		backBtn = (Button) findViewById(R.id.backBtn);
+		backBtn = (ImageButton) findViewById(R.id.backBtn);
 
 		backBtn.setOnClickListener(new OnClickListener() {
 

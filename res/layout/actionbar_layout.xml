@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/icon" />
+        android:src="@drawable/menu" />
 
     <TextView
         android:id="@+id/actionbar_title"

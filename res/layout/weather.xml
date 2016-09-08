@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:gravity="bottom"
             android:drawableLeft="@drawable/location"
+            android:gravity="bottom"
             android:text="城市" />
 
         <TextView
@@ -96,12 +96,11 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <Button
+        <ImageButton
             android:id="@+id/backBtn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/back_btn_shape"
-            android:text="返回" />
+            android:background="@drawable/back_btn_shape" />
     </LinearLayout>
 
 </LinearLayout>

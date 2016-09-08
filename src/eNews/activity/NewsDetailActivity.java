@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -35,7 +36,7 @@ public class NewsDetailActivity extends Activity {
 	private String postId;
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
-	private Button backBtn;
+	private ImageButton backBtn;
 	private int windowWidth;
 	String strList[];
 
@@ -50,7 +51,7 @@ public class NewsDetailActivity extends Activity {
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
 		windowWidth = outMetrics.widthPixels;
-		backBtn = (Button) findViewById(R.id.backBtn);
+		backBtn = (ImageButton) findViewById(R.id.backBtn);
 
 		backBtn.setOnClickListener(new OnClickListener() {
 
