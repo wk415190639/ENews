@@ -1,6 +1,7 @@
 package eNews.fragments;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,16 +148,25 @@ public class WeatherFragment extends Fragment {
 	}
 
 	private void getLocationJson(Location location) {
-		RequestQueue rq = Volley.newRequestQueue(getActivity()
-				.getApplicationContext());
 
-		String locationUrl = Url.GeocoderUrl + "latlng="
-				+ location.getLatitude() + "," + location.getLongitude();
+		WeakReference<MainWindows> wfMainWindows = new WeakReference<MainWindows>(
+				(MainWindows) getActivity());
 
-		System.out.println(locationUrl);
-		JsonObjectRequest jr = new JsonObjectRequest(locationUrl, null,
-				new GetLocationListener(), new GetLocationError());
-		rq.add(jr);
+		MainWindows mainWindows = wfMainWindows.get();
+
+		if (mainWindows != null) {
+
+			RequestQueue rq = Volley.newRequestQueue(mainWindows);
+
+			String locationUrl = Url.GeocoderUrl + "latlng="
+					+ location.getLatitude() + "," + location.getLongitude();
+
+			JsonObjectRequest jr = new JsonObjectRequest(locationUrl, null,
+					new GetLocationListener(), new GetLocationError());
+			rq.add(jr);
+		} else {
+			System.out.println("--------Weather getActivity = NUll");
+		}
 
 	}
 

@@ -37,12 +37,14 @@ public class PictureNewsAdapter extends BaseAdapter {
 	private String selectTag;
 	Context context;
 	private BitmapCache bitmapCache;
+	RequestQueue rq;
 
 	public PictureNewsAdapter(Context context) {
 
 		this.context = context;
 		selectTag = "¾«Æ·";
 		bitmapCache = BitmapCache.instance();
+		rq = Volley.newRequestQueue(context.getApplicationContext());
 
 	}
 
@@ -90,7 +92,6 @@ public class PictureNewsAdapter extends BaseAdapter {
 	public View getView(final int position, View picture_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
-		RequestQueue rq = Volley.newRequestQueue(context.getApplicationContext());
 		final PictureModel pictureModel = lists.get(position);
 		ViewHolder holder = null;
 
@@ -121,7 +122,8 @@ public class PictureNewsAdapter extends BaseAdapter {
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 
 		ImageListener listener = ImageLoader.getImageListener(
-				holder.pictureImage, R.drawable.picture_default, R.drawable.picture_default);
+				holder.pictureImage, R.drawable.picture_default,
+				R.drawable.picture_default);
 
 		imageLoader.get(pictureModel.getImgsrc(), listener);
 

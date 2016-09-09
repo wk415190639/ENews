@@ -21,16 +21,16 @@ import eNews.url.Url;
 
 public class GetWeatherContent {
 
+	static RequestQueue queue;
+
 	static public void getNewsContent(String localCityName,
 			WeatherFragment weatherFragment)
 			throws UnsupportedEncodingException {
-
+		queue = Volley.newRequestQueue(weatherFragment.getActivity());
 		JSONObject jsonObject = null;
 
 		if (localCityName == null)
 			localCityName = getLocalCityName();
-		RequestQueue queue = Volley.newRequestQueue(weatherFragment
-				.getActivity());
 
 		JsonObjectRequest jrq = new JsonObjectRequest(Url.WeatherHost
 				+ URLEncoder.encode(localCityName, "utf-8"), jsonObject,
@@ -125,8 +125,8 @@ public class GetWeatherContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-//			if(weatherFragment!=null)
-//				weatherFragment.showToast("º”‘ÿ ß∞‹");
+			// if(weatherFragment!=null)
+			// weatherFragment.showToast("º”‘ÿ ß∞‹");
 		}
 
 	}

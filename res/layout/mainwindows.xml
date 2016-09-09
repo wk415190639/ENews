@@ -36,7 +36,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/user_img_shape"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/people" />
+                android:src="@drawable/people1" />
 
             <TextView
                 android:id="@+id/userName"
@@ -45,25 +45,26 @@
                 android:layout_alignTop="@id/userImg"
                 android:layout_margin="10dp"
                 android:layout_toRightOf="@id/userImg"
-                android:text="@string/unLogin" />
+                android:text="@string/unLogin"
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/menuMain"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:background="@drawable/menu_btn_shape"
             android:clickable="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
 
             <ImageView
                 android:id="@+id/img1"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/menu_more_icon" />
+                android:src="@drawable/menu_main" />
 
             <TextView
                 android:id="@+id/tv1"
@@ -83,12 +84,12 @@
         <LinearLayout
             android:id="@+id/menuPic"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:background="@drawable/menu_btn_shape"
             android:clickable="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -115,12 +116,12 @@
         <LinearLayout
             android:id="@+id/menuVideo"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:background="@drawable/menu_btn_shape"
             android:clickable="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -147,12 +148,12 @@
         <LinearLayout
             android:id="@+id/menuWeather"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:background="@drawable/menu_btn_shape"
             android:clickable="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -179,18 +180,19 @@
         <LinearLayout
             android:id="@+id/menuMore"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:background="@drawable/menu_btn_shape"
             android:clickable="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/menu_more_icon" />
+                android:src="@drawable/menu_more" />
 
             <TextView
                 android:id="@+id/textView4"

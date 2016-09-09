@@ -26,9 +26,13 @@
     <string name="menu_more">更多</string>
     <string name="main_title">新闻e眼</string>
     <string name="app_version">版本号  1.0.0.1</string>
-    <string name="more_desc">The qualified case label HandlerCode.mainNews must be replaced with the unqualified enum constant mainNews</string>
+    <string name="more_desc">新闻，也叫消息，是指报纸、电台、电视台、互联网经常使用的记录社会、传播信息、反映时代的一种文体，具有真实性、时效性、简洁性、可读性、准确性的特点。新闻概念有广义与狭义之分。就其广义而言，除了发表于报刊、广播、电视上的评论与专文外的常用文本都属于新闻之列，包括消息、通讯、特写、速写（有的将速写纳入特写之列）等等。狭义的新闻则专指消息，消息是用概括的叙述方式，比较简明扼要的文字，迅速及时地报道国内外新近发生的、有价值的的事实。新闻也分公众新闻和小道新闻等。每则新闻在结构上，一般包括标题、导语、主体、背景和结语五部分。前三者是主要部分，后二者是辅助部分。写法上主要是叙述，有时兼有议论、描写、评论等。</string>
     <string name="picture_title">图片新闻</string>
     <string name="back">返回</string>
     <string name="video_title">视频新闻</string>
+     <string name="channel_title">频道管理</string>
+     <string name="picture_detail_title">图片详情</string>
+     <string name="news_detail_title">新闻详情</string>
+    
 
 </resources>

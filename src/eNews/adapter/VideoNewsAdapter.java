@@ -33,9 +33,8 @@ import eNews.common.BitmapCache;
 public class VideoNewsAdapter extends BaseAdapter {
 
 	List<VideoModel> lists = new ArrayList<VideoModel>();
-
+	RequestQueue rq;
 	List<ImageView> topImageLists = new ArrayList<ImageView>();
-
 	Context context;
 
 	private BitmapCache bitmapCache;
@@ -44,6 +43,7 @@ public class VideoNewsAdapter extends BaseAdapter {
 
 		this.context = context;
 		bitmapCache = BitmapCache.instance();
+		rq = Volley.newRequestQueue(context.getApplicationContext());
 
 	}
 
@@ -89,8 +89,7 @@ public class VideoNewsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View video_item, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		RequestQueue rq = Volley.newRequestQueue(context
-				.getApplicationContext());
+
 		ViewHolder viewHolder = null;
 		VideoModel videoModel = lists.get(position);
 		if (video_item == null) {

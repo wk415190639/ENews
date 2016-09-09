@@ -60,7 +60,8 @@ public class VideoFragment extends Fragment {
 		videoList = (ListView) view.findViewById(R.id.videoList);
 		actionBarView = (ActionBarView) view
 				.findViewById(R.id.videoNewsactionBar);
-		videoNewsAdapter = new VideoNewsActionBarAdapter(getActivity());
+		videoNewsAdapter = new VideoNewsActionBarAdapter(getActivity(),
+				actionBarView);
 		actionBarView.setAdapter(videoNewsAdapter);
 		actionBarView.setNumColumns(4);
 		actionBarView.setOnItemClickListener(new VideoItemClick());

@@ -28,7 +28,8 @@
         android:id="@+id/videoNewsItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        
         android:background="#2994f1"
         android:singleLine="true"
         android:textColor="#FFF" />

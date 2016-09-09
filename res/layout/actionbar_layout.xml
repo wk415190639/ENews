@@ -13,9 +13,9 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/menu" />
+        android:src="@drawable/menu_close" />
 
     <TextView
         android:id="@+id/actionbar_title"

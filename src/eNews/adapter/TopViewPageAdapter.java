@@ -34,15 +34,18 @@ public class TopViewPageAdapter extends PagerAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();
 
+	private int [] masks = {R.drawable.mask1,R.drawable.mask2,R.drawable.mask3,R.drawable.mask4};
 	Context context;
 	ArrayList<View> arrayList;
 
 	private BitmapCache bitmapCache;
+	RequestQueue rq;
 
 	public TopViewPageAdapter(Context context) {
 		this.context = context;
 		arrayList = new ArrayList<View>();
 		bitmapCache = BitmapCache.instance();
+		rq = Volley.newRequestQueue(context);
 	}
 
 	public void appendList(List<NewsModel> list) {
@@ -62,7 +65,7 @@ public class TopViewPageAdapter extends PagerAdapter {
 					LayoutParams.MATCH_PARENT);
 
 			LayoutParams textParams = new LayoutParams(
-					LayoutParams.MATCH_PARENT, 40);
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			textParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,
 					RelativeLayout.TRUE);
 
@@ -73,19 +76,25 @@ public class TopViewPageAdapter extends PagerAdapter {
 
 				relativeLayout.setLayoutParams(params);
 				iv = new ImageView(context);
-				iv.setBackgroundColor(Color.BLACK);
 				iv.setLayoutParams(params);
-				iv.setScaleType(ScaleType.FIT_XY);
+				iv.setScaleType(ScaleType.CENTER_CROP);
+
+				ImageView shadowIv = new ImageView(context);
+				shadowIv.setLayoutParams(params);
+				shadowIv.setScaleType(ScaleType.CENTER_CROP);
+				shadowIv.setImageResource(masks[i]);
 
 				tv = new TextView(context);
 				tv.setText(lists.get(i).getTitle());
 				tv.setLayoutParams(textParams);
+				tv.setTextColor(Color.WHITE);
+//				tv.setTextSize(15);
 				tv.setSingleLine(true);
-				tv.setBackgroundColor(Color.argb(100, 0, 0, 100));
-				tv.setPadding(15, 5, 10, 5);
+				tv.setPadding(15, 0, 10, 5);
 
 				relativeLayout.addView(iv);
 				relativeLayout.addView(tv);
+				relativeLayout.addView(shadowIv);
 				arrayList.add(relativeLayout);
 
 			}
@@ -118,8 +127,6 @@ public class TopViewPageAdapter extends PagerAdapter {
 		RelativeLayout relativeLayout = (RelativeLayout) arrayList
 				.get(position);
 		ImageView iv = (ImageView) relativeLayout.getChildAt(0);
-
-		RequestQueue rq = Volley.newRequestQueue(context);
 
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);
 

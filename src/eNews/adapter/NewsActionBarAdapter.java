@@ -3,7 +3,9 @@ package eNews.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,13 +82,22 @@ public class NewsActionBarAdapter extends BaseAdapter {
 
 		TextView tv = (TextView) bar.findViewById(R.id.gridview_bar_item_Tv);
 		tv.setText(actionbarList.get(position).getName());
+		tv.setHeight(actionBarView.getMeasuredHeight());
 
-		if (selectedIndex == position) {
-			tv.setBackgroundResource(R.drawable.actionbar_text_style);
-			tv.setTextColor(Color.WHITE);
-		} else {
+		if (selectedIndex != position) {
 			tv.setBackgroundResource(R.drawable.gridview_bar_item);
-			tv.setTextColor(Color.BLACK);
+			// tv.setTextColor(Color.BLACK);
+			TextPaint tp = tv.getPaint();
+			tp.setFakeBoldText(false);
+			tv.setTextSize(15);
+
+		} else {
+			tv.setBackgroundResource(R.drawable.actionbar_text_style);
+			// tv.setTextColor(Color.WHITE);
+			TextPaint tp = tv.getPaint();
+			tp.setFakeBoldText(true);
+			tv.setTextSize(18);
+
 		}
 
 		return bar;

@@ -33,11 +33,13 @@ public class NewsAdapter extends BaseAdapter {
 	List<NewsModel> lists = new ArrayList<NewsModel>();
 	Context context;
 	private BitmapCache bitmapCache;
+	RequestQueue rq;
 
 	public NewsAdapter(Context context) {
 
 		this.context = context;
 		bitmapCache = BitmapCache.instance();
+		rq = Volley.newRequestQueue(context.getApplicationContext());
 
 	}
 
@@ -112,8 +114,6 @@ public class NewsAdapter extends BaseAdapter {
 
 			viewHolder.news_item_title.setText(newsModel.getTitle());
 			viewHolder.news_item_digest.setText(newsModel.getDigest());
-
-			RequestQueue rq = Volley.newRequestQueue(context.getApplicationContext());
 
 			// ImageRequest imageRequest = new ImageRequest(
 			// newsModel.getImagesrc(), new imageRequestListener(

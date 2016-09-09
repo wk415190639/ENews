@@ -28,7 +28,7 @@ import eNews.common.BitmapCache;
 public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 	ArrayList<String> lists = new ArrayList<String>();
-
+	RequestQueue rq;
 	Context context;
 	ArrayList<View> arrayList;
 	private BitmapCache bitmapCache;
@@ -37,6 +37,7 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 		this.context = context;
 		arrayList = new ArrayList<View>();
 		bitmapCache = BitmapCache.instance();
+		rq = Volley.newRequestQueue(context);
 	}
 
 	public void appendList(PictureModel model) {
@@ -77,7 +78,7 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 				tv.setLayoutParams(textParams);
 				tv.setPadding(15, 5, 10, 5);
 
-				String desc = "\t ͼ " + String.valueOf(i+1) + " \n";
+				String desc = "\t ͼ " + String.valueOf(i + 1) + " \n";
 				if (i == 0)
 					desc += model.getTitle() + "\n" + model.getDesc();
 				else
@@ -116,7 +117,6 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 	public Object instantiateItem(View top_news, final int position) {
 		// TODO Auto-generated method stub
 
-		RequestQueue rq = Volley.newRequestQueue(context);
 		ImageView iv = (ImageView) ((LinearLayout) arrayList.get(position))
 				.getChildAt(0);
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);

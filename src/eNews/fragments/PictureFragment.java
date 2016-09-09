@@ -108,7 +108,7 @@ public class PictureFragment extends Fragment {
 
 		pictureListView = (ListView) view.findViewById(R.id.pictureList);
 		pictureNewsActionBarAdapter = new PictureNewsActionBarAdapter(
-				getActivity());
+				getActivity(),actionbar);
 
 		pictureNewsAdapter = new PictureNewsAdapter(getActivity());
 

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/pictureImage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_weight="4"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
             android:layout_gravity="right"
             android:drawableLeft="@drawable/comment"
             android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="222" />
     </RelativeLayout>
 
 </LinearLayout>

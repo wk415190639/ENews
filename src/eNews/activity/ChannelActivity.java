@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import eNews.adapter.ViewAnimationAdapter;
 import eNews.adapter.OtherChannelAdapter;
 import eNews.adapter.UserChannelAdapter;
@@ -22,7 +22,7 @@ public class ChannelActivity extends Activity {
 	OtherChannelAdapter otherChannelAdapter;
 	UserChannelAdapter userChannelAdapter;
 
-	private TextView channelManageBack;
+	private ImageButton channelManageBack;
 	ViewAnimationAdapter userViewAnimationAdapter;
 	ViewAnimationAdapter otherViewAnimationAdapter;
 
@@ -33,7 +33,7 @@ public class ChannelActivity extends Activity {
 
 		setContentView(R.layout.channel_manage);
 		getActionBar().hide();
-		channelManageBack = (TextView) findViewById(R.id.channelManageBack);
+		channelManageBack = (ImageButton) findViewById(R.id.backBtn);
 
 		userChannelGV = (GridView) findViewById(R.id.userChannelGV);
 		userChannelAdapter = new UserChannelAdapter(this, ChannelManage

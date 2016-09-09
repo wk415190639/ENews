@@ -99,6 +99,7 @@ public class MainWindows extends Activity implements OnClickListener {
 		initTencentInstance();
 		init();
 		initFragment();
+
 	}
 
 	private void initTencentInstance() {
@@ -312,7 +313,7 @@ public class MainWindows extends Activity implements OnClickListener {
 
 			System.out.println("onDrawerOpen ->" + isOpen + "");
 
-			logo.setRotation(0);
+			logo.setImageResource(R.drawable.menu_close);
 
 		}
 
@@ -321,7 +322,7 @@ public class MainWindows extends Activity implements OnClickListener {
 			// TODO Auto-generated method stub
 
 			System.out.println("onDrawerClosed ->" + isOpen + "");
-			logo.setRotation(180);
+			logo.setImageResource(R.drawable.menu_open);
 
 		}
 
@@ -508,7 +509,7 @@ public class MainWindows extends Activity implements OnClickListener {
 
 		} else {
 			userName.setText("未登录");
-			userImgBtn.setImageResource(R.drawable.people);
+			userImgBtn.setImageResource(R.drawable.people1);
 		}
 
 	}

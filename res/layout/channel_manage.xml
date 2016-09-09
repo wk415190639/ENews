@@ -7,30 +7,35 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#DCDCDC" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/actionbar_shape"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/channelManageBack"
+        <ImageButton
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/channelitem_btn_back" />
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/back_btn_shape"
+            android:gravity="center" />
 
         <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="频道管理"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="@string/channel_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="9" >
 
         <LinearLayout
             android:layout_width="match_parent"

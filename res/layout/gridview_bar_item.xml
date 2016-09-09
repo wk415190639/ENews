@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/gridview_bar_item_Tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/gridview_bar_item"
         android:gravity="center" />
 
