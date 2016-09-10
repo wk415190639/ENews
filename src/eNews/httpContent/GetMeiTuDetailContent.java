@@ -70,6 +70,21 @@ public class GetMeiTuDetailContent {
 					JSONObject tmepJsonObject = imgJsonArray.getJSONObject(i);
 					detailModel.getImg().add(tmepJsonObject.getString("src"));
 				}
+				
+				if(root.has("shareLink"))
+				{
+					detailModel.setShareLink(root.getString("shareLink"));
+				}
+				else if(root.has("source_url"))
+				{
+					detailModel.setShareLink(root.getString("source_url"));
+				}
+				else
+				{
+					detailModel.setShareLink("https://www.baidu.com");
+				}
+					
+				System.out.println("---------------"+detailModel.getShareLink());
 
 				meiTuDetailActivity.setContent(detailModel);
 

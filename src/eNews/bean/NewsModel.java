@@ -1,5 +1,7 @@
 package eNews.bean;
 
+import java.io.Serializable;
+
 /*
  * url_3w	:	http://news.163.com/16/0823/01/BV491BRN00014AED.html
 
@@ -70,8 +72,12 @@ package eNews.bean;
  */
 
 
-public class NewsModel {
+public class NewsModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String postid;
 	private String votecount;
 
@@ -84,7 +90,16 @@ public class NewsModel {
 	private String lmodify;
 	private String imagesrc;
 	private String subtitle;
+	private String url_3w;
 	
+	public String getUrl_3w() {
+		return url_3w;
+	}
+
+	public void setUrl_3w(String url_3w) {
+		this.url_3w = url_3w;
+	}
+
 	private String title;
 	public String getTitle() {
 		return title;

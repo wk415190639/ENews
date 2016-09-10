@@ -1,7 +1,6 @@
 package eNews.activity;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -46,7 +46,6 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
-import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -58,7 +57,7 @@ import eNews.fragments.MoreAboutFragment;
 import eNews.fragments.PictureFragment;
 import eNews.fragments.VideoFragment;
 import eNews.fragments.WeatherFragment;
-import eNews.thirdParty.AppConstant;
+import eNews.thirdParty.TencentThirdParty;
 
 public class MainWindows extends Activity implements OnClickListener {
 
@@ -79,7 +78,6 @@ public class MainWindows extends Activity implements OnClickListener {
 	public VideoFragment videoFragment;
 	public WeatherFragment weatherFragment;
 	public MoreAboutFragment aboutFragment;
-	ShareUiListener shareUiListener;
 
 	private ImageButton userImgBtn;
 	private TextView userName;
@@ -103,7 +101,8 @@ public class MainWindows extends Activity implements OnClickListener {
 	}
 
 	private void initTencentInstance() {
-		mTencent = Tencent.createInstance(AppConstant.appId, this);
+		// mTencent = Tencent.createInstance(AppConstant.appId, this);
+		mTencent = TencentThirdParty.getInstance(getApplicationContext()).getTencentInstance();
 
 	}
 
@@ -125,7 +124,6 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	private void init() {
 
-		shareUiListener = new ShareUiListener();
 		mainWindowsHandler = new MainWindowsHandler(this);
 		mainFragment = new MainFragment();
 		videoFragment = new VideoFragment();
@@ -414,7 +412,8 @@ public class MainWindows extends Activity implements OnClickListener {
 		updateUserInfo();
 	}
 
-	class NegativeButtonListener implements DialogInterface.OnClickListener {
+	public class NegativeButtonListener implements
+			DialogInterface.OnClickListener {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
@@ -425,7 +424,8 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	}
 
-	class PositiveButtonListener implements DialogInterface.OnClickListener {
+	public class PositiveButtonListener implements
+			DialogInterface.OnClickListener {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
@@ -570,50 +570,4 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	}
 
-	public void shareToQzone(final String title, final String summary,
-			final String targetUrl, final ArrayList<String> imageUrlList) {
-
-		Bundle params = new Bundle();
-		// 分享类型
-		params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,
-				QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);// 必填
-
-		params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);// 必填
-
-		params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, targetUrl);// 必填
-
-		params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, summary); // 选填
-
-		params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL,
-				imageUrlList); // 选填
-
-		mTencent.shareToQzone(MainWindows.this, params, shareUiListener);
-		System.out.println("分享了");
-
-	}
-
-	class ShareUiListener implements IUiListener {
-
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-			System.out.println("-------------onCancel");
-		}
-
-		@Override
-		public void onComplete(Object arg0) {
-			// TODO Auto-generated method stub
-			System.out.println("------------------onComplete");
-
-		}
-
-		@Override
-		public void onError(UiError error) {
-
-			System.out.println("-----error >" + error.errorCode + " > "
-					+ error.errorDetail + " > " + error.errorMessage);
-
-		}
-
-	}
 }

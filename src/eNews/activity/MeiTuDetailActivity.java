@@ -28,9 +28,13 @@ import com.android.volley.toolbox.Volley;
 
 import eNews.app.R;
 import eNews.bean.NewsDetailModel;
+import eNews.bean.PictureModel;
+import eNews.customview.MorePopupWindow;
 import eNews.httpContent.GetMeiTuDetailContent;
+import eNews.thirdParty.AppConstant;
+import eNews.thirdParty.TencentThirdParty;
 
-public class MeiTuDetailActivity extends Activity {
+public class MeiTuDetailActivity extends Activity implements OnClickListener {
 
 	private TextView newsDetailText;
 	private String postId;
@@ -39,8 +43,10 @@ public class MeiTuDetailActivity extends Activity {
 	private ImageButton backBtn;
 	private int windowWidth;
 	ProgressDialog dialog;
-
+	private MorePopupWindow morePopupWindow;
+	private ImageButton actionbar_more;
 	String strList[];
+	private PictureModel model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +54,11 @@ public class MeiTuDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.news_detail);
-		
-		
+		getActionBar().hide();
+		morePopupWindow = new MorePopupWindow(this);
+		actionbar_more = (ImageButton) findViewById(R.id.actionbar_more);
+		actionbar_more.setOnClickListener(this);
+
 		TextView titleTv = (TextView) findViewById(R.id.title);
 		titleTv.setText("图片详情");
 
@@ -75,11 +84,10 @@ public class MeiTuDetailActivity extends Activity {
 	private void init() {
 		dialog = ProgressDialog.show(this, "提示", "正在加载");
 		newsDetailText = (TextView) findViewById(R.id.news_detail_text);
-		Intent intent = getIntent();
-		postId = intent.getStringExtra("postId");
+		model = (PictureModel) getIntent().getSerializableExtra("picModel");
 		arrayDrawable = new ArrayList<Drawable>();
 
-		GetMeiTuDetailContent.getNewsContent(postId, this);
+		GetMeiTuDetailContent.getNewsContent(model.getDocid(), this);
 	}
 
 	public void setContent(NewsDetailModel newsDetailModel) {
@@ -176,6 +184,47 @@ public class MeiTuDetailActivity extends Activity {
 			System.out.println("ErrorListener " + arg0.toString());
 			if (dialog.isShowing())
 				dialog.dismiss();
+		}
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
+		switch (v.getId()) {
+
+		case R.id.shareLy:
+			System.out.println("点击了shareLy");
+			if (morePopupWindow.isShowing()) {
+
+				if (newsDetailModel != null) {
+
+					ArrayList<String> arrayList = new ArrayList<String>();
+					arrayList.add(AppConstant.logoUrl);
+
+					TencentThirdParty.getInstance(this).shareToQzone(this,
+							newsDetailModel.getTitle(), newsDetailModel.getTitle(),
+							newsDetailModel.getShareLink(), arrayList);
+				}
+
+				morePopupWindow.dismiss();
+			}
+			break;
+
+		case R.id.collectLy:
+			System.out.println("点击了collectLy");
+			if (morePopupWindow.isShowing()) {
+				morePopupWindow.dismiss();
+			}
+			break;
+		case R.id.actionbar_more:
+			System.out.println("点击了actionbar_more");
+			if (!morePopupWindow.isShowing()) {
+				morePopupWindow.showAsDropDown(actionbar_more);
+				System.out.println("popupwindow");
+			}
+			break;
 		}
 
 	}

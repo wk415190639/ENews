@@ -42,12 +42,12 @@ public class MoreAboutFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.getSourceCodeBtn:
 
-			ArrayList<String> arrayList = new ArrayList<String>();
-			arrayList
-					.add("https://github.com/wk415190639/ENews/blob/master/res/drawable-hdpi/icon.png?raw=true");
-			((MainWindows) getActivity()).shareToQzone("源代码", "新闻e眼客户端",
-					"https://github.com/wk415190639/ENews", arrayList);
-			break;
+//			ArrayList<String> arrayList = new ArrayList<String>();
+//			arrayList
+//					.add("https://github.com/wk415190639/ENews/blob/master/res/drawable-hdpi/icon.png?raw=true");
+//			((MainWindows) getActivity()).shareToQzone("源代码", "新闻e眼客户端",
+//					"https://github.com/wk415190639/ENews", arrayList);
+//			break;
 
 		default:
 			break;

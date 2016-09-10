@@ -61,6 +61,7 @@ public class GetPictureNewsContent {
 							.setSetName(newsItemObject.getString("setname"));
 					pictureModel.setTitle(newsItemObject.getString("setname"));
 					pictureModel.setDesc(newsItemObject.getString("desc"));
+					pictureModel.setSetUrl(newsItemObject.getString("seturl"));
 					// replynum
 					pictureModel.setReplyid(newsItemObject
 							.getString("replynum"));
@@ -135,6 +136,7 @@ public class GetPictureNewsContent {
 					pictureModel.getPics().add(
 							newsItemObject.getString("imgsrc"));
 					pictureModel.setDesc(newsItemObject.getString("source"));
+					
 					// replyCount
 					pictureModel.setReplyid(newsItemObject
 							.getString("replyCount"));

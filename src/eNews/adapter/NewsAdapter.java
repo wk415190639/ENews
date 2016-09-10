@@ -186,7 +186,7 @@ public class NewsAdapter extends BaseAdapter {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(context, NewsDetailActivity.class);
-			intent.putExtra("postId", model.getDocid());
+			intent.putExtra("model", model);
 			context.startActivity(intent);
 		}
 

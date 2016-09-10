@@ -84,6 +84,11 @@ public class GetNewsContent {
 					newsModel.setImagesrc(newsItemObject.getString("imgsrc"));
 					// newsModel.setPostid(newsItemObject.getString("postid"));
 					newsModel.setDocid(newsItemObject.getString("docid"));
+					if(newsItemObject.has("url_3w"))
+					newsModel.setUrl_3w(newsItemObject.getString("url_3w"));
+					
+					
+					
 					lists.add(newsModel);
 					// }
 				}

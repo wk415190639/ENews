@@ -127,11 +127,13 @@ public class PictureNewsAdapter extends BaseAdapter {
 
 		imageLoader.get(pictureModel.getImgsrc(), listener);
 
-		if (selectTag.equals("√¿Õº")) {
-			picture_item.setOnClickListener(new MeiTuItemOnclick(pictureModel));
-		} else {
-			picture_item.setOnClickListener(new newsItemOnclick(pictureModel));
-		}
+		if (!selectTag.equals("√¿Õº"))
+			picture_item.setOnClickListener(new newsItemOnclick(pictureModel,
+					PictureDetailActivity.class));
+		else
+			picture_item.setOnClickListener(new newsItemOnclick(pictureModel,
+					MeiTuDetailActivity.class));
+
 		return picture_item;
 	}
 
@@ -166,39 +168,20 @@ public class PictureNewsAdapter extends BaseAdapter {
 	class newsItemOnclick implements OnClickListener {
 
 		private PictureModel pictureModel;
+		private Class<?> cls;
 
-		public newsItemOnclick(PictureModel pictureModel) {
+		public newsItemOnclick(PictureModel pictureModel, Class<?> cls) {
 			// TODO Auto-generated constructor stub
 
 			this.pictureModel = pictureModel;
+			this.cls = cls;
 		}
 
 		@Override
 		public void onClick(View v) {
 
-			Intent intent = new Intent(context, PictureDetailActivity.class);
+			Intent intent = new Intent(context, cls);
 			intent.putExtra("picModel", pictureModel);
-			context.startActivity(intent);
-
-		}
-
-	}
-
-	class MeiTuItemOnclick implements OnClickListener {
-
-		private PictureModel pictureModel;
-
-		public MeiTuItemOnclick(PictureModel pictureModel) {
-			// TODO Auto-generated constructor stub
-
-			this.pictureModel = pictureModel;
-		}
-
-		@Override
-		public void onClick(View v) {
-
-			Intent intent = new Intent(context, MeiTuDetailActivity.class);
-			intent.putExtra("postId", pictureModel.getDocid());
 			context.startActivity(intent);
 
 		}

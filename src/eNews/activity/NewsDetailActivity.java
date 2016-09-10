@@ -15,7 +15,6 @@ import android.text.Html.ImageGetter;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,20 +24,26 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-
 import eNews.app.R;
 import eNews.bean.NewsDetailModel;
+import eNews.bean.NewsModel;
+import eNews.customview.MorePopupWindow;
 import eNews.httpContent.GetNewsDetailContent;
+import eNews.thirdParty.AppConstant;
+import eNews.thirdParty.TencentThirdParty;
 
-public class NewsDetailActivity extends Activity {
+public class NewsDetailActivity extends Activity implements OnClickListener {
 	ProgressDialog dialog;
 	private TextView newsDetailText;
-	private String postId;
+
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
 	private ImageButton backBtn;
 	private int windowWidth;
 	String strList[];
+	private ImageButton actionbar_more;
+	private MorePopupWindow morePopupWindow;
+	private NewsModel model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,14 @@ public class NewsDetailActivity extends Activity {
 		getActionBar().hide();
 		setContentView(R.layout.news_detail);
 
+		actionbar_more = (ImageButton) findViewById(R.id.actionbar_more);
+		actionbar_more.setOnClickListener(this);
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
 		windowWidth = outMetrics.widthPixels;
 		backBtn = (ImageButton) findViewById(R.id.backBtn);
 
+		morePopupWindow = new MorePopupWindow(this);
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -72,10 +80,11 @@ public class NewsDetailActivity extends Activity {
 	private void init() {
 
 		newsDetailText = (TextView) findViewById(R.id.news_detail_text);
-		Intent intent = getIntent();
-		postId = intent.getStringExtra("postId");
+		model = (NewsModel) getIntent().getSerializableExtra("model");
+
 		arrayDrawable = new ArrayList<Drawable>();
-		GetNewsDetailContent.getNewsContent(postId, this);
+
+		GetNewsDetailContent.getNewsContent(model.getDocid(), this);
 
 	}
 
@@ -171,6 +180,54 @@ public class NewsDetailActivity extends Activity {
 			System.out.println("ErrorListener " + arg0.toString());
 			if (dialog.isShowing())
 				dialog.dismiss();
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
+		switch (v.getId()) {
+
+		case R.id.shareLy:
+			System.out.println("点击了shareLy");
+			if (morePopupWindow.isShowing()) {
+
+				if (model != null) {
+
+					ArrayList<String> arrayList = new ArrayList<String>();
+					arrayList
+							.add(AppConstant.logoUrl);
+
+					TencentThirdParty.getInstance(this).shareToQzone(this,
+							model.getTitle(), model.getDigest(), model.getUrl_3w(), arrayList);
+				}
+
+				morePopupWindow.dismiss();
+			}
+			break;
+
+		case R.id.collectLy:
+			System.out.println("点击了collectLy");
+			if (morePopupWindow.isShowing()) {
+				morePopupWindow.dismiss();
+			}
+			break;
+		case R.id.actionbar_more:
+			System.out.println("点击了actionbar_more");
+			if (!morePopupWindow.isShowing()) {
+				morePopupWindow.showAsDropDown(actionbar_more);
+				System.out.println("popupwindow");
+			}
+			break;
 		}
 
 	}

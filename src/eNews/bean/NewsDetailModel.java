@@ -12,6 +12,22 @@ public class NewsDetailModel {
 	
 	private String  ptime;
 	
+	private String  shareLink;
+	
+	public String getShareLink() {
+		return shareLink;
+	}
+
+
+
+
+	public void setShareLink(String shareLink) {
+		this.shareLink = shareLink;
+	}
+
+
+
+
 	public String getPtime() {
 		return ptime;
 	}
