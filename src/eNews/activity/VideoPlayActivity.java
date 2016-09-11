@@ -7,6 +7,8 @@ import io.vov.vitamio.widget.VideoView;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -16,19 +18,35 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import eNews.activity.MeiTuDetailActivity.NegativeButtonListener;
+import eNews.activity.MeiTuDetailActivity.PositiveButtonListener;
 import eNews.app.R;
+import eNews.bean.CollectModel;
 import eNews.bean.VideoModel;
+import eNews.common.DataBaseHelper;
 import eNews.customview.MorePopupWindow;
+import eNews.dao.CollectManage;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
-public class VideoPlayActivity extends Activity implements OnClickListener {
+public class VideoPlayActivity extends Activity implements OnClickListener,
+		CollectNewsInterface {
 	private ImageButton backBtn;
 	private VideoView mVideoView;
 	private TextView videoTitle;
 	private MorePopupWindow morePopupWindow;
 	private ImageButton actionbar_more;
 	VideoModel videoModel;
+	private String openId;
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -97,12 +115,26 @@ public class VideoPlayActivity extends Activity implements OnClickListener {
 				morePopupWindow.dismiss();
 			}
 			break;
+		case R.id.shareLyqq:
+
+			System.out.println("点击了shareLyQQ");
+			if (morePopupWindow.isShowing()) {
+
+				if (videoModel != null) {
+
+					TencentThirdParty.getInstance(this).shareToQQ(this,
+							videoModel.getTitle(), videoModel.getTitle(),
+							videoModel.getMp4_url(), AppConstant.logoUrl);
+				}
+
+				morePopupWindow.dismiss();
+			}
+
+			break;
 
 		case R.id.collectLy:
 			System.out.println("点击了collectLy");
-			if (morePopupWindow.isShowing()) {
-				morePopupWindow.dismiss();
-			}
+			collectNews();
 			break;
 		case R.id.actionbar_more:
 			System.out.println("点击了actionbar_more");
@@ -114,4 +146,71 @@ public class VideoPlayActivity extends Activity implements OnClickListener {
 		}
 
 	}
+
+	private void collectNews() {
+		if (morePopupWindow.isShowing()) {
+			morePopupWindow.dismiss();
+
+			if (TencentThirdParty.getInstance(getApplicationContext())
+					.checkIsLogged()) {
+
+				collectNewsAfterLogin(getOpenId());
+
+			} else {
+				new AlertDialog.Builder(this).setTitle("请先登录")
+						.setPositiveButton("登录", new NegativeButtonListener())
+						.setNegativeButton("再等等", new PositiveButtonListener())
+						.setIcon(android.R.drawable.ic_dialog_info).show();
+			}
+
+		}
+	}
+
+	// 取消
+	public class PositiveButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	// 登录
+	public class NegativeButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+			TencentThirdParty.getInstance(getApplicationContext()).userLogin(
+					VideoPlayActivity.this);
+
+		}
+
+	}
+
+	@Override
+	public void collectNewsAfterLogin(String openId) {
+		// TODO Auto-generated method stub
+
+		setOpenId(openId);
+
+		CollectManage manage = CollectManage.getInstance(this);
+		CollectModel collectModel = new CollectModel();
+
+		collectModel.setUserId(getOpenId());
+		collectModel.setDesc(videoModel.getTitle());
+		collectModel.setTitle(videoModel.getTitle());
+		collectModel.setType(DataBaseHelper.VIDEO);
+		collectModel.setImgurl(videoModel.getTopicImg());
+		collectModel.setUrl(videoModel.getMp4_url());
+		manage.insertCollect(collectModel);
+
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+
+	}
+
 }

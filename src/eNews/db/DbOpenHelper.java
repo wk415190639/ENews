@@ -23,13 +23,26 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 
-		String sql = "create table if not exists "+DataBaseHelper.ChanelItemTb+" ("
-				+ DataBaseHelper._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ DataBaseHelper.ID + "   INTEGER , " + DataBaseHelper.Name
-				+ " TEXT ," + DataBaseHelper.Selected + "  TEXT)";
-		
-		System.out.println(sql);
-		db.execSQL(sql);
+		String createChanelItem = "create table if not exists "
+				+ DataBaseHelper.ChanelItemTb + " (" + DataBaseHelper._ID
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT," + DataBaseHelper.ID
+				+ "   INTEGER , " + DataBaseHelper.Name + " TEXT ,"
+				+ DataBaseHelper.Selected + "  TEXT)";
+
+		String createCollect = "create table if not exists "
+				+ DataBaseHelper.collectTb + " (" + DataBaseHelper._ID
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ DataBaseHelper.collectType + " TEXT ,"
+				+ DataBaseHelper.collectTitle + " TEXT ,"
+				+ DataBaseHelper.collectUrl + " TEXT ,"
+				+ DataBaseHelper.collectDesc + " TEXT ,"
+				+ DataBaseHelper.collectImgUrl + " TEXT,"
+				+ DataBaseHelper.collectId + " TEXT,"
+				+ DataBaseHelper.collectUserId + " TEXT)";
+
+		System.out.println(createChanelItem);
+		db.execSQL(createChanelItem);
+		db.execSQL(createCollect);
 
 	}
 

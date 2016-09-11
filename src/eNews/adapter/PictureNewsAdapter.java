@@ -116,7 +116,6 @@ public class PictureNewsAdapter extends BaseAdapter {
 		}
 
 		holder.title.setText(pictureModel.getTitle());
-		holder.title.setText(pictureModel.getSetName());
 		holder.replayNum.setText(pictureModel.getReplyid());
 
 		ImageLoader imageLoader = new ImageLoader(rq, bitmapCache);

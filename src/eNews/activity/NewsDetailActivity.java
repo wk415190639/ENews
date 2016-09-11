@@ -3,7 +3,9 @@ package eNews.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
@@ -24,17 +27,25 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
+
 import eNews.app.R;
+import eNews.bean.CollectModel;
 import eNews.bean.NewsDetailModel;
 import eNews.bean.NewsModel;
+import eNews.common.DataBaseHelper;
 import eNews.customview.MorePopupWindow;
+import eNews.dao.CollectManage;
 import eNews.httpContent.GetNewsDetailContent;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
-public class NewsDetailActivity extends Activity implements OnClickListener {
+public class NewsDetailActivity extends Activity implements OnClickListener,
+		CollectNewsInterface {
 	ProgressDialog dialog;
 	private TextView newsDetailText;
+	private String openId;
 
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
@@ -185,13 +196,6 @@ public class NewsDetailActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
@@ -204,22 +208,37 @@ public class NewsDetailActivity extends Activity implements OnClickListener {
 				if (model != null) {
 
 					ArrayList<String> arrayList = new ArrayList<String>();
-					arrayList
-							.add(AppConstant.logoUrl);
+					arrayList.add(AppConstant.logoUrl);
 
 					TencentThirdParty.getInstance(this).shareToQzone(this,
-							model.getTitle(), model.getDigest(), model.getUrl_3w(), arrayList);
+							model.getTitle(), model.getDigest(),
+							model.getUrl_3w(), arrayList);
 				}
 
 				morePopupWindow.dismiss();
 			}
 			break;
+		case R.id.shareLyqq:
+
+			System.out.println("点击了shareLyQQ");
+			if (morePopupWindow.isShowing()) {
+
+				if (model != null) {
+
+					TencentThirdParty.getInstance(this).shareToQQ(this,
+							model.getTitle(), model.getDigest(),
+							model.getUrl_3w(), AppConstant.logoUrl);
+				}
+
+				morePopupWindow.dismiss();
+			}
+
+			break;
 
 		case R.id.collectLy:
 			System.out.println("点击了collectLy");
-			if (morePopupWindow.isShowing()) {
-				morePopupWindow.dismiss();
-			}
+			collectNews();
+
 			break;
 		case R.id.actionbar_more:
 			System.out.println("点击了actionbar_more");
@@ -232,4 +251,92 @@ public class NewsDetailActivity extends Activity implements OnClickListener {
 
 	}
 
+	private void collectNews() {
+
+		if (morePopupWindow.isShowing()) {
+			morePopupWindow.dismiss();
+
+			if (TencentThirdParty.getInstance(getApplicationContext())
+					.checkIsLogged()) {
+
+				collectNewsAfterLogin(getOpenId());
+
+			} else {
+				new AlertDialog.Builder(this).setTitle("请先登录")
+						.setPositiveButton("登录", new NegativeButtonListener())
+						.setNegativeButton("再等等", new PositiveButtonListener())
+						.setIcon(android.R.drawable.ic_dialog_info).show();
+			}
+
+		}
+	}
+
+	// 取消
+	public class PositiveButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	// 登录
+	public class NegativeButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+			TencentThirdParty.getInstance(getApplicationContext()).userLogin(
+					NewsDetailActivity.this);
+
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+
+		if (requestCode == Constants.REQUEST_LOGIN
+				|| requestCode == Constants.REQUEST_APPBAR) {
+			Tencent.onActivityResultData(
+					requestCode,
+					resultCode,
+					data,
+					TencentThirdParty.getInstance(getApplicationContext()).loginIUListener);
+		}
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	@Override
+	public void collectNewsAfterLogin(String openId) {
+		// TODO Auto-generated method stub
+
+		setOpenId(openId);
+
+		CollectManage manage = CollectManage.getInstance(this);
+		CollectModel collectModel = new CollectModel();
+
+		collectModel.setUserId(getOpenId());
+		collectModel.setDesc(model.getDigest());
+		collectModel.setId(model.getDocid());
+		collectModel.setTitle(model.getTitle());
+		collectModel.setType(DataBaseHelper.TEXT);
+		collectModel.setImgurl(model.getImagesrc());
+		manage.insertCollect(collectModel);
+
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+
+	}
 }

@@ -3,22 +3,30 @@ package eNews.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
+import eNews.activity.NewsDetailActivity.NegativeButtonListener;
+import eNews.activity.NewsDetailActivity.PositiveButtonListener;
 import eNews.adapter.PictureDetailViewPageAdapter;
 import eNews.app.R;
+import eNews.bean.CollectModel;
 import eNews.bean.PictureDetailModel;
 import eNews.bean.PictureModel;
+import eNews.common.DataBaseHelper;
 import eNews.customview.MorePopupWindow;
+import eNews.dao.CollectManage;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
-public class PictureDetailActivity extends Activity implements OnClickListener {
+public class PictureDetailActivity extends Activity implements OnClickListener,
+		CollectNewsInterface {
 
 	private ViewPager viewPager;
 	private PictureDetailViewPageAdapter detailViewPageAdapter;
@@ -26,6 +34,15 @@ public class PictureDetailActivity extends Activity implements OnClickListener {
 	private ImageButton backBtn;
 	private MorePopupWindow morePopupWindow;
 	private ImageButton actionbar_more;
+	private String openId;
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +111,26 @@ public class PictureDetailActivity extends Activity implements OnClickListener {
 			}
 			break;
 
-		case R.id.collectLy:
-			System.out.println("点击了collectLy");
+		case R.id.shareLyqq:
+
+			System.out.println("点击了shareLyQQ");
 			if (morePopupWindow.isShowing()) {
+
+				if (model != null) {
+
+					TencentThirdParty.getInstance(this).shareToQQ(this,
+							model.getTitle(), model.getDesc(),
+							model.getSetUrl(), AppConstant.logoUrl);
+				}
+
 				morePopupWindow.dismiss();
 			}
+
+			break;
+		case R.id.collectLy:
+			System.out.println("点击了collectLy");
+			collectNews();
+
 			break;
 		case R.id.actionbar_more:
 			System.out.println("点击了actionbar_more");
@@ -108,5 +140,70 @@ public class PictureDetailActivity extends Activity implements OnClickListener {
 			}
 			break;
 		}
+	}
+
+	private void collectNews() {
+		if (morePopupWindow.isShowing()) {
+			morePopupWindow.dismiss();
+
+			if (TencentThirdParty.getInstance(getApplicationContext())
+					.checkIsLogged()) {
+
+				collectNewsAfterLogin(getOpenId());
+
+			} else {
+				new AlertDialog.Builder(this).setTitle("请先登录")
+						.setPositiveButton("登录", new NegativeButtonListener())
+						.setNegativeButton("再等等", new PositiveButtonListener())
+						.setIcon(android.R.drawable.ic_dialog_info).show();
+			}
+
+		}
+	}
+
+	// 取消
+	public class PositiveButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	// 登录
+	public class NegativeButtonListener implements
+			DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+			TencentThirdParty.getInstance(getApplicationContext()).userLogin(
+					PictureDetailActivity.this);
+
+		}
+
+	}
+
+	@Override
+	public void collectNewsAfterLogin(String openId) {
+		// TODO Auto-generated method stub
+
+		setOpenId(openId);
+
+		CollectManage manage = CollectManage.getInstance(this);
+		CollectModel collectModel = new CollectModel();
+
+		collectModel.setUserId(getOpenId());
+		collectModel.setDesc(model.getDesc());
+		collectModel.setTitle(model.getTitle());
+		collectModel.setType(DataBaseHelper.PICTURE);
+		collectModel.setImgurl(model.getImgsrc());
+		manage.insertCollect(collectModel);
+
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+
 	}
 }

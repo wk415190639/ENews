@@ -12,7 +12,8 @@ import android.widget.PopupWindow;
 import eNews.app.R;
 
 public class MorePopupWindow extends PopupWindow {
-
+	int h ;
+	int w;
 	private View conentView;
 
 	public MorePopupWindow(Activity activity) {
@@ -23,12 +24,12 @@ public class MorePopupWindow extends PopupWindow {
 
 		DisplayMetrics metrics = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		int h = metrics.heightPixels;
-		int w = metrics.widthPixels;
+		 h = metrics.heightPixels;
+		 w = metrics.widthPixels;
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(conentView);
 		// 设置SelectPicPopupWindow弹出窗体的宽
-		this.setWidth(w / 2 + 50);
+		this.setWidth(w / 2);
 		// 设置SelectPicPopupWindow弹出窗体的高
 		this.setHeight(LayoutParams.WRAP_CONTENT);
 		// 设置SelectPicPopupWindow弹出窗体可点击
@@ -52,7 +53,15 @@ public class MorePopupWindow extends PopupWindow {
 				(OnClickListener) activity);
 		conentView.findViewById(R.id.collectLy).setOnClickListener(
 				(OnClickListener) activity);
+		conentView.findViewById(R.id.shareLyqq).setOnClickListener(
+				(OnClickListener) activity);
 
+	}
+	
+	@Override
+	public void showAsDropDown(View anchor) {
+		// TODO Auto-generated method stub
+		super.showAsDropDown(anchor, -300, 0);
 	}
 
 }

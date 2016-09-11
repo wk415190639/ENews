@@ -2,8 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#2994f1"
     android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/shareLy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/shareIv"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:src="@drawable/qqzone" />
+
+        <TextView
+            android:id="@+id/shareTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="分享到空间"
+            android:textColor="#FFF" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,26 +36,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/shareLy"
+        android:id="@+id/shareLyqq"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:gravity="center_vertical" >
 
         <ImageView
-            android:id="@+id/shareIv"
+            android:id="@+id/shareIvqq"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/p2" />
+            android:padding="10dp"
+            android:src="@drawable/qqfriend" />
 
         <TextView
-            android:id="@+id/shareTv"
+            android:id="@+id/shareTvqq"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="25dp"
             android:gravity="center"
-            android:text="分享"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="分享给好友"
+            android:textColor="#FFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +68,7 @@
     <LinearLayout
         android:id="@+id/collectLy"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:gravity="center_vertical" >
 
         <ImageView
@@ -53,16 +76,15 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/p3" />
+            android:src="@drawable/collect" />
 
         <TextView
             android:id="@+id/collectTv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="25dp"
             android:gravity="center"
             android:text="收藏"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="#FFF" />
     </LinearLayout>
 
 </LinearLayout>

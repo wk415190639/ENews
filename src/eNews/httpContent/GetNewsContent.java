@@ -44,7 +44,7 @@ public class GetNewsContent {
 						mainActivity));
 		queue.add(jrq);
 
-		System.out.println(httpUrl);
+//		System.out.println(httpUrl);
 
 		
 	}

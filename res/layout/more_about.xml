@@ -40,4 +40,10 @@
         android:layout_weight="1"
         android:text="获取源码" />
 
+    <Button
+        android:id="@+id/makeFriendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加好友" />
+
 </LinearLayout>

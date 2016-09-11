@@ -70,21 +70,17 @@ public class GetMeiTuDetailContent {
 					JSONObject tmepJsonObject = imgJsonArray.getJSONObject(i);
 					detailModel.getImg().add(tmepJsonObject.getString("src"));
 				}
-				
-				if(root.has("shareLink"))
-				{
+
+				if (root.has("shareLink")) {
 					detailModel.setShareLink(root.getString("shareLink"));
-				}
-				else if(root.has("source_url"))
-				{
+				} else if (root.has("source_url")) {
 					detailModel.setShareLink(root.getString("source_url"));
-				}
-				else
-				{
+				} else {
 					detailModel.setShareLink("https://www.baidu.com");
 				}
-					
-				System.out.println("---------------"+detailModel.getShareLink());
+
+				System.out.println("---------------"
+						+ detailModel.getShareLink());
 
 				meiTuDetailActivity.setContent(detailModel);
 
@@ -109,9 +105,10 @@ public class GetMeiTuDetailContent {
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-//		if(meiTuDetailActivity!=null)
-//			Toast.makeText(meiTuDetailActivity, "数据加载失败!", Toast.LENGTH_SHORT)
-//					.show();
+			// if(meiTuDetailActivity!=null)
+			// Toast.makeText(meiTuDetailActivity, "数据加载失败!",
+			// Toast.LENGTH_SHORT)
+			// .show();
 		}
 
 	}
