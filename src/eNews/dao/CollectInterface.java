@@ -8,7 +8,7 @@ public interface CollectInterface {
 
 	long insertCollect(CollectModel collectModel);
 
-	int deleteCollect(String title);
+	int deleteCollect(CollectModel collectModel);
 
 	ArrayList<CollectModel> query(String type,String openID);
 

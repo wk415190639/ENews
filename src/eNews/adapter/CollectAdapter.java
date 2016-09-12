@@ -1,14 +1,26 @@
 package eNews.adapter;
 
-import io.vov.vitamio.utils.CPU;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
+import com.android.volley.toolbox.Volley;
 
 import eNews.activity.MeiTuDetailActivity;
 import eNews.activity.NewsDetailActivity;
@@ -21,15 +33,7 @@ import eNews.bean.PictureModel;
 import eNews.bean.VideoModel;
 import eNews.common.BitmapCache;
 import eNews.common.DataBaseHelper;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import eNews.dao.CollectManage;
 
 public class CollectAdapter extends BaseAdapter {
 
@@ -38,13 +42,14 @@ public class CollectAdapter extends BaseAdapter {
 	RequestQueue rq;
 	private BitmapCache bitmapCache;
 	CollectModel collectModel;
+	CollectManage manage;
 
 	public CollectAdapter(Context context) {
 
 		this.context = context;
 		bitmapCache = BitmapCache.instance();
 		rq = Volley.newRequestQueue(context.getApplicationContext());
-
+		manage = CollectManage.getInstance(context);
 	}
 
 	public void appendList(List<CollectModel> list) {
@@ -173,6 +178,9 @@ public class CollectAdapter extends BaseAdapter {
 			break;
 		}
 
+		convertView.setOnLongClickListener(new LongClickListener(collectModel,
+				position));
+
 		collectModel = null;
 		return convertView;
 	}
@@ -236,6 +244,86 @@ public class CollectAdapter extends BaseAdapter {
 			Intent intent = new Intent(context, cls);
 			intent.putExtra("picModel", pictureModel);
 			context.startActivity(intent);
+
+		}
+
+	}
+
+	class LongClickListener implements OnLongClickListener {
+
+		private CollectModel tmpCollectModel;
+		private int position;
+
+		public LongClickListener(CollectModel tmpCollectModel, int position) {
+			// TODO Auto-generated constructor stub
+			this.tmpCollectModel = tmpCollectModel;
+			this.position = position;
+		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			// TODO Auto-generated method stub
+
+			deleteCollect(v, tmpCollectModel, position);
+			return true;
+		}
+
+	}
+
+	private void deleteCollect(View v, CollectModel collectModel, int position) {
+		v.setBackgroundColor(Color.GRAY);
+		new AlertDialog.Builder(context)
+				.setTitle("是否要删除???")
+				.setPositiveButton("删除",
+						new NegativeButtonListener(v, collectModel, position))
+				.setNegativeButton("再等等", new PositiveButtonListener(v))
+				.setIcon(android.R.drawable.ic_dialog_info).show();
+	}
+
+	// 取消
+	public class PositiveButtonListener implements
+			DialogInterface.OnClickListener {
+
+		View clickView;
+
+		public PositiveButtonListener(View v) {
+			// TODO Auto-generated constructor stub
+			this.clickView = v;
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+
+			clickView.setBackgroundColor(Color.WHITE);
+		}
+	}
+
+	// 登录
+	public class NegativeButtonListener implements
+			DialogInterface.OnClickListener {
+		private CollectModel collectModel;
+
+		private int position;
+		private View v;
+
+		public NegativeButtonListener(View v, CollectModel collectModel,
+				int position) {
+			// TODO Auto-generated constructor stub
+
+			this.collectModel = collectModel;
+			this.position = position;
+			this.v = v;
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+			if (manage.deleteCollect(collectModel) > 0) {
+				lists.remove(position);
+				notifyDataSetChanged();
+			}
+			v.setBackgroundColor(Color.WHITE);
 
 		}
 

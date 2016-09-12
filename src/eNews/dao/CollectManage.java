@@ -67,12 +67,19 @@ public class CollectManage implements CollectInterface {
 	}
 
 	@Override
-	public int deleteCollect(String id) {
+	public int deleteCollect(CollectModel collectModel) {
 		// TODO Auto-generated method stub
 
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
-		return db
-				.delete(DataBaseHelper.collectTb, "_id=?", new String[] { id });
+
+		String where = DataBaseHelper.collectType + "=? and "
+				+ DataBaseHelper.collectTitle + "=? and "
+				+ DataBaseHelper.collectUserId + " =?";
+		String whereArgs[] = new String[] { collectModel.getType(),
+				collectModel.getTitle(), collectModel.getUserId() };
+
+		return db.delete(DataBaseHelper.collectTb, where, whereArgs);
+
 	}
 
 	@Override
