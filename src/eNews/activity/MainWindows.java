@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.Tencent;
@@ -121,6 +122,7 @@ public class MainWindows extends Activity implements OnClickListener {
 		userImgBtn.setOnClickListener(new LoginBtnClick());
 
 		userName = (TextView) findViewById(R.id.userName);
+		userName.setOnClickListener(new showCollectActivity());
 
 	}
 
@@ -232,6 +234,25 @@ public class MainWindows extends Activity implements OnClickListener {
 			break;
 		}
 		transaction.commit();
+
+	}
+
+	class showCollectActivity implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+
+			if(TencentThirdParty.getInstance(getApplicationContext()).checkIsLogged())
+			{
+			Intent intent = new Intent(MainWindows.this, CollectActivity.class);
+			startActivity(intent);
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(),"请点击头像登录",1).show();
+			}
+
+		}
 
 	}
 

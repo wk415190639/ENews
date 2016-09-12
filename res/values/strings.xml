@@ -33,6 +33,7 @@
      <string name="channel_title">频道管理</string>
      <string name="picture_detail_title">图片详情</string>
      <string name="news_detail_title">新闻详情</string>
+     <string name="collect_title">我的收藏</string>
     
 
 </resources>

@@ -1,4 +1,4 @@
-package eNews.httpContent;
+package eNews.getContent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,38 +11,34 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.MeiTuDetailActivity;
+import eNews.activity.NewsDetailActivity;
 import eNews.bean.NewsDetailModel;
 import eNews.url.Url;
 
-public class GetMeiTuDetailContent {
+public class GetNewsDetailContent {
 
 	static public void getNewsContent(String postId,
-			MeiTuDetailActivity meiTuDetailActivity) {
+			NewsDetailActivity newsDetailActivity) {
 
 		JSONObject jsonObject = null;
+		RequestQueue queue = Volley.newRequestQueue(newsDetailActivity);
 
-		RequestQueue queue = Volley.newRequestQueue(meiTuDetailActivity);
-
-		System.out.println(Url.NewDetail + postId + Url.endDetailUrl);
-		JsonObjectRequest jrq = new JsonObjectRequest(Url.NewDetail + postId
-				+ Url.endDetailUrl, jsonObject, new JsonListener(
-				meiTuDetailActivity, postId), new JsonErrorListener(
-				meiTuDetailActivity));
+		String url = Url.NewDetail + postId + Url.endDetailUrl;
+		JsonObjectRequest jrq = new JsonObjectRequest(url, jsonObject,
+				new JsonListener(newsDetailActivity, postId),
+				new JsonErrorListener(newsDetailActivity));
 		queue.add(jrq);
-
 	}
 
 	static class JsonListener implements Listener<JSONObject> {
 
 		private String postId;
-		private MeiTuDetailActivity meiTuDetailActivity;
+		private NewsDetailActivity newsDetailActivity;
 
-		public JsonListener(MeiTuDetailActivity meiTuDetailActivity,
-				String postId) {
+		public JsonListener(NewsDetailActivity newsDetailActivity, String postId) {
 
 			this.postId = postId;
-			this.meiTuDetailActivity = meiTuDetailActivity;
+			this.newsDetailActivity = newsDetailActivity;
 
 		}
 
@@ -71,18 +67,7 @@ public class GetMeiTuDetailContent {
 					detailModel.getImg().add(tmepJsonObject.getString("src"));
 				}
 
-				if (root.has("shareLink")) {
-					detailModel.setShareLink(root.getString("shareLink"));
-				} else if (root.has("source_url")) {
-					detailModel.setShareLink(root.getString("source_url"));
-				} else {
-					detailModel.setShareLink("https://www.baidu.com");
-				}
-
-				System.out.println("---------------"
-						+ detailModel.getShareLink());
-
-				meiTuDetailActivity.setContent(detailModel);
+				newsDetailActivity.setContent(detailModel);
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -93,22 +78,21 @@ public class GetMeiTuDetailContent {
 	}
 
 	static class JsonErrorListener implements ErrorListener {
-		MeiTuDetailActivity meiTuDetailActivity;
 
-		public JsonErrorListener(MeiTuDetailActivity meiTuDetailActivity) {
+		NewsDetailActivity newsDetailActivity;
+
+		public JsonErrorListener(NewsDetailActivity newsDetailActivity) {
 			// TODO Auto-generated constructor stub
-
-			this.meiTuDetailActivity = meiTuDetailActivity;
+			this.newsDetailActivity = newsDetailActivity;
 		}
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
 
 			System.out.println("Json array volley error->" + error);
-			// if(meiTuDetailActivity!=null)
-			// Toast.makeText(meiTuDetailActivity, "数据加载失败!",
-			// Toast.LENGTH_SHORT)
-			// .show();
+			// if (newsDetailActivity != null)
+			// Toast.makeText(newsDetailActivity, "数据加载失败!",
+			// Toast.LENGTH_SHORT).show();
 		}
 
 	}

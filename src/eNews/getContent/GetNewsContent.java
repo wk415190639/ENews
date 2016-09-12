@@ -1,4 +1,4 @@
-package eNews.httpContent;
+package eNews.getContent;
 
 import java.util.ArrayList;
 import java.util.List;

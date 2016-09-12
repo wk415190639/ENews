@@ -41,7 +41,7 @@ import eNews.app.R;
 import eNews.bean.WeatherInfo;
 import eNews.common.GetWeatherBackground;
 import eNews.common.GetWeatherIconTypeId;
-import eNews.httpContent.GetWeatherContent;
+import eNews.getContent.GetWeatherContent;
 import eNews.url.Url;
 
 public class WeatherFragment extends Fragment {

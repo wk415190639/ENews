@@ -27,8 +27,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import eNews.activity.PictureDetailActivity.NegativeButtonListener;
-import eNews.activity.PictureDetailActivity.PositiveButtonListener;
 import eNews.app.R;
 import eNews.bean.CollectModel;
 import eNews.bean.NewsDetailModel;
@@ -36,7 +34,7 @@ import eNews.bean.PictureModel;
 import eNews.common.DataBaseHelper;
 import eNews.customview.MorePopupWindow;
 import eNews.dao.CollectManage;
-import eNews.httpContent.GetMeiTuDetailContent;
+import eNews.getContent.GetMeiTuDetailContent;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
@@ -68,7 +66,8 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
+		setOpenId(TencentThirdParty.getInstance(getApplicationContext())
+				.getOpenId());
 		setContentView(R.layout.news_detail);
 		getActionBar().hide();
 		morePopupWindow = new MorePopupWindow(this);
@@ -271,7 +270,7 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 			if (TencentThirdParty.getInstance(getApplicationContext())
 					.checkIsLogged()) {
 
-				collectNewsAfterLogin(getOpenId());
+				collect();
 
 			} else {
 				new AlertDialog.Builder(this).setTitle("请先登录")
@@ -315,14 +314,21 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 
 		setOpenId(openId);
 
+		collect();
+
+	}
+
+	private void collect() {
+		// TODO Auto-generated method stub
 		CollectManage manage = CollectManage.getInstance(this);
 		CollectModel collectModel = new CollectModel();
 
 		collectModel.setUserId(getOpenId());
 		collectModel.setDesc(model.getDesc());
 		collectModel.setTitle(model.getTitle());
-		collectModel.setType(DataBaseHelper.PICTURE);
+		collectModel.setType(DataBaseHelper.MEITU);
 		collectModel.setImgurl(model.getImgsrc());
+		collectModel.setId(model.getDocid());
 		manage.insertCollect(collectModel);
 
 		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();

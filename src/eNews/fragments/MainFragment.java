@@ -33,7 +33,7 @@ import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
 import eNews.customview.NewsListView;
 import eNews.dao.ChannelManage;
-import eNews.httpContent.GetNewsContent;
+import eNews.getContent.GetNewsContent;
 import eNews.url.Url;
 
 public class MainFragment extends Fragment {

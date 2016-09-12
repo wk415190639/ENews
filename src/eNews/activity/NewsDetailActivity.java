@@ -37,7 +37,7 @@ import eNews.bean.NewsModel;
 import eNews.common.DataBaseHelper;
 import eNews.customview.MorePopupWindow;
 import eNews.dao.CollectManage;
-import eNews.httpContent.GetNewsDetailContent;
+import eNews.getContent.GetNewsDetailContent;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
@@ -61,6 +61,8 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
+		setOpenId(TencentThirdParty.getInstance(getApplicationContext())
+				.getOpenId());
 		getActionBar().hide();
 		setContentView(R.layout.news_detail);
 
@@ -259,7 +261,7 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 			if (TencentThirdParty.getInstance(getApplicationContext())
 					.checkIsLogged()) {
 
-				collectNewsAfterLogin(getOpenId());
+				collect();
 
 			} else {
 				new AlertDialog.Builder(this).setTitle("请先登录")
@@ -324,7 +326,11 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 
 		setOpenId(openId);
+		collect();
 
+	}
+
+	private void collect() {
 		CollectManage manage = CollectManage.getInstance(this);
 		CollectModel collectModel = new CollectModel();
 
@@ -337,6 +343,5 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 		manage.insertCollect(collectModel);
 
 		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
-
 	}
 }

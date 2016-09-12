@@ -1,4 +1,4 @@
-package eNews.httpContent;
+package eNews.getContent;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

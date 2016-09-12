@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +18,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import eNews.activity.MeiTuDetailActivity.NegativeButtonListener;
-import eNews.activity.MeiTuDetailActivity.PositiveButtonListener;
 import eNews.app.R;
 import eNews.bean.CollectModel;
 import eNews.bean.VideoModel;
@@ -51,6 +48,8 @@ public class VideoPlayActivity extends Activity implements OnClickListener,
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+		setOpenId(TencentThirdParty.getInstance(getApplicationContext())
+				.getOpenId());
 		if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
 			return;
 		setContentView(R.layout.videoview);
@@ -154,7 +153,7 @@ public class VideoPlayActivity extends Activity implements OnClickListener,
 			if (TencentThirdParty.getInstance(getApplicationContext())
 					.checkIsLogged()) {
 
-				collectNewsAfterLogin(getOpenId());
+				collect();
 
 			} else {
 				new AlertDialog.Builder(this).setTitle("ÇëÏÈµÇÂ¼")
@@ -197,7 +196,11 @@ public class VideoPlayActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 
 		setOpenId(openId);
+		collect();
 
+	}
+
+	private void collect() {
 		CollectManage manage = CollectManage.getInstance(this);
 		CollectModel collectModel = new CollectModel();
 

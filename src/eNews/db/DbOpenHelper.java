@@ -38,7 +38,10 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 				+ DataBaseHelper.collectDesc + " TEXT ,"
 				+ DataBaseHelper.collectImgUrl + " TEXT,"
 				+ DataBaseHelper.collectId + " TEXT,"
-				+ DataBaseHelper.collectUserId + " TEXT)";
+				+ DataBaseHelper.collectUserId + " TEXT,"
+				+ DataBaseHelper.collectPic1 + " TEXT,"
+				+ DataBaseHelper.collectPic2 + " TEXT,"
+				+ DataBaseHelper.collectPic3 + " TEXT)";
 
 		System.out.println(createChanelItem);
 		db.execSQL(createChanelItem);

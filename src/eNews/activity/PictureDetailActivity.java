@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import eNews.activity.NewsDetailActivity.NegativeButtonListener;
-import eNews.activity.NewsDetailActivity.PositiveButtonListener;
 import eNews.adapter.PictureDetailViewPageAdapter;
 import eNews.app.R;
 import eNews.bean.CollectModel;
@@ -48,6 +46,8 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setOpenId(TencentThirdParty.getInstance(getApplicationContext())
+				.getOpenId());
 		setContentView(R.layout.picture_detail);
 		Intent intent = getIntent();
 		morePopupWindow = new MorePopupWindow(this);
@@ -149,7 +149,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 			if (TencentThirdParty.getInstance(getApplicationContext())
 					.checkIsLogged()) {
 
-				collectNewsAfterLogin(getOpenId());
+				collect();
 
 			} else {
 				new AlertDialog.Builder(this).setTitle("请先登录")
@@ -193,6 +193,11 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 
 		setOpenId(openId);
 
+		collect();
+
+	}
+
+	private void collect() {
 		CollectManage manage = CollectManage.getInstance(this);
 		CollectModel collectModel = new CollectModel();
 
@@ -201,6 +206,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 		collectModel.setTitle(model.getTitle());
 		collectModel.setType(DataBaseHelper.PICTURE);
 		collectModel.setImgurl(model.getImgsrc());
+		collectModel.setPics(model.getPics());
 		manage.insertCollect(collectModel);
 
 		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();

@@ -1,6 +1,6 @@
 package eNews.dao;
 
-import java.util.Currency;
+import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,6 +15,8 @@ public class CollectManage implements CollectInterface {
 	private DbOpenHelper dbOpenHelper;
 
 	static CollectManage instance;
+	String picTags[] = { DataBaseHelper.collectPic1,
+			DataBaseHelper.collectPic2, DataBaseHelper.collectPic3 };
 
 	private CollectManage(Context context) {
 		// TODO Auto-generated constructor stub
@@ -44,6 +46,14 @@ public class CollectManage implements CollectInterface {
 		values.put(DataBaseHelper.collectUrl, collectModel.getUrl());
 		values.put(DataBaseHelper.collectUserId, collectModel.getUserId());
 
+		if (collectModel.getPics() != null && collectModel.getPics().size() > 0) {
+
+			for (int i = 0; i < collectModel.getPics().size(); i++) {
+				values.put(picTags[i], collectModel.getPics().get(i));
+			}
+
+		}
+
 		Cursor cursor = db.query(DataBaseHelper.collectTb, null,
 				DataBaseHelper.collectTitle + "=? and "
 						+ DataBaseHelper.collectType + "=?", new String[] {
@@ -59,9 +69,68 @@ public class CollectManage implements CollectInterface {
 	@Override
 	public int deleteCollect(String id) {
 		// TODO Auto-generated method stub
+
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		return db
 				.delete(DataBaseHelper.collectTb, "_id=?", new String[] { id });
 	}
 
+	@Override
+	public ArrayList<CollectModel> query(String type, String openID) {
+		// TODO Auto-generated method stub
+
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+		ArrayList<CollectModel> arrayList = new ArrayList<CollectModel>();
+		CollectModel collectModel;
+		Cursor cursor;
+		if (type != null) {
+			if (type.equals(DataBaseHelper.PICTURE)
+					|| type.equals(DataBaseHelper.MEITU)) {
+				cursor = db.query(DataBaseHelper.collectTb, null,
+						"type in (?,?) and " + DataBaseHelper.collectUserId
+								+ "=?", new String[] { DataBaseHelper.PICTURE,
+								DataBaseHelper.MEITU, openID }, null, null,
+						null, null);
+			} else
+				cursor = db.query(DataBaseHelper.collectTb, null,
+						"type =? and " + DataBaseHelper.collectUserId + "=?",
+						new String[] { type, openID }, null, null, null, null);
+
+		} else {
+
+			cursor = db.query(DataBaseHelper.collectTb, null,
+					DataBaseHelper.collectUserId + "=?",
+					new String[] { openID }, null, null, "type", null);
+		}
+
+		while (cursor.moveToNext()) {
+			collectModel = new CollectModel();
+
+			collectModel.setType(cursor.getString(1));
+			collectModel.setTitle(cursor.getString(2));
+			collectModel.setUrl(cursor.getString(3));
+			collectModel.setDesc(cursor.getString(4));
+			collectModel.setImgurl(cursor.getString(5));
+			collectModel.setId(cursor.getString(6));
+			collectModel.setUserId(cursor.getString(7));
+
+			if (type != null && type.equals(DataBaseHelper.PICTURE)) {
+				ArrayList<String> picList = new ArrayList<String>();
+				String tmpStr;
+				for (int i = 8; i <= 10; i++) {
+					tmpStr = cursor.getString(i);
+					if (tmpStr != null && !tmpStr.isEmpty()) {
+						picList.add(tmpStr);
+					}
+					tmpStr = "";
+				}
+				collectModel.setPics(picList);
+			}
+
+			arrayList.add(collectModel);
+
+		}
+
+		return arrayList;
+	}
 }

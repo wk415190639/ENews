@@ -23,7 +23,7 @@ import eNews.adapter.PictureNewsAdapter;
 import eNews.app.R;
 import eNews.bean.PictureModel;
 import eNews.customview.ActionBarView;
-import eNews.httpContent.GetPictureNewsContent;
+import eNews.getContent.GetPictureNewsContent;
 import eNews.url.Url;
 
 public class PictureFragment extends Fragment {

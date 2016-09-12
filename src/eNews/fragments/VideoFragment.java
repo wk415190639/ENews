@@ -24,7 +24,7 @@ import eNews.app.R;
 import eNews.bean.VideoModel;
 import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
-import eNews.httpContent.GetVideoNewsContent;
+import eNews.getContent.GetVideoNewsContent;
 
 public class VideoFragment extends Fragment {
 

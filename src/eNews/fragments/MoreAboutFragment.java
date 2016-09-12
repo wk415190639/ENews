@@ -18,7 +18,6 @@ public class MoreAboutFragment extends Fragment implements OnClickListener {
 
 	private View view;
 	private Button getSourceCodeBtn;
-	private Button makeFriendBtn;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,8 +34,6 @@ public class MoreAboutFragment extends Fragment implements OnClickListener {
 
 		getSourceCodeBtn = (Button) view.findViewById(R.id.getSourceCodeBtn);
 		getSourceCodeBtn.setOnClickListener(this);
-		makeFriendBtn = (Button) view.findViewById(R.id.makeFriendBtn);
-		makeFriendBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -53,11 +50,6 @@ public class MoreAboutFragment extends Fragment implements OnClickListener {
 					.getInstance(getActivity().getApplicationContext())
 					.shareToQzone(getActivity(), "源代码", "新闻e眼客户端",
 							"https://github.com/wk415190639/ENews", arrayList);
-			break;
-		case R.id.makeFriendBtn:
-
-		
-
 			break;
 
 		default:
