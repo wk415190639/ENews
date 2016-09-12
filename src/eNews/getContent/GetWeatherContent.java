@@ -19,6 +19,11 @@ import eNews.bean.WeatherInfo;
 import eNews.fragments.WeatherFragment;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取天气数据
+ */
 public class GetWeatherContent {
 
 	static RequestQueue queue;

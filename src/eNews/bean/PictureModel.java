@@ -3,11 +3,13 @@ package eNews.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 图片新闻实体类
+ */
 public class PictureModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String setId;
 	private String desc;
@@ -16,12 +18,12 @@ public class PictureModel implements Serializable {
 	private String setName;
 	private String cover;
 	private ArrayList<String> pics;
-	
-	
+
 	public PictureModel() {
 		// TODO Auto-generated constructor stub
 		pics = new ArrayList<String>();
 	}
+
 	private String setUrl;
 	private String imgSum;
 

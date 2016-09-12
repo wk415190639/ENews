@@ -1,7 +1,6 @@
 package eNews.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,11 @@ import android.widget.TextView;
 import eNews.app.R;
 import eNews.customview.ActionBarView;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 图片新闻标签适配器
+ */
 public class PictureNewsActionBarAdapter extends BaseAdapter {
 
 	private Context context;

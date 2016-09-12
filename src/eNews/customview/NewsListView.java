@@ -4,6 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 新闻列表控件
+ */
 public class NewsListView extends ListView {
 
 	public NewsListView(Context context, AttributeSet attrs) {

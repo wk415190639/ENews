@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -18,7 +16,13 @@ import eNews.bean.CollectModel;
 import eNews.common.DataBaseHelper;
 import eNews.dao.CollectManage;
 import eNews.thirdParty.TencentThirdParty;
-
+/**
+ * 
+ * @author 王凯
+ * @date   2016-9-12 
+ * 我的收藏Activity
+ *
+ */
 public class CollectActivity extends Activity implements
 		OnCheckedChangeListener {
 

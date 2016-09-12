@@ -1,5 +1,10 @@
 package eNews.bean;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 频道实体类
+ */
 public class ChannelItemModel {
 
 	private int Id;

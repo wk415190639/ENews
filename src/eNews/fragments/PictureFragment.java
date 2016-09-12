@@ -12,7 +12,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +25,11 @@ import eNews.customview.ActionBarView;
 import eNews.getContent.GetPictureNewsContent;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author Õıø≠
+ * @date 2016-9-12 Õº∆¨–¬Œ≈ÀÈ∆¨
+ */
 public class PictureFragment extends Fragment {
 
 	private View view;
@@ -108,7 +112,7 @@ public class PictureFragment extends Fragment {
 
 		pictureListView = (ListView) view.findViewById(R.id.pictureList);
 		pictureNewsActionBarAdapter = new PictureNewsActionBarAdapter(
-				getActivity(),actionbar);
+				getActivity(), actionbar);
 
 		pictureNewsAdapter = new PictureNewsAdapter(getActivity());
 

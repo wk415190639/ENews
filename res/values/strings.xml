@@ -23,6 +23,7 @@
     <string name="menu_picture">图片</string>
     <string name="menu_video">视频</string>
     <string name="menu_weather">天气</string>
+        <string name="menu_collect">收藏</string>
     <string name="menu_more">更多</string>
     <string name="main_title">新闻e眼</string>
     <string name="app_version">版本号  1.0.0.1</string>

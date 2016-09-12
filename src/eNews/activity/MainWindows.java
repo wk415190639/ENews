@@ -37,6 +37,10 @@ import eNews.fragments.VideoFragment;
 import eNews.fragments.WeatherFragment;
 import eNews.thirdParty.TencentThirdParty;
 
+/**
+ * 
+ * @author k 主界面
+ */
 public class MainWindows extends Activity implements OnClickListener {
 
 	@SuppressWarnings("unused")
@@ -50,6 +54,7 @@ public class MainWindows extends Activity implements OnClickListener {
 	private LinearLayout menu_videoLayout;
 	private LinearLayout menu_weatherLayout;
 	private LinearLayout menu_moreLayout;
+	private LinearLayout menu_collectLayout;
 
 	public MainFragment mainFragment;
 	public PictureFragment pictureFragment;
@@ -59,6 +64,7 @@ public class MainWindows extends Activity implements OnClickListener {
 
 	private static ImageButton userImgBtn;
 	private static TextView userName;
+	private showCollectActivity showcollectActivityListener;
 
 	private boolean isOpen;
 
@@ -87,6 +93,7 @@ public class MainWindows extends Activity implements OnClickListener {
 		weatherFragment = new WeatherFragment();
 		pictureFragment = new PictureFragment();
 		aboutFragment = new MoreAboutFragment();
+		showcollectActivityListener = new showCollectActivity();
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 		drawerLayout.setDrawerShadow(R.drawable.shadow, GravityCompat.START);
@@ -118,11 +125,14 @@ public class MainWindows extends Activity implements OnClickListener {
 		menu_moreLayout = (LinearLayout) findViewById(R.id.menuMore);
 		menu_moreLayout.setOnClickListener(this);
 
+		menu_collectLayout = (LinearLayout) findViewById(R.id.menuCollect);
+		menu_collectLayout.setOnClickListener(showcollectActivityListener);
+
 		userImgBtn = (ImageButton) findViewById(R.id.userImg);
 		userImgBtn.setOnClickListener(new LoginBtnClick());
 
 		userName = (TextView) findViewById(R.id.userName);
-		userName.setOnClickListener(new showCollectActivity());
+		userName.setOnClickListener(showcollectActivityListener);
 
 	}
 
@@ -242,14 +252,14 @@ public class MainWindows extends Activity implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 
-			if(TencentThirdParty.getInstance(getApplicationContext()).checkIsLogged())
-			{
-			Intent intent = new Intent(MainWindows.this, CollectActivity.class);
-			startActivity(intent);
-			}
-			else
-			{
-				Toast.makeText(getApplicationContext(),"请点击头像登录",1).show();
+			if (TencentThirdParty.getInstance(getApplicationContext())
+					.checkIsLogged()) {
+				Intent intent = new Intent(MainWindows.this,
+						CollectActivity.class);
+				startActivity(intent);
+			} else {
+				Toast.makeText(getApplicationContext(), "请点击头像登录",
+						Toast.LENGTH_SHORT).show();
 			}
 
 		}

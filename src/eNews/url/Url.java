@@ -1,6 +1,10 @@
 package eNews.url;
 
-//BVFFV77V00031GVS  文字详情
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 数据网址
+ */
 
 public class Url {
 	public static final String host = "http://c.m.163.com/";
@@ -126,7 +130,7 @@ public class Url {
 	// http://api.k780.com:88/?app=weather.city&format=json 获取城市列表
 
 	public static final String WeatherKey = "&key=1734f933d24634331a24aaadc1cb088f";
-
+	// 地址反编
 	public static final String GeocoderUrl = "http://maps.google.cn/maps/api/geocode/json?language=zh-CN&sensor=true&";// latlng=38.92,121.62&sensor=false
 
 }

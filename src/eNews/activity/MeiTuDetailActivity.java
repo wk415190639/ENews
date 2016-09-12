@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,11 +39,15 @@ import eNews.getContent.GetMeiTuDetailContent;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 美图activity
+ */
 public class MeiTuDetailActivity extends Activity implements OnClickListener,
 		CollectNewsInterface {
 
 	private TextView newsDetailText;
-	private String postId;
 	private NewsDetailModel newsDetailModel;
 	private ArrayList<Drawable> arrayDrawable;
 	private ImageButton backBtn;
@@ -97,7 +102,18 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 	}
 
 	private void init() {
-		dialog = ProgressDialog.show(this, "提示", "正在加载");
+
+		dialog = ProgressDialog.show(this, "提示", "正在加载,点击可返回");
+		dialog.setCancelable(true);
+		dialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				finish();
+
+			}
+		});
 		newsDetailText = (TextView) findViewById(R.id.news_detail_text);
 		model = (PictureModel) getIntent().getSerializableExtra("picModel");
 		arrayDrawable = new ArrayList<Drawable>();
@@ -105,6 +121,7 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 		GetMeiTuDetailContent.getNewsContent(model.getDocid(), this);
 	}
 
+	// 拆分数据
 	public void setContent(NewsDetailModel newsDetailModel) {
 		this.newsDetailModel = newsDetailModel;
 		String body = newsDetailModel.getBody() + " 时间 "
@@ -114,6 +131,7 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 		getDetailImages();
 	}
 
+	// 获取网络图片
 	private void getDetailImages() {
 
 		RequestQueue jr = Volley.newRequestQueue(getApplicationContext());
@@ -134,6 +152,7 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 
 	}
 
+	// 显示信息
 	private void setNewsDetailText() {
 
 		System.out.println(strList.length + "<----->" + arrayDrawable.size());
@@ -180,9 +199,9 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 			arrayDrawable.add(drawable);
 
 			if (arrayDrawable.size() == newsDetailModel.getImg().size()) {
-				System.out.println("符合条件 ->arrayDrawable ->"
-						+ arrayDrawable.size() + " getImg().size()-1->"
-						+ (newsDetailModel.getImg().size() - 1));
+				// System.out.println("符合条件 ->arrayDrawable ->"
+				// + arrayDrawable.size() + " getImg().size()-1->"
+				// + (newsDetailModel.getImg().size() - 1));
 				setNewsDetailText();
 			}
 
@@ -331,7 +350,8 @@ public class MeiTuDetailActivity extends Activity implements OnClickListener,
 		collectModel.setId(model.getDocid());
 		manage.insertCollect(collectModel);
 
-		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", Toast.LENGTH_SHORT)
+				.show();
 
 	}
 

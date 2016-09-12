@@ -1,5 +1,10 @@
 package eNews.common;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 数据库字段类
+ */
 public class DataBaseHelper {
 
 	public final static String DataBase = "database.db";

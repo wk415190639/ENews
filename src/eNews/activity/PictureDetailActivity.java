@@ -93,7 +93,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 
-		case R.id.shareLy:
+		case R.id.shareLy: // 分享到QQ空间
 			System.out.println("点击了shareLy");
 			if (morePopupWindow.isShowing()) {
 
@@ -111,7 +111,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 			}
 			break;
 
-		case R.id.shareLyqq:
+		case R.id.shareLyqq: // 分享给QQ好友
 
 			System.out.println("点击了shareLyQQ");
 			if (morePopupWindow.isShowing()) {
@@ -127,7 +127,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 			}
 
 			break;
-		case R.id.collectLy:
+		case R.id.collectLy: // 收藏
 			System.out.println("点击了collectLy");
 			collectNews();
 
@@ -209,7 +209,8 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 		collectModel.setPics(model.getPics());
 		manage.insertCollect(collectModel);
 
-		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", Toast.LENGTH_SHORT)
+				.show();
 
 	}
 }

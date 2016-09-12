@@ -1,5 +1,10 @@
 package eNews.bean;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 天气信息实体类
+ */
 public class WeatherInfo {
 
 	private String fengxiang;

@@ -12,7 +12,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +25,11 @@ import eNews.common.GetTypeId;
 import eNews.customview.ActionBarView;
 import eNews.getContent.GetVideoNewsContent;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 视频新闻碎片
+ */
 public class VideoFragment extends Fragment {
 
 	private View view;

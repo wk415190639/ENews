@@ -2,9 +2,14 @@ package eNews.bean;
 
 import java.util.List;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 图片实体类
+ */
 public class ImageModel {
 
-    public String getDocid() {
+	public String getDocid() {
 		return docid;
 	}
 
@@ -30,10 +35,8 @@ public class ImageModel {
 
 	private String docid;
 
-    private String title;
- 
-    private List<String> imgList;
-    
-	
-	
+	private String title;
+
+	private List<String> imgList;
+
 }

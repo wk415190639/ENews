@@ -2,6 +2,11 @@ package eNews.common;
 
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取资源ID类
+ */
 public class GetTypeId {
 
 	public static String getTypeId(String typedesc) {

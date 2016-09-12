@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,6 +43,11 @@ import eNews.common.GetWeatherIconTypeId;
 import eNews.getContent.GetWeatherContent;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 天气新闻碎片
+ */
 public class WeatherFragment extends Fragment {
 
 	private View view;

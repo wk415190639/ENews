@@ -35,6 +35,11 @@ import eNews.common.BitmapCache;
 import eNews.common.DataBaseHelper;
 import eNews.dao.CollectManage;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 我的收藏适配器
+ */
 public class CollectAdapter extends BaseAdapter {
 
 	List<CollectModel> lists = new ArrayList<CollectModel>();

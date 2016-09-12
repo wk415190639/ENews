@@ -5,6 +5,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+/**
+ * 
+ * @author Íõ¿­
+ * @date 2016-9-12 ±êÇ©View ¿Ø¼þ
+ */
 public class ActionBarView extends GridView {
 
 	public ActionBarView(Context context, AttributeSet attrs) {

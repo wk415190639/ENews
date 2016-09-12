@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,6 +42,11 @@ import eNews.getContent.GetNewsDetailContent;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 详细新闻activity
+ */
 public class NewsDetailActivity extends Activity implements OnClickListener,
 		CollectNewsInterface {
 	ProgressDialog dialog;
@@ -84,7 +90,17 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 			}
 		});
 
-		dialog = ProgressDialog.show(this, "提示", "正在加载");
+		dialog = ProgressDialog.show(this, "提示", "正在加载,点击可返回");
+		dialog.setCancelable(true);
+		dialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				finish();
+
+			}
+		});
 
 		init();
 
@@ -342,6 +358,7 @@ public class NewsDetailActivity extends Activity implements OnClickListener,
 		collectModel.setImgurl(model.getImagesrc());
 		manage.insertCollect(collectModel);
 
-		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", Toast.LENGTH_SHORT)
+				.show();
 	}
 }

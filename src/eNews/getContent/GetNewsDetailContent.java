@@ -15,6 +15,11 @@ import eNews.activity.NewsDetailActivity;
 import eNews.bean.NewsDetailModel;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取详细新闻
+ */
 public class GetNewsDetailContent {
 
 	static public void getNewsContent(String postId,

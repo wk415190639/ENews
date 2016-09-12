@@ -36,6 +36,11 @@ import eNews.dao.ChannelManage;
 import eNews.getContent.GetNewsContent;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 主页新闻碎片
+ */
 public class MainFragment extends Fragment {
 
 	private int TopCount;

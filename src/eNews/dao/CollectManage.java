@@ -10,6 +10,11 @@ import eNews.bean.CollectModel;
 import eNews.common.DataBaseHelper;
 import eNews.db.DbOpenHelper;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 我的收藏数据库封装类
+ */
 public class CollectManage implements CollectInterface {
 
 	private DbOpenHelper dbOpenHelper;

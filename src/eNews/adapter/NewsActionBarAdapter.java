@@ -3,8 +3,6 @@ package eNews.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,11 @@ import eNews.app.R;
 import eNews.bean.ChannelItemModel;
 import eNews.customview.ActionBarView;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 新闻标签适配器
+ */
 public class NewsActionBarAdapter extends BaseAdapter {
 
 	private Context context;

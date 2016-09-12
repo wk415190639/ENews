@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * 
+ * @author Íõ¿­
+ * @date 2016-9-12 Êý¾Ý¿â
+ */
 public class DbOpenHelper extends SQLiteOpenHelper {
 
 	public DbOpenHelper(Context context, String name, CursorFactory factory,

@@ -28,6 +28,11 @@ import eNews.bean.NewsModel;
 import eNews.common.BitmapCache;
 import eNews.common.GetTypeId;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 文本新闻适配器
+ */
 public class NewsAdapter extends BaseAdapter {
 
 	List<NewsModel> lists = new ArrayList<NewsModel>();

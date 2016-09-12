@@ -15,6 +15,11 @@ import eNews.activity.MeiTuDetailActivity;
 import eNews.bean.NewsDetailModel;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取美图新闻数据
+ */
 public class GetMeiTuDetailContent {
 
 	static public void getNewsContent(String postId,

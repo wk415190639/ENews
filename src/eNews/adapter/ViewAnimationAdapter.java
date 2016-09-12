@@ -8,6 +8,11 @@ import com.nhaarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 频道管理动画适配器
+ */
 public class ViewAnimationAdapter extends AnimationAdapter {
 
 	public ViewAnimationAdapter(BaseAdapter baseAdapter) {

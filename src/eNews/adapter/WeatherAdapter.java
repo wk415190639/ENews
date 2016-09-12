@@ -14,6 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 天气预报适配器
+ */
 public class WeatherAdapter extends BaseAdapter {
 
 	ArrayList<WeatherInfo> lists;
@@ -77,16 +82,16 @@ public class WeatherAdapter extends BaseAdapter {
 				.findViewById(R.id.weatherType);
 
 		WeatherInfo weatherInfo = lists.get(position);
-		
-		String date =weatherInfo.getDate();
-		
+
+		String date = weatherInfo.getDate();
+
 		weatherDate.setText(date);
 
 		weatherTemp.setText(weatherInfo.getLow().substring(2).trim() + "~"
 				+ weatherInfo.getHigh().substring(2).trim());
 		weatherType.setText(weatherInfo.getType() + "  "
-				+ weatherInfo.getFengxiang()+ weatherInfo.getFengli());
-	
+				+ weatherInfo.getFengxiang() + weatherInfo.getFengli());
+
 		weatherIcon.setImageResource(GetWeatherIconTypeId.getTypeId(weatherInfo
 				.getType()));
 

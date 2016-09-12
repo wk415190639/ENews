@@ -10,6 +10,11 @@ import eNews.bean.ChannelItemModel;
 import eNews.common.DataBaseHelper;
 import eNews.db.DbOpenHelper;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 频道管理数据库封装类
+ */
 public class ChannelManage implements ChannelInterface {
 
 	private ArrayList<ChannelItemModel> defaultUserChannelsList;

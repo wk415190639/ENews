@@ -15,6 +15,12 @@ import eNews.app.R;
 import eNews.bean.ChannelItemModel;
 import eNews.dao.ChannelManage;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 
+ * 频道管理Activity
+ */
 public class ChannelActivity extends Activity {
 
 	private GridView userChannelGV;
@@ -71,7 +77,8 @@ public class ChannelActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 
-			userChannelAdapter.remove(position, otherChannelAdapter);
+			if (id != 0)
+				userChannelAdapter.remove(position, otherChannelAdapter);
 
 		}
 

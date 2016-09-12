@@ -2,6 +2,11 @@ package eNews.bean;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 收藏实体类
+ */
 public class CollectModel {
 
 	private String _id;

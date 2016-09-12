@@ -11,6 +11,11 @@ import android.widget.TextView;
 import eNews.app.R;
 import eNews.bean.ChannelItemModel;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 选中的频道标签适配器
+ */
 public class UserChannelAdapter extends BaseAdapter {
 
 	private ArrayList<ChannelItemModel> lists;
@@ -22,14 +27,14 @@ public class UserChannelAdapter extends BaseAdapter {
 
 	}
 
-	public void remove(int position,OtherChannelAdapter otherChannelAdapter) {
-		
+	public void remove(int position, OtherChannelAdapter otherChannelAdapter) {
+
 		ChannelItemModel tmpChannelItemModel = lists.get(position);
 		lists.remove(position);
 		otherChannelAdapter.add(tmpChannelItemModel);
 		notifyDataSetChanged();
 	}
-	
+
 	public void add(ChannelItemModel addChannelItemModel) {
 		lists.add(addChannelItemModel);
 		notifyDataSetChanged();
@@ -63,8 +68,5 @@ public class UserChannelAdapter extends BaseAdapter {
 
 		return tv;
 	}
-	
-	
-	
 
 }

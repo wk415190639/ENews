@@ -25,6 +25,11 @@ import eNews.app.R;
 import eNews.bean.PictureModel;
 import eNews.common.BitmapCache;
 
+/**
+ * 
+ * @author Íõ¿­
+ * @date 2016-9-12 Í¼Æ¬ĞÂÎÅÊÊÅäÆ÷
+ */
 public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 	ArrayList<String> lists = new ArrayList<String>();

@@ -18,6 +18,11 @@ import eNews.bean.NewsModel;
 import eNews.fragments.MainFragment;
 import eNews.url.Url;
 
+/***
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取主页新闻数据
+ */
 public class GetNewsContent {
 
 	// http://c.m.163.com/ nc/article/headline/ T1350383429665/ 0 -20.html
@@ -44,12 +49,9 @@ public class GetNewsContent {
 						mainActivity));
 		queue.add(jrq);
 
-//		System.out.println(httpUrl);
+		// System.out.println(httpUrl);
 
-		
 	}
-	
-	
 
 	static class JsonListener implements Listener<JSONObject> {
 
@@ -84,11 +86,9 @@ public class GetNewsContent {
 					newsModel.setImagesrc(newsItemObject.getString("imgsrc"));
 					// newsModel.setPostid(newsItemObject.getString("postid"));
 					newsModel.setDocid(newsItemObject.getString("docid"));
-					if(newsItemObject.has("url_3w"))
-					newsModel.setUrl_3w(newsItemObject.getString("url_3w"));
-					
-					
-					
+					if (newsItemObject.has("url_3w"))
+						newsModel.setUrl_3w(newsItemObject.getString("url_3w"));
+
 					lists.add(newsModel);
 					// }
 				}

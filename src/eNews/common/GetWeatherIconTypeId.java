@@ -2,6 +2,11 @@ package eNews.common;
 
 import eNews.app.R;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取天气图标类
+ */
 public class GetWeatherIconTypeId {
 
 	public static int getTypeId(String typedesc) {

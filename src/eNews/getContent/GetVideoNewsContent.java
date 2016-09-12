@@ -18,16 +18,13 @@ import eNews.bean.VideoModel;
 import eNews.fragments.VideoFragment;
 import eNews.url.Url;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取视频新闻数据
+ */
 public class GetVideoNewsContent {
 
-	//
-
-	// public static final String Video = host + "nc/video/list/";
-	// public static final String VideoCenter = "/n/";
-	// public static final String videoEndUrl = "-10.html";
-
-	// 视频 http://c.3g.163.com/ nc/video/list/ V9LG4B3A0 /n/ 10 -10.html
-	// host url typeId /n/ startNum endUrl
 	static public void getNewsContent(String typeId, String startNum,
 			VideoFragment videoNewsFragment) {
 

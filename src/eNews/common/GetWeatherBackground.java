@@ -1,6 +1,12 @@
 package eNews.common;
+
 import eNews.app.R;
-  
+
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取天气预报背景图片ID类
+ */
 public class GetWeatherBackground {
 
 	public static int getBackgroundId(String typedesc) {

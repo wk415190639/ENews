@@ -40,6 +40,11 @@ import eNews.activity.NewsDetailActivity;
 import eNews.activity.PictureDetailActivity;
 import eNews.activity.VideoPlayActivity;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 腾讯第三方
+ */
 public class TencentThirdParty {
 
 	private static TencentThirdParty instance;

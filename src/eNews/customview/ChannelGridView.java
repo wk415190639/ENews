@@ -4,6 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 频道管理GridView 控件
+ */
 public class ChannelGridView extends GridView {
 
 	public ChannelGridView(Context context, AttributeSet attrs, int defStyle) {

@@ -17,6 +17,11 @@ import com.android.volley.toolbox.Volley;
 import eNews.bean.PictureModel;
 import eNews.fragments.PictureFragment;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取图片详情
+ */
 public class GetPictureNewsContent {
 
 	static public void getNewsContent(String url,
@@ -136,7 +141,7 @@ public class GetPictureNewsContent {
 					pictureModel.getPics().add(
 							newsItemObject.getString("imgsrc"));
 					pictureModel.setDesc(newsItemObject.getString("source"));
-					
+
 					// replyCount
 					pictureModel.setReplyid(newsItemObject
 							.getString("replyCount"));

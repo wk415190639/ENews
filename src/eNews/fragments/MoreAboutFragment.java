@@ -2,8 +2,6 @@ package eNews.fragments;
 
 import java.util.ArrayList;
 
-import com.tencent.open.GameAppOperation;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +12,11 @@ import android.widget.Button;
 import eNews.app.R;
 import eNews.thirdParty.TencentThirdParty;
 
+/**
+ * 
+ * @author Íõ¿­
+ * @date 2016-9-12 ¸ü¶àËéÆ¬
+ */
 public class MoreAboutFragment extends Fragment implements OnClickListener {
 
 	private View view;

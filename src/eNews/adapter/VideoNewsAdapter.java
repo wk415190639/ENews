@@ -30,6 +30,11 @@ import eNews.app.R;
 import eNews.bean.VideoModel;
 import eNews.common.BitmapCache;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 视频新闻适配器
+ */
 public class VideoNewsAdapter extends BaseAdapter {
 
 	List<VideoModel> lists = new ArrayList<VideoModel>();

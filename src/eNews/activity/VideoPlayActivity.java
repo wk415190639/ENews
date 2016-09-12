@@ -27,6 +27,11 @@ import eNews.dao.CollectManage;
 import eNews.thirdParty.AppConstant;
 import eNews.thirdParty.TencentThirdParty;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 视频播放Activity
+ */
 public class VideoPlayActivity extends Activity implements OnClickListener,
 		CollectNewsInterface {
 	private ImageButton backBtn;
@@ -212,7 +217,8 @@ public class VideoPlayActivity extends Activity implements OnClickListener,
 		collectModel.setUrl(videoModel.getMp4_url());
 		manage.insertCollect(collectModel);
 
-		Toast.makeText(getApplicationContext(), "收藏成功!!!", 1).show();
+		Toast.makeText(getApplicationContext(), "收藏成功!!!", Toast.LENGTH_LONG)
+				.show();
 
 	}
 

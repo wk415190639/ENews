@@ -2,11 +2,13 @@ package eNews.bean;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 视频实体类
+ */
 public class VideoModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String title;
 	private String topicImg;
@@ -47,7 +49,6 @@ public class VideoModel implements Serializable {
 	public void setMp4Hd_url(String mp4Hd_url) {
 		this.mp4Hd_url = mp4Hd_url;
 	}
-
 
 	public String getMp4_url() {
 		return mp4_url;

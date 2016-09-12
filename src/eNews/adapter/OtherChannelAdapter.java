@@ -11,6 +11,11 @@ import android.widget.TextView;
 import eNews.app.R;
 import eNews.bean.ChannelItemModel;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 未选择的频道适配器
+ */
 public class OtherChannelAdapter extends BaseAdapter {
 
 	private ArrayList<ChannelItemModel> lists;

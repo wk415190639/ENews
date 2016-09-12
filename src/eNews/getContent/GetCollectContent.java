@@ -1,5 +1,10 @@
 package eNews.getContent;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 获取 我的收藏 数据
+ */
 public class GetCollectContent {
 
 	final static String picture = "picture";

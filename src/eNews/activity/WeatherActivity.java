@@ -11,9 +11,13 @@ import android.widget.TextView;
 import eNews.adapter.WeatherAdapter;
 import eNews.app.R;
 import eNews.bean.WeatherInfo;
-import eNews.common.GetWeatherIcon;
 import eNews.common.GetWeatherIconTypeId;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 天气预报activity
+ */
 public class WeatherActivity extends Activity {
 
 	private TextView TopDateTv;
@@ -39,12 +43,6 @@ public class WeatherActivity extends Activity {
 		weekWeathersGridView = (GridView) findViewById(R.id.weekWeathersListView);
 		weatherAdapter = new WeatherAdapter(getApplicationContext());
 		weekWeathersGridView.setAdapter(weatherAdapter);
-		// try {
-		// // GetWeatherContent.getNewsContent(null, this);
-		// } catch (UnsupportedEncodingException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 
 	}
 
@@ -55,7 +53,8 @@ public class WeatherActivity extends Activity {
 		TopTempTv.setText(waInfo.getLow());
 		TopTypeTv.setText(waInfo.getType());
 		TopFengXiangTv.setText(waInfo.getFengxiang());
-		TopIconIv.setImageResource(GetWeatherIcon.get(waInfo.getType()));
+		TopIconIv.setImageResource(GetWeatherIconTypeId.getTypeId(waInfo
+				.getType()));
 
 	}
 

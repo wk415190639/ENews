@@ -2,6 +2,11 @@ package eNews.bean;
 
 import android.graphics.Bitmap;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 图片详情实体类
+ */
 public class PictureDetailModel {
 
 	private String kpic;

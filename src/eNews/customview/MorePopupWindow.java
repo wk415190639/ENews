@@ -7,12 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView.FindListener;
 import android.widget.PopupWindow;
 import eNews.app.R;
 
+/**
+ * 
+ * @author 王凯
+ * @date 2016-9-12 自定义MorePopupWindow类
+ */
 public class MorePopupWindow extends PopupWindow {
-	int h ;
+	int h;
 	int w;
 	private View conentView;
 
@@ -24,8 +28,8 @@ public class MorePopupWindow extends PopupWindow {
 
 		DisplayMetrics metrics = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		 h = metrics.heightPixels;
-		 w = metrics.widthPixels;
+		h = metrics.heightPixels;
+		w = metrics.widthPixels;
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(conentView);
 		// 设置SelectPicPopupWindow弹出窗体的宽
@@ -57,7 +61,7 @@ public class MorePopupWindow extends PopupWindow {
 				(OnClickListener) activity);
 
 	}
-	
+
 	@Override
 	public void showAsDropDown(View anchor) {
 		// TODO Auto-generated method stub
