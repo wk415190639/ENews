@@ -71,7 +71,7 @@ public class PictureDetailActivity extends Activity implements OnClickListener,
 		});
 		// GetPictureNewsDetailContent.getNewsContent(kpic, this);
 
-		if (model.getPics().size() > 0)
+		if (model.getPics()!=null&&model.getPics().size() > 0)
 			detailViewPageAdapter.appendList(model);
 	}
 

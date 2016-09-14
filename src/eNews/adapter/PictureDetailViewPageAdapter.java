@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -60,9 +61,10 @@ public class PictureDetailViewPageAdapter extends PagerAdapter {
 
 			LayoutParams linearParams = new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-
+			linearParams.gravity=Gravity.CENTER_HORIZONTAL;
+			
 			LayoutParams imageParams = new LayoutParams(
-					LayoutParams.WRAP_CONTENT, 0);
+					LayoutParams.MATCH_PARENT, 0);
 			imageParams.weight = 1;
 
 			LayoutParams textParams = new LayoutParams(

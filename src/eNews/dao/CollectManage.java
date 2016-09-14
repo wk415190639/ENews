@@ -145,4 +145,17 @@ public class CollectManage implements CollectInterface {
 
 		return arrayList;
 	}
+
+	@Override
+	public int deleteCollectSet(String type) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+
+		if (type == null)
+			return db.delete(DataBaseHelper.collectTb, null, null);
+		else
+
+			return db.delete(DataBaseHelper.collectTb, "type=?",
+					new String[] { type });
+	}
 }

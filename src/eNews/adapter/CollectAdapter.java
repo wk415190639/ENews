@@ -304,7 +304,7 @@ public class CollectAdapter extends BaseAdapter {
 		}
 	}
 
-	// µÇÂ¼
+	// È·¶¨
 	public class NegativeButtonListener implements
 			DialogInterface.OnClickListener {
 		private CollectModel collectModel;

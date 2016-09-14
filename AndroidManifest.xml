@@ -41,6 +41,8 @@
         <activity android:name="eNews.activity.MeiTuDetailActivity" />
         <activity android:name="eNews.activity.CollectActivity" />
         <activity android:name="eNews.activity.MainWindows" >
+        </activity>
+        <activity android:name="eNews.activity.WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
