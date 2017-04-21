@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/ChannelActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/CollectActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/CollectNewsInterface.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/MeiTuDetailActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/NewsDetailActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/PictureDetailActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/VideoPlayActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/activity/WeatherActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/CollectAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/NewsActionBarAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/NewsAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/OtherChannelAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/PictureDetailViewPageAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/PictureNewsActionBarAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/PictureNewsAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/UserChannelAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/VideoNewsActionBarAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/VideoNewsAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/ViewAnimationAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/adapter/WeatherAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/ChannelItemModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/CollectModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/ImageModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/NewsDetailModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/NewsModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/PictureDetailModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/PictureModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/VideoModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/bean/WeatherInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/BitmapCache.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/DataBaseHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/GetTypeId.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/GetWeatherBackground.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/GetWeatherIconTypeId.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/common/HandlerWhat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/customview/ActionBarView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/customview/ChannelGridView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/customview/MarqueeText.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/customview/MorePopupWindow.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/customview/NewsListView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/dao/ChannelInterface.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/dao/ChannelManage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/dao/CollectManage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/db/DbOpenHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/fragments/MainFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/fragments/MoreAboutFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/fragments/PictureFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/fragments/VideoFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/fragments/WeatherFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetCollectContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetMeiTuDetailContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetNewsContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetNewsDetailContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetPictureNewsContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetVideoNewsContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/getContent/GetWeatherContent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/thirdParty/AppConstant.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/eNews/thirdParty/TencentThirdParty.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
