@@ -20,6 +20,13 @@ public class WelcomeActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.welcome);
+		checkFirst();
+
+	}
+
+
+	private void checkFirst()
+	{
 
 		SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
 		boolean isFirst = pref.getBoolean("first", true);
@@ -36,9 +43,7 @@ public class WelcomeActivity extends Activity {
 		getActionBar().hide();
 		pager = (ViewPager) findViewById(R.id.welcomePage);
 		pager.setAdapter(new WelcomePagerAdapter(this));
-
 	}
-
 	public void startMainActivity() {
 		// TODO Auto-generated method stub
 		startActivity(new Intent(WelcomeActivity.this, MainWindows.class));

@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="24" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,7 +53,7 @@
         <!-- vitamio jar 包 -->
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />

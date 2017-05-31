@@ -61,6 +61,18 @@ public class MainFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		init(inflater);
+		return view;
+	}
+
+	private int getNewsListViewHeight() {
+		return scrollView.getChildAt(0).getMeasuredHeight();
+
+	}
+
+	private void init(LayoutInflater inflater)
+	{
+
 		view = inflater.inflate(R.layout.activity_main, null);
 		newsListView = (NewsListView) view.findViewById(R.id.newsListView);
 		topViewPager = (ViewPager) view.findViewById(R.id.topViewPager);
@@ -138,11 +150,6 @@ public class MainFragment extends Fragment {
 				return false;
 			}
 		});
-		return view;
-	}
-
-	private int getNewsListViewHeight() {
-		return scrollView.getChildAt(0).getMeasuredHeight();
 
 	}
 

@@ -55,8 +55,8 @@ public class VideoPlayActivity extends Activity implements OnClickListener,
 		super.onCreate(icicle);
 		setOpenId(TencentThirdParty.getInstance(getApplicationContext())
 				.getOpenId());
-		if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
-			return;
+//		if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
+//			return;
 		setContentView(R.layout.videoview);
 		getActionBar().hide();
 		int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
